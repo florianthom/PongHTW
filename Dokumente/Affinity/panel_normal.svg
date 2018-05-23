@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 146 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-1105.75,-36.5131)">
+        <g id="normales-panel" serif:id="normales panel" transform="matrix(0.208204,0,0,0.208204,933.279,-61.391)">
+            <g transform="matrix(1,0,0,1,401.929,-26.0794)">
+                <path d="M433.954,727.173L981.621,727.173" style="fill:none;stroke:rgb(6,6,0);stroke-width:14.96px;"/>
+            </g>
+            <g transform="matrix(0.469622,0.469622,-0.469622,0.469622,1642.9,305.819)">
+                <g transform="matrix(0.750185,0,0,0.750185,17.473,179.362)">
+                    <path d="M69.944,185.393L69.944,717.978" style="fill:rgb(0,70,10);stroke:rgb(77,126,84);stroke-width:6.01px;"/>
+                </g>
+                <g transform="matrix(7.14014e-18,-0.116607,0.568461,3.48082e-17,-446,765.338)">
+                    <path d="M415.449,919.256L415.449,947.191L218.258,904.213L415.449,861.236L415.449,889.171L415.449,861.236L415.449,947.191L415.449,919.256Z" style="fill:rgb(0,70,10);stroke:rgb(77,126,84);stroke-width:2.64px;"/>
+                </g>
+            </g>
+            <g transform="matrix(-0.469622,0.469622,-0.469622,-0.469622,1482.16,797.594)">
+                <g transform="matrix(0.750185,0,0,0.750185,17.473,179.362)">
+                    <path d="M69.944,185.393L69.944,717.978" style="fill:rgb(0,70,10);stroke:rgb(77,126,84);stroke-width:6.01px;"/>
+                </g>
+                <g transform="matrix(7.14014e-18,-0.116607,0.568461,3.48082e-17,-446,765.338)">
+                    <path d="M415.449,919.256L415.449,947.191L218.258,904.213L415.449,861.236L415.449,889.171L415.449,861.236L415.449,947.191L415.449,919.256Z" style="fill:rgb(0,70,10);stroke:rgb(77,126,84);stroke-width:2.64px;"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

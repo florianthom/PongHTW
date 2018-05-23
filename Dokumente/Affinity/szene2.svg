@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 138 132" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-294.984,-32.6528)">
+        <g id="Szene2Ges" transform="matrix(0.127235,0,0,0.127235,264.986,-4.97937)">
+            <g transform="matrix(0.794395,0,0,0.794395,-300.444,592.897)">
+                <circle cx="975" cy="289.888" r="25.281" style="stroke:black;stroke-opacity:0;stroke-width:21.3px;"/>
+            </g>
+            <g transform="matrix(0.794395,0,0,0.794395,109.107,929.975)">
+                <circle cx="975" cy="289.888" r="25.281" style="stroke:black;stroke-opacity:0;stroke-width:21.3px;"/>
+            </g>
+            <g transform="matrix(0.493947,0,0,0.540458,1196.67,658.945)">
+                <path d="M180,288.202L180,505.618" style="fill:none;stroke:black;stroke-width:32.69px;"/>
+            </g>
+            <g transform="matrix(0.493947,0,0,0.540458,1196.67,658.945)">
+                <path d="M180,288.202L180,505.618" style="fill:none;stroke:black;stroke-width:32.69px;"/>
+            </g>
+            <g transform="matrix(3.02455e-17,-0.493947,0.540458,3.30935e-17,509.599,409.796)">
+                <path d="M180,288.202L180,505.618" style="fill:none;stroke:black;stroke-width:32.69px;"/>
+            </g>
+            <g transform="matrix(2.77556e-17,0.493947,-0.540458,2.77556e-17,1036.44,1199.74)">
+                <path d="M180,288.202L180,505.618" style="fill:none;stroke:black;stroke-width:32.69px;"/>
+            </g>
+            <g transform="matrix(0.493947,0,0,0.540458,170.27,537.596)">
+                <path d="M180,288.202L180,505.618" style="fill:none;stroke:black;stroke-width:32.69px;"/>
+            </g>
+            <g id="szene2">
+                <g id="Szene2Links">
+                    <g transform="matrix(9.79908e-17,1.50071,-1.5,8.36384e-17,1500,1.05935)">
+                        <g id="Szene2">
+                            <path d="M199.2,600L439.087,600L439.087,840" style="fill:none;stroke:black;stroke-width:5.64px;"/>
+                        </g>
+                    </g>
+                    <g transform="matrix(1.50071,-6.09901e-18,-8.21009e-18,1.5,-58.9407,64.7191)">
+                        <g id="Szene21" serif:id="Szene2">
+                            <path d="M199.2,600L439.087,600L439.087,840" style="fill:none;stroke:black;stroke-width:5.64px;"/>
+                        </g>
+                    </g>
+                </g>
+                <g id="szene2rechts" transform="matrix(1,0,0,1,28.9888,-1.68539)">
+                    <g transform="matrix(8.57927e-17,-1.50071,1.5,1.00059e-16,21.573,1625.35)">
+                        <g id="Szene22" serif:id="Szene2">
+                            <path d="M199.2,600L439.087,600L439.087,840" style="fill:none;stroke:black;stroke-width:5.64px;"/>
+                        </g>
+                    </g>
+                    <g transform="matrix(-1.50071,-1.77684e-16,1.91907e-16,-1.5,1580.51,1561.69)">
+                        <g id="Szene23" serif:id="Szene2">
+                            <path d="M199.2,600L439.087,600L439.087,840" style="fill:none;stroke:black;stroke-width:5.64px;"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
