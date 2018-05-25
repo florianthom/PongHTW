@@ -96,18 +96,57 @@ void sendMVP()
 
 void drawCS() {
 	glm::mat4 Save = Model;
-	Model = glm::scale(Model, glm::vec3(10*1.0 / 1.0, 1.0 / 100.0, 1.0 / 100.0));
+	Model = glm::scale(Model, glm::vec3(10 * 1.0 / 1.0, 1.0 / 100.0, 1.0 / 100.0));
 	sendMVP();
 	drawCube();
+
 	Model = Save;
 	Model = glm::scale(Model, glm::vec3(1.0 / 100.0, 10 * 1.0 / 1.0, 1.0 / 100.0));
 	sendMVP();
 	drawCube();
+
 	Model = Save;
 	Model = glm::scale(Model, glm::vec3(1.0 / 100.0, 1.0 / 100.0, 10 * 1.0 / 1.0));
 	sendMVP();
 	drawCube();
+
+
 	Model = Save;
+}
+
+double counter_richtung = 0;
+int flag = true;
+int moove = 0;
+
+void moove_balken() {
+	if(counter_richtung < 3 && flag){
+	Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
+	counter_richtung = counter_richtung + 0.01;
+	std::cout << "if" << std::endl;
+	}
+	else {
+		flag = false;
+		Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
+		counter_richtung = counter_richtung-0.01;
+		std::cout << "else" << std::endl;
+		if (counter_richtung < -3) {
+			flag = true;
+
+		}
+
+	}
+
+}
+
+void drawBalken() {
+	glm::mat4 Save = Model;
+	Model = glm::scale(Model, glm::vec3(1.0, 1.0 / 5.0, 1.0 / 5.0));
+	Model = glm::translate(Model, glm::vec3(0, 5.0, 0.0));
+	moove_balken();
+	sendMVP();
+	drawCube();
+	Model = Save;
+
 }
 
 int main(void)
@@ -234,6 +273,7 @@ int main(void)
 		// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 		sendMVP();
 		drawCS();
+		drawBalken();
 
 
 		// Swap buffers
