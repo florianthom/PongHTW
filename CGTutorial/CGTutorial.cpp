@@ -149,6 +149,34 @@ void drawBalken() {
 
 }
 
+void drawSzene1() {
+	glm::mat4 Save = Model;
+	Model = glm::scale(Model, glm::vec3(4.0, 1.0 / 20.0, 1.0 / 20.0));
+	glm::mat4 SaveScale = Model;
+	Model = glm::translate(Model, glm::vec3(0, 30.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveScale;
+	Model = glm::translate(Model, glm::vec3(0, -30.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = Save;
+
+	// mitte = wie viel , vec3=Achse um die gedreht werden soll
+	Model = glm::scale(Model, glm::vec3(1.0/20.0, 1.5, 1.0 / 20.0));
+	Model = glm::translate(Model, glm::vec3(79.0, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = Save;
+
+	Model = glm::scale(Model, glm::vec3(1.0 / 20.0, 1.5, 1.0 / 20.0));
+	Model = glm::translate(Model, glm::vec3(-79.0, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = Save;
+
+}
+
 int main(void)
 {
 	// Initialise GLFW
@@ -273,7 +301,8 @@ int main(void)
 		// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 		sendMVP();
 		drawCS();
-		drawBalken();
+		//drawBalken();
+		drawSzene1();
 
 
 		// Swap buffers
