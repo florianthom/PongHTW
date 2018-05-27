@@ -26,6 +26,7 @@
 #include "Obj3D.h"
 #include "time.h"
 #include "iostream"
+#include "Ball.hpp"
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
@@ -59,7 +60,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	case GLFW_KEY_Q:
 		angle_y -= 5.0;
 		break;
-
 	case GLFW_KEY_E:
 		angle_x += 5.0;
 		break;
@@ -163,7 +163,7 @@ int main(void)
 	// Dark blue background
 	// Parameter: R G B Deckkraft
 	// Werte der Parameter gehen nicht von 0-255 sondern von 0-1
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 	// Create and compile our GLSL program from the shaders
 	// programID = LoadShaders("TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader");
@@ -208,6 +208,7 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 		// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
 
+
 		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
 		// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
 		Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
@@ -233,8 +234,19 @@ int main(void)
 		// senden an den Vertex-Shader
 		// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 		sendMVP();
-		drawCS();
+		//drawCS();
+		
+		Ball ball1(&programID);
+		ball1.setMVP(&View, &Projection);
+		ball1.moveBall(glm::vec3(1.0f, 0.0f, 0.0f));
 
+		Ball ball2(&programID);
+		ball2.setMVP(&View, &Projection);
+		ball2.moveBall(glm::vec3(-1.0f, 0.0f, 0.0f));
+
+		Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f));
+		ball3.setMVP(&View, &Projection);
+		ball3.moveBall(glm::vec3(0.0f, 1.0f, 0.0f));
 
 		// Swap buffers
 		glfwSwapBuffers(window);
