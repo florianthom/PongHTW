@@ -193,6 +193,9 @@ int main(void)
 	time_t t_check;
 	time_t needed;
 	int frame_counter = 0;
+	Ball ball1(&programID);
+	Ball ball2(&programID);
+	Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -236,15 +239,12 @@ int main(void)
 		sendMVP();
 		//drawCS();
 		
-		Ball ball1(&programID);
 		ball1.setMVP(&View, &Projection);
 		ball1.moveBall(glm::vec3(1.0f, 0.0f, 0.0f));
 
-		Ball ball2(&programID);
 		ball2.setMVP(&View, &Projection);
 		ball2.moveBall(glm::vec3(-1.0f, 0.0f, 0.0f));
 
-		Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f));
 		ball3.setMVP(&View, &Projection);
 		ball3.moveBall(glm::vec3(0.0f, 1.0f, 0.0f));
 

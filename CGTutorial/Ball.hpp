@@ -9,6 +9,7 @@ private:
 	GLuint* programmID;
 	double velocity;
 	double distance;
+	double lastTime;
 	double time;
 	glm::mat4 Model;
 	glm::mat4* View;

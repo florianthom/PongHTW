@@ -7,6 +7,7 @@ Ball::Ball(GLuint* programID)
 	programmID = programID;
 	Model = glm::mat4(1.0f);
 	velocity = 0.4;
+	lastTime = 0.0;
 	time = 0.0;
 }
 
@@ -14,6 +15,7 @@ Ball::Ball(GLuint* programID, glm::vec3 newPos) {
 	programmID = programID;
 	Model = glm::mat4(1.0f);
 	velocity = 0.4f;
+	lastTime = 0.0;
 	time = 0.0;
 	Model = glm::translate(Model, newPos);
 }
@@ -42,7 +44,8 @@ void Ball::setMVP(glm::mat4* v, glm::mat4* p) {
 }
 
 void Ball::moveBall(glm::vec3 move) {
-	time = glfwGetTime() - time;
+	time = glfwGetTime() - lastTime;
+	lastTime = glfwGetTime();
 	distance = velocity * time;
 	move.x *= distance;
 	move.y *= distance;
