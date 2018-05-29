@@ -1,10 +1,6 @@
 ﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLEW_190.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLFW_276.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
-  CGTutorial.cpp
-  Szene1.cpp
-  Szene2.cpp
-CGTutorial.cpp(360): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
   LINK : Debug\CGTutorial.exe not found or not built by the last incremental link; performing full link
 glfw3d.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(context.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
 glfw3d.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(init.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
