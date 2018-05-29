@@ -26,6 +26,8 @@
 #include "Obj3D.h"
 #include "time.h"
 #include "iostream"
+#include "Szene1.h"
+#include "Szene2.h"
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
@@ -152,36 +154,36 @@ void drawBalken() {
 
 // problem: unterschiedliche Ergebnisse, wenn man auf unterschiedlichen achsen scaled
 // Lösung ggf erst skalieren, alles komplett abhängig machen von groesse und dann 2 davon rotieren (damit Verhältnisse gleich bleiben)
-void drawSzene1(double groesse) {
-	glm::mat4 Save = Model;
-	Model = glm::scale(Model, glm::vec3(4* groesse, 1.0 / 20.0, 1.0 / 20.0));
-	glm::mat4 SaveScale = Model;
-	Model = glm::translate(Model, glm::vec3(0, 30.0 * groesse, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveScale;
-	Model = glm::translate(Model, glm::vec3(0, -30.0 * groesse, 0.0));
-	sendMVP();
-	drawCube();
-	Model = Save;
+//void drawSzene1(double groesse) {
+//	glm::mat4 Save = Model;
+//	Model = glm::scale(Model, glm::vec3(4* groesse, 1.0 / 20.0, 1.0 / 20.0));
+//	glm::mat4 SaveScale = Model;
+//	Model = glm::translate(Model, glm::vec3(0, 30.0 * groesse, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = SaveScale;
+//	Model = glm::translate(Model, glm::vec3(0, -30.0 * groesse, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = Save;
+//
+//	// mitte = wie viel , vec3=Achse um die gedreht werden soll
+//	Model = glm::scale(Model, glm::vec3(1.0/20.0, 1.5 * groesse, 1.0 / 20.0));
+//	Model = glm::translate(Model, glm::vec3(79.0 * groesse, 0.0, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = Save;
+//
+//	Model = glm::scale(Model, glm::vec3(1.0 / 20.0, 1.5 * groesse, 1.0 / 20.0));
+//	Model = glm::translate(Model, glm::vec3(-79* groesse, 0.0, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = Save;
+//
+//}
 
-	// mitte = wie viel , vec3=Achse um die gedreht werden soll
-	Model = glm::scale(Model, glm::vec3(1.0/20.0, 1.5 * groesse, 1.0 / 20.0));
-	Model = glm::translate(Model, glm::vec3(79.0 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = Save;
 
-	Model = glm::scale(Model, glm::vec3(1.0 / 20.0, 1.5 * groesse, 1.0 / 20.0));
-	Model = glm::translate(Model, glm::vec3(-79* groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = Save;
-
-}
-
-
-void drawSzene2(double groesse) {
+/*void drawSzene2(double groesse) {
 	// top and buttom
 	glm::mat4 Save = Model;
 	Model = glm::scale(Model, glm::vec3(2 * groesse, 1.0 / 20.0, 1.0 / 20.0));
@@ -263,6 +265,7 @@ void drawSzene2(double groesse) {
 
 
 }
+*/
 
 int main(void)
 {
@@ -347,6 +350,8 @@ int main(void)
 	time_t t_check;
 	time_t needed;
 	int frame_counter = 0;
+	Szene1 szene1(&programID, &View, &Projection);
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -387,9 +392,15 @@ int main(void)
 		// senden an den Vertex-Shader
 		// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 		sendMVP();
+
+		Szene2 szene2(&programID, &View, &Projection);
+		//szene1.drawSzene(1);
+		szene2.drawSzene(1);
+
+
 		drawCS();
 		//drawBalken();
-		drawSzene2(1.0f);
+		//drawSzene2(1.0f);
 
 
 		// Swap buffers
