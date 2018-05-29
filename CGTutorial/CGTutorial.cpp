@@ -353,60 +353,72 @@ int main(void)
 	Szene1 szene1(&programID, &View, &Projection);
 
 
+	const double maxFPS = 20.0;
+	const double maxPeriod = 1.0 / maxFPS;
+	double lastTime = 0.0;
+
 	while (!glfwWindowShouldClose(window))
 	{
-		frame_counter += 1;
-		t_check = time(0);
-		needed = difftime(t_check, t_start);
-		// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
-		if((1000 * needed) != 0)
-			std::cout << "current fps: " << ((frame_counter*1000) / (1000 * needed)) << std::endl;
+	double timeLimiter = glfwGetTime();
+double deltaTime = timeLimiter - lastTime;
 
-		// 1. Löschen des voherigen Bildes
-		// Clear the screen und lösche z speicher
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
-		// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
+if (deltaTime >= maxPeriod) {
+	lastTime = timeLimiter;
 
-		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
-		// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
-		Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-		
-		// Wo steht Kamera
-		// Camera matrix
-		View = glm::lookAt(glm::vec3(0,0,-5), // Wo ist Kamera / Betrachter
-						   glm::vec3(0,0,0),  // Wo schaut er hin
-						   glm::vec3(0,1,0)); // Wo ist oben (damit man sicherstellt, dass Betrachter nicht schief guckt)
+	frame_counter += 1;
+	t_check = time(0);
+	needed = difftime(t_check, t_start);
+	// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
+	if ((1000 * needed) != 0)
+		std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;
 
-		// was passiert mit Objekten bezogen auf Welt
-		// Model matrix : an identity matrix = Einheitsmatrix = Es passiert nichts = kein Einfluss ( ??= Am Ursprung?? -> war voheriger Kommentar)
-		Model = glm::mat4(1.0f);
+	// 1. Löschen des voherigen Bildes
+	// Clear the screen und lösche z speicher
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
 
-		//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
-		//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
-		Model = glm::rotate(Model,angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
-		Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
-	
-		// skaliert alles
-		Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
-		// senden an den Vertex-Shader
-		// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
-		sendMVP();
+	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
+	// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
+	Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
-		Szene2 szene2(&programID, &View, &Projection);
-		//szene1.drawSzene(1);
-		szene2.drawSzene(1);
+	// Wo steht Kamera
+	// Camera matrix
+	View = glm::lookAt(glm::vec3(0, 0, -5), // Wo ist Kamera / Betrachter
+		glm::vec3(0, 0, 0),  // Wo schaut er hin
+		glm::vec3(0, 1, 0)); // Wo ist oben (damit man sicherstellt, dass Betrachter nicht schief guckt)
+
+// was passiert mit Objekten bezogen auf Welt
+// Model matrix : an identity matrix = Einheitsmatrix = Es passiert nichts = kein Einfluss ( ??= Am Ursprung?? -> war voheriger Kommentar)
+	Model = glm::mat4(1.0f);
+
+	//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
+	//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
+	Model = glm::rotate(Model, angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
+	Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	// skaliert alles
+	Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
+	// senden an den Vertex-Shader
+	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
+	sendMVP();
+
+	Szene2 szene2(&programID, &View, &Projection);
+	//szene1.drawSzene(1);
+	szene2.drawSzene(1);
 
 
-		drawCS();
-		//drawBalken();
-		//drawSzene2(1.0f);
+	drawCS();
+	//drawBalken();
+	//drawSzene2(1.0f);
 
 
-		// Swap buffers
-		glfwSwapBuffers(window);
-		// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
-        glfwPollEvents();
+	// Swap buffers
+	glfwSwapBuffers(window);
+	// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
+	glfwPollEvents();
+}
+
 	} 
 
 	glDeleteProgram(programID);
