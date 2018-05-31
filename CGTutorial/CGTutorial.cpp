@@ -193,9 +193,11 @@ int main(void)
 	time_t t_check;
 	time_t needed;
 	int frame_counter = 0;
-	Ball ball1(&programID);
-	Ball ball2(&programID);
-	Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f));
+	Ball ball1(&programID, glm::vec3(1.0f,0.0f,0.0f));
+	Ball ball2(&programID, glm::vec3(-1.0f,0.0f,0.0f));
+	Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f),glm::vec3(0.0f,1.0f,0.0f));
+	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
+	glm::vec3 tempPos;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -240,13 +242,16 @@ int main(void)
 		//drawCS();
 		
 		ball1.setMVP(&View, &Projection);
-		ball1.moveBall(glm::vec3(1.0f, 0.0f, 0.0f));
+		ball1.moveBall();
+		tempPos = ball1.getBallPosition();
+		std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
 
 		ball2.setMVP(&View, &Projection);
-		ball2.moveBall(glm::vec3(-1.0f, 0.0f, 0.0f));
+		ball2.moveBall();
 
 		ball3.setMVP(&View, &Projection);
-		ball3.moveBall(glm::vec3(0.0f, 1.0f, 0.0f));
+		ball3.moveBall();
+		
 
 		// Swap buffers
 		glfwSwapBuffers(window);

@@ -2,19 +2,21 @@
 #include "objects.hpp"
 
 
-Ball::Ball(GLuint* programID)
+Ball::Ball(GLuint* programID, glm::vec3 direct)
 {
 	programmID = programID;
 	Model = glm::mat4(1.0f);
-	velocity = 0.4;
+	direction = direct;
+	velocity = 1.0;
 	lastTime = 0.0;
 	time = 0.0;
 }
 
-Ball::Ball(GLuint* programID, glm::vec3 newPos) {
+Ball::Ball(GLuint* programID, glm::vec3 newPos, glm::vec3 direct) {
 	programmID = programID;
 	Model = glm::mat4(1.0f);
-	velocity = 0.4f;
+	direction = direct;
+	velocity = 1.0;
 	lastTime = 0.0;
 	time = 0.0;
 	Model = glm::translate(Model, newPos);
@@ -43,22 +45,27 @@ void Ball::setMVP(glm::mat4* v, glm::mat4* p) {
 	sendModel();
 }
 
-void Ball::moveBall(glm::vec3 move) {
+void Ball::moveBall() {
+	glm::vec3 tmpDirect = direction;
 	time = glfwGetTime() - lastTime;
 	lastTime = glfwGetTime();
 	distance = velocity * time;
-	move.x *= distance;
-	move.y *= distance;
-	move.z *= distance;
-	Model = glm::translate(Model, move);
+	tmpDirect.x *= distance;
+	tmpDirect.y *= distance;
+	tmpDirect.z *= distance;
+	Model = glm::translate(Model, tmpDirect);
 	sendModel();
 	drawSphere(10,10);
 }
 
+void Ball::changeDirection(glm::vec3 newDirect) {
+	direction = newDirect;
+}
+
 glm::vec3 Ball::getBallPosition() {
-	Position.x = Model[0][3];
-	Position.y = Model[1][3];
-	Position.z = Model[2][3];
+	position.x = Model[3][0];
+	position.y = Model[3][1];
+	position.z = Model[3][2];
 	
-	return Position;
+	return position;
 }

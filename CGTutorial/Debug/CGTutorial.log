@@ -1,9 +1,7 @@
 ﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLEW_190.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLFW_276.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
-  Ball.cpp
-Ball.cpp(50): warning C4244: "*=": Konvertierung von "double" in "float", möglicher Datenverlust
-Ball.cpp(51): warning C4244: "*=": Konvertierung von "double" in "float", möglicher Datenverlust
-Ball.cpp(52): warning C4244: "*=": Konvertierung von "double" in "float", möglicher Datenverlust
+  CGTutorial.cpp
+CGTutorial.cpp(206): warning C4244: "=": Konvertierung von "double" in "time_t", möglicher Datenverlust
   CGTutorial.vcxproj -> C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\CGTutorial.exe
   CGTutorial.vcxproj -> Debug/CGTutorial.pdb (Full PDB)
