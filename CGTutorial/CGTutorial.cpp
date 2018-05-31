@@ -27,6 +27,8 @@
 #include "time.h"
 #include "iostream"
 #include "Ball.hpp"
+#include "Szene1.h"
+#include "Szene2.h"
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
@@ -96,19 +98,174 @@ void sendMVP()
 
 void drawCS() {
 	glm::mat4 Save = Model;
-	Model = glm::scale(Model, glm::vec3(10*1.0 / 1.0, 1.0 / 100.0, 1.0 / 100.0));
+	Model = glm::scale(Model, glm::vec3(10 * 1.0 / 1.0, 1.0 / 100.0, 1.0 / 100.0));
 	sendMVP();
 	drawCube();
+
 	Model = Save;
 	Model = glm::scale(Model, glm::vec3(1.0 / 100.0, 10 * 1.0 / 1.0, 1.0 / 100.0));
 	sendMVP();
 	drawCube();
+
 	Model = Save;
 	Model = glm::scale(Model, glm::vec3(1.0 / 100.0, 1.0 / 100.0, 10 * 1.0 / 1.0));
 	sendMVP();
 	drawCube();
+
+
 	Model = Save;
 }
+
+double counter_richtung = 0;
+int flag = true;
+int moove = 0;
+
+void moove_balken() {
+	if(counter_richtung < 3 && flag){
+	Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
+	counter_richtung = counter_richtung + 0.01;
+	std::cout << "if" << std::endl;
+	}
+	else {
+		flag = false;
+		Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
+		counter_richtung = counter_richtung-0.01;
+		std::cout << "else" << std::endl;
+		if (counter_richtung < -3) {
+			flag = true;
+
+		}
+
+	}
+
+}
+
+void drawBalken() {
+	glm::mat4 Save = Model;
+	Model = glm::scale(Model, glm::vec3(1.0, 1.0 / 5.0, 1.0 / 5.0));
+	Model = glm::translate(Model, glm::vec3(0, 5.0, 0.0));
+	moove_balken();
+	sendMVP();
+	drawCube();
+	Model = Save;
+
+}
+
+
+// problem: unterschiedliche Ergebnisse, wenn man auf unterschiedlichen achsen scaled
+// Lösung ggf erst skalieren, alles komplett abhängig machen von groesse und dann 2 davon rotieren (damit Verhältnisse gleich bleiben)
+//void drawSzene1(double groesse) {
+//	glm::mat4 Save = Model;
+//	Model = glm::scale(Model, glm::vec3(4* groesse, 1.0 / 20.0, 1.0 / 20.0));
+//	glm::mat4 SaveScale = Model;
+//	Model = glm::translate(Model, glm::vec3(0, 30.0 * groesse, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = SaveScale;
+//	Model = glm::translate(Model, glm::vec3(0, -30.0 * groesse, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = Save;
+//
+//	// mitte = wie viel , vec3=Achse um die gedreht werden soll
+//	Model = glm::scale(Model, glm::vec3(1.0/20.0, 1.5 * groesse, 1.0 / 20.0));
+//	Model = glm::translate(Model, glm::vec3(79.0 * groesse, 0.0, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = Save;
+//
+//	Model = glm::scale(Model, glm::vec3(1.0 / 20.0, 1.5 * groesse, 1.0 / 20.0));
+//	Model = glm::translate(Model, glm::vec3(-79* groesse, 0.0, 0.0));
+//	sendMVP();
+//	drawCube();
+//	Model = Save;
+//
+//}
+
+
+/*void drawSzene2(double groesse) {
+	// top and buttom
+	glm::mat4 Save = Model;
+	Model = glm::scale(Model, glm::vec3(2 * groesse, 1.0 / 20.0, 1.0 / 20.0));
+	glm::mat4 SaveScale = Model;
+	Model = glm::translate(Model, glm::vec3(0, 80.0 * groesse, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveScale;
+	Model = glm::translate(Model, glm::vec3(0, -80.0 * groesse, 0.0));
+	sendMVP();
+	drawCube();
+	Model = Save;
+
+	// left and right
+	Model = glm::rotate(Model, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	Model = glm::scale(Model, glm::vec3(2 * groesse, 1.0 / 20.0, 1.0 / 20.0));
+	glm::mat4 SaveRotation = Model;
+	Model = glm::translate(Model, glm::vec3(0.0, 80 * groesse, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveRotation;
+	Model = glm::translate(Model, glm::vec3(0.0, -80 * groesse, 0.0));
+	sendMVP();
+	drawCube();
+	Model = Save;
+
+	//little verticals
+	Model = glm::rotate(Model, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	Model = glm::scale(Model, glm::vec3(1.05 * groesse, 1.0 / 20.0, 1.0 / 20.0));
+	glm::mat4 SaveLT = Model;
+	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveLT;
+	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveLT;
+	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveLT;
+	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+
+
+	Model = Save;
+
+	//little horizontals
+	Model = glm::scale(Model, glm::vec3(1.05f * groesse, 1.0 / 20.0, 1.0 / 20.0));
+	glm::mat4 SaveL = Model;
+	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveL;
+	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveL;
+	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+	Model = SaveL;
+	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
+	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+	sendMVP();
+	drawCube();
+
+
+	Model = Save;
+
+
+}
+*/
 
 int main(void)
 {
@@ -193,70 +350,91 @@ int main(void)
 	time_t t_check;
 	time_t needed;
 	int frame_counter = 0;
-	Ball ball1(&programID, glm::vec3(1.0f,0.0f,0.0f));
-	Ball ball2(&programID, glm::vec3(-1.0f,0.0f,0.0f));
-	Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f),glm::vec3(0.0f,1.0f,0.0f));
+	Szene1 szene1(&programID, &View, &Projection);
+
+
+	const double maxFPS = 20.0;
+	const double maxPeriod = 1.0 / maxFPS;
+	double lastTime = 0.0;
+
+	Ball ball1(&programID, glm::vec3(1.0f, 0.0f, 0.0f));
+	Ball ball2(&programID, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Ball ball3(&programID, glm::vec3(0.0f, -3.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
 	glm::vec3 tempPos;
 
 	while (!glfwWindowShouldClose(window))
 	{
-		frame_counter += 1;
-		t_check = time(0);
-		needed = difftime(t_check, t_start);
-		// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
-		if((1000 * needed) != 0)
-			std::cout << "current fps: " << ((frame_counter*1000) / (1000 * needed)) << std::endl;
+	double timeLimiter = glfwGetTime();
+double deltaTime = timeLimiter - lastTime;
 
-		// 1. Löschen des voherigen Bildes
-		// Clear the screen und lösche z speicher
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
-		// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
+if (deltaTime >= maxPeriod) {
+	lastTime = timeLimiter;
+
+	frame_counter += 1;
+	t_check = time(0);
+	needed = difftime(t_check, t_start);
+	// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
+	if ((1000 * needed) != 0)
+		std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;
+
+	// 1. Löschen des voherigen Bildes
+	// Clear the screen und lösche z speicher
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
+
+	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
+	// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
+	Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+
+	// Wo steht Kamera
+	// Camera matrix
+	View = glm::lookAt(glm::vec3(0, 0, -5), // Wo ist Kamera / Betrachter
+		glm::vec3(0, 0, 0),  // Wo schaut er hin
+		glm::vec3(0, 1, 0)); // Wo ist oben (damit man sicherstellt, dass Betrachter nicht schief guckt)
+
+// was passiert mit Objekten bezogen auf Welt
+// Model matrix : an identity matrix = Einheitsmatrix = Es passiert nichts = kein Einfluss ( ??= Am Ursprung?? -> war voheriger Kommentar)
+	Model = glm::mat4(1.0f);
+
+	//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
+	//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
+	Model = glm::rotate(Model, angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
+	Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	// skaliert alles
+	Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
+	// senden an den Vertex-Shader
+	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
+	sendMVP();
+
+	Szene2 szene2(&programID, &View, &Projection);
+	//szene1.drawSzene(1);
+	szene2.drawSzene(1);
+
+	ball1.setMVP(&View, &Projection);
+	ball1.moveBall();
+	tempPos = ball1.getBallPosition();
+	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
+
+	ball2.setMVP(&View, &Projection);
+	ball2.moveBall();
+
+	ball3.setMVP(&View, &Projection);
+	ball3.moveBall();
 
 
-		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
-		// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
-		Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
-		
-		// Wo steht Kamera
-		// Camera matrix
-		View = glm::lookAt(glm::vec3(0,0,-5), // Wo ist Kamera / Betrachter
-						   glm::vec3(0,0,0),  // Wo schaut er hin
-						   glm::vec3(0,1,0)); // Wo ist oben (damit man sicherstellt, dass Betrachter nicht schief guckt)
+	drawCS();
+	//drawBalken();
+	//drawSzene2(1.0f);
 
-		// was passiert mit Objekten bezogen auf Welt
-		// Model matrix : an identity matrix = Einheitsmatrix = Es passiert nichts = kein Einfluss ( ??= Am Ursprung?? -> war voheriger Kommentar)
-		Model = glm::mat4(1.0f);
 
-		//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
-		//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
-		Model = glm::rotate(Model,angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
-		Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
-	
-		// skaliert alles
-		Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
-		// senden an den Vertex-Shader
-		// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
-		sendMVP();
-		//drawCS();
-		
-		ball1.setMVP(&View, &Projection);
-		ball1.moveBall();
-		tempPos = ball1.getBallPosition();
-		std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
-
-		ball2.setMVP(&View, &Projection);
-		ball2.moveBall();
-
-		ball3.setMVP(&View, &Projection);
-		ball3.moveBall();
-		
-
-		// Swap buffers
-		glfwSwapBuffers(window);
-		// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
-        glfwPollEvents();
+	// Swap buffers
+	glfwSwapBuffers(window);
+	// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
+	glfwPollEvents();
+}
 	} 
 
 	glDeleteProgram(programID);
