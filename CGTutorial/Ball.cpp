@@ -2,23 +2,27 @@
 #include "objects.hpp"
 
 
-Ball::Ball(GLuint* programID, glm::vec3 direct)
+Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct)
 {
 	programmID = programID;
 	Model = glm::mat4(1.0f);
+	View = v;
+	Projection = p;
 	direction = direct;
-	velocity = 1.0;
+	velocity = 4.0;
 	lastTime = 0.0;
 	time = 0.0;
+	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
 }
 
-Ball::Ball(GLuint* programID, glm::vec3 newPos, glm::vec3 direct) {
+Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm::vec3 direct) {
 	programmID = programID;
 	Model = glm::mat4(1.0f);
 	direction = direct;
-	velocity = 1.0;
+	velocity = 4.0;
 	lastTime = 0.0;
 	time = 0.0;
+	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
 	Model = glm::translate(Model, newPos);
 }
 
@@ -37,12 +41,6 @@ void Ball::sendModel() {
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "M"), 1, GL_FALSE, &Model[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "V"), 1, GL_FALSE, &ViewTemp[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "P"), 1, GL_FALSE, &ProjectionTemp[0][0]);
-}
-
-void Ball::setMVP(glm::mat4* v, glm::mat4* p) {
-	View = v;
-	Projection = p;
-	sendModel();
 }
 
 void Ball::moveBall() {
