@@ -67,3 +67,5 @@ glm::vec3 Ball::getBallPosition() {
 	
 	return position;
 }
+
+
