@@ -1,6 +1,12 @@
 #include "Szene1.h"
 #include "objects.hpp"
 
+// Beachten: translatieren translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach rechts gegangen
+// Beachten: translatieren translate(ModelLeftBorder, glm::vec3(79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach links gegangen
+
+// DAS HEIST: ALLE NAMEN MIT LEFT BORDER ZUM BEISPIEL STIMMEN NICHT -> RICHTUNG MUSS IMMER UMGEKEHRT GENOMMEN WERDEN UM TATSÄCHLICHE TRANSLATIONSRICHTUNG ZU BEKOMMEN
+// BIESPIEL: ModelRightBorder SPRICHT DIE LINKEBORDER AN -> MAN NIMMT MODELRIGHTMODER WEG D.h. linke Border geht weg
+
 
 Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 {
@@ -13,7 +19,7 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	ModelRightBorder = glm::mat4(1.0f);
 
 
-	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
+	//ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
 	ModelTopBorder = glm::translate(ModelTopBorder, glm::vec3(0, 30.0 * groesse, 0.0));
 
 	ModelButtomBorder = glm::scale(ModelButtomBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
@@ -35,7 +41,7 @@ void Szene1::printMat4(glm::mat4 matrix) {
 
 	for (int a = 0; a < 4; ++a) {
 		for (int b = 0; b < 4; ++b) {
-			std::cout << matrix[a][b] << "  ";
+			std::cout << matrix[b][a] << "  "; // [b][a] da in OpenGL: column, row -> eigentlich(normal): row, column
 			if (b == 3) std::cout << "\n" << std::endl;
 		}
 	}
@@ -69,6 +75,7 @@ void Szene1::drawSzene() {
 	sendModel();
 	drawSphere(10, 10);*/
 	//std::cout << ModelTopBorder << std::endl;
+
 	printMat4(ModelTopBorder);
 
 	sendModel(ModelTopBorder);
@@ -83,9 +90,10 @@ void Szene1::drawSzene() {
 	sendModel(ModelRightBorder);
 	drawCube();
 
+	/*printMat4(ModelLeftBorder);
 	sendModel(ModelLeftBorder);
 	drawCube();
-	std::cout << "test" << std::endl;
+	std::cout << "test" << std::endl;*/
 }
 
 

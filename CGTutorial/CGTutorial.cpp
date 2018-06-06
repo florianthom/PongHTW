@@ -1,3 +1,5 @@
+// 	printf("hallo\n");
+
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -409,8 +411,8 @@ if (deltaTime >= maxPeriod) {
 	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 	sendMVP();
 
-	szene2.drawSzene();
-	//szene1.drawSzene();
+	//szene2.drawSzene();
+	szene1.drawSzene();
 
 	ball1.moveBall();
 	tempPos = ball1.getBallPosition();
