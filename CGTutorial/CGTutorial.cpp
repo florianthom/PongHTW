@@ -267,6 +267,24 @@ void drawBalken() {
 }
 */
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	if (width < 300)
+		width = 300;
+	if (height < 300)
+		height = 300;
+	glViewport(0, 0, width, height);
+}
+
+
+
+void window_size_callback(GLFWwindow* window, int widthPara, int heightPara)
+{
+	int width, height;
+	glfwGetWindowSize(window, &width, &height);
+	glfwSetWindowSize(window, widthPara, heightPara);
+}
+
 int main(void)
 {
 	// Initialise GLFW
@@ -279,14 +297,16 @@ int main(void)
 	// Fehler werden auf stderr ausgegeben, s. o.
 	glfwSetErrorCallback(error_callback);
 
+	
+
 	// -> man brauch mindestens 1 Fenster(window) für OpenGL (wo muss grafischer Output hin...)
 	// Somit wird hier 1 window und dem damit verbundenen Context erzeugt
 	// ---------------> As the window and context are inseparably linked, the object pointer is used as both a context and window handle
 	// glfwWindowHint vorher aufrufen, um erforderliche Resourcen festzulegen
 	GLFWwindow* window = glfwCreateWindow(1024, // Breite
 										  768,  // Hoehe
-										  "CG - Tutorial", // Ueberschrift
-										  NULL,  // windowed mode
+										  "Pong", // Ueberschrift
+										  NULL,  // use windowed mode
 										  NULL); // shared windoe
 
 	if (!window)
@@ -321,6 +341,11 @@ int main(void)
 	// Parameter: R G B Deckkraft
 	// Werte der Parameter gehen nicht von 0-255 sondern von 0-1
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+
+	glfwSetWindowPos(window, 400, 200);
 
 	// Create and compile our GLSL program from the shaders
 	// programID = LoadShaders("TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader");

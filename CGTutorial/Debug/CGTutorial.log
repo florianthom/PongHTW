@@ -2,6 +2,6 @@
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLFW_276.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
   CGTutorial.cpp
-CGTutorial.cpp(376): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
+CGTutorial.cpp(401): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
   CGTutorial.vcxproj -> C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\CGTutorial.exe
   CGTutorial.vcxproj -> Debug/CGTutorial.pdb (Full PDB)
