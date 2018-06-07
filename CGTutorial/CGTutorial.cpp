@@ -429,21 +429,19 @@ if (deltaTime >= maxPeriod) {
 
 
 
-	char text[256];
-	sprintf(text,"Hallo");
-	printText2D(text, 10, 500, 60);
 
 
 
-	glUseProgram(programID);
+
+
 	//createCube();
 
+	ball1.moveBall();
 
 
 	szene2.drawSzene();
 	//szene1.drawSzene();
 
-	ball1.moveBall();
 
 	tempPos = ball1.getBallPosition();
 	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
@@ -454,7 +452,10 @@ if (deltaTime >= maxPeriod) {
 	drawCS();
 	//drawBalken();
 	//drawSzene2(1.0f);
-
+	char text[256];
+	sprintf(text, "Hallo");
+	printText2D(text, 90, 100, 80);
+	glUseProgram(programID);
 
 	//cleanupText2D();
 

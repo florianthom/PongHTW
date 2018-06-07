@@ -21,6 +21,7 @@ static void createWireCube()
 	glGenVertexArrays(1, &VertexArrayIDWireCube);
 	glBindVertexArray(VertexArrayIDWireCube);
 
+	//vertices == Eckpunkte
 	// Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 	// A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
 	static const GLfloat g_vertex_buffer_data[] = {
@@ -157,7 +158,7 @@ static void createCube()
 	glGenBuffers(1, &colorbuffer); // gibt 1 Speicherplatz für 1ne Variable
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer); // jetzt wird diese Variable benutzt
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW); // jetzt wird der Speicherplatz gefüllt
-
+	////////////////////7
 	glEnableVertexAttribArray(0); // Kein Disable ausführen !
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glVertexAttribPointer(
@@ -184,21 +185,40 @@ static void createCube()
 	glBindVertexArray(0);
 }
 
+void set_things_up_after_print_words() {
+
+	glBindVertexArray(VertexArrayIDSolidCube);
+	glEnableVertexAttribArray(0); // muss enabled werden, da in print2d disabled wurde
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); // bindet zur Verwendung buffer
+	glVertexAttribPointer( // muss neu gesetzt werden, da in print2d geändert wurde
+		0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
+	// 2nd attribute buffer : colors
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+	glEnableVertexAttribArray(1); // Kein Disable ausführen !
+	glVertexAttribPointer(
+		1,                                // Kanal in den die Nutzdaten im Vortexshader eingeführt werdenattribute. No particular reason for 1, but must match the layout in the shader.
+		3,                                // Bildpunkte , size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // ?? stride
+		(void*)0                          // array buffer offset
+	);
+}
+
 void drawCube()
 {
 	if (!VertexArrayIDSolidCube) //Erstellen muss man nur beim ersten mal zeichnen machen
 	{
 		createCube();// legt Datenstruktur an
 	}
-		//glBindVertexArray(VertexArrayIDSolidCube);
-		//glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); //?
-
-		//glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-		//glEnableVertexAttribArray(0); // Kein Disable ausführen !
-		//glEnableVertexAttribArray(1); // Kein Disable ausführen !
-		//glBindVertexArray(0);
-
-
+	set_things_up_after_print_words();
 
 
 	// Draw the triangles !
