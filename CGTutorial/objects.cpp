@@ -189,27 +189,9 @@ void set_things_up_after_print_words() {
 
 	glBindVertexArray(VertexArrayIDSolidCube);
 	glEnableVertexAttribArray(0); // muss enabled werden, da in print2d disabled wurde
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); // bindet zur Verwendung buffer
-	glVertexAttribPointer( // muss neu gesetzt werden, da in print2d geändert wurde
-		0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-
-	// 2nd attribute buffer : colors
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glEnableVertexAttribArray(1); // Kein Disable ausführen !
-	glVertexAttribPointer(
-		1,                                // Kanal in den die Nutzdaten im Vortexshader eingeführt werdenattribute. No particular reason for 1, but must match the layout in the shader.
-		3,                                // Bildpunkte , size
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // ?? stride
-		(void*)0                          // array buffer offset
-	);
+
+
 }
 
 void drawCube()
@@ -226,6 +208,9 @@ void drawCube()
 	glBindVertexArray(VertexArrayIDSolidCube);
 	// (wie viele Punkte gezeichnet werden müssen -> 12 Dreiecke a 3 Punkte
 	glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+	
+	glBindVertexArray(0); // important!; Why? -> to unbind Vertex-Array, otherwise there will be some cool random stuff
+
 
 }
 

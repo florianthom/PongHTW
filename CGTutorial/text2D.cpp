@@ -111,6 +111,8 @@ void printText2D(const char * text, int x, int y, int size) {
 	/******/glDisableVertexAttribArray(0);
 	/******/glDisableVertexAttribArray(1);
 
+	glBindVertexArray(0); // important to unbind current Vertex Array(VAO) (VAO= ca. Wrapper for VBO)
+
 }
 
 void cleanupText2D() {
