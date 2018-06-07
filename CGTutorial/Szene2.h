@@ -28,9 +28,9 @@ private:
 
 	void sendModel(glm::mat4 ModelToSend);
 public:
-	Szene2(GLuint* programID,glm::mat4* v, glm::mat4* p);
+	Szene2(GLuint* programID,glm::mat4* v, glm::mat4* p, double groesse);
 	~Szene2();
-	void drawSzene(double groesse);
+	void drawSzene();
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
 };
