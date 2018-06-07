@@ -29,6 +29,9 @@
 #include "Ball.hpp"
 #include "Szene1.h"
 #include "Szene2.h"
+#include "Szene3.h"
+#include "Triangle.h"
+
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
@@ -340,7 +343,7 @@ int main(void)
 	// Dark blue background
 	// Parameter: R G B Deckkraft
 	// Werte der Parameter gehen nicht von 0-255 sondern von 0-1
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -384,6 +387,10 @@ int main(void)
 	Ball ball1(&programID,&View, &Projection, glm::vec3(1.0f, 0.0f, 0.0f));
 	Szene1 szene1(&programID, &View, &Projection,1);
 	Szene2 szene2(&programID, &View, &Projection, 1);
+	Szene3 szene3(&programID, &View, &Projection, 1);
+	Triangle triangle1(&programID, &View, &Projection, 1);
+
+
 
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
 	glm::vec3 tempPos;
@@ -429,23 +436,24 @@ if (deltaTime >= maxPeriod) {
 	Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
 
 	// skaliert alles
-	Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
+	//Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
 	// senden an den Vertex-Shader
 	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 	sendMVP();
-
-	szene2.drawSzene();
+	//drawCube();
+	szene3.drawSzene();
+	//szene2.drawSzene();
 	//szene1.drawSzene();
-
-	ball1.moveBall();
+	triangle1.drawTriangleThroughObject();
+	ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 	tempPos = ball1.getBallPosition();
 	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
-
-	drawCS();
+	
+	//drawCS();
 	//drawBalken();
 	//drawSzene2(1.0f);
 
-
+	
 	// Swap buffers
 	glfwSwapBuffers(window);
 	// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden

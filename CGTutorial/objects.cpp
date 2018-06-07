@@ -1,3 +1,57 @@
+/////////////////////
+//
+//
+//
+// Grundidee: (also eig 1 VAO hat 1 VBO und 1 VBO hat 1 VAO) (1 VAO kann aber verschiedene Attribute haben, die sagen wie das VBO genutzt werden soll z.B. glVertexAttribPointer(0, 2 ----> 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0))
+//
+// 1.: Vertex Array Objects (VAOs) are conceptually nothing but thin state wrappers.
+//
+// 2.: Vertex Buffer Objects(VBOs) store actual data.
+//
+//	Another way of thinking about this is that VAOs describe the data stored in one or more VBOs.
+//	Think of VBOs(and buffer objects in general) as unstructured arrays of data stored in server(GPU) memory.You can layout your vertex data in multiple arrays if you want, or you can pack them into a single array.In either case, buffer objects boil down to locations where you will store data.
+//
+//	VAO speichern: (deshalb bindet man diesen zuerst)
+//	Aufrufe von glEnableVertexAttribArray or glDisableVertexAttribArray.
+//	Konfigurationen von Vertex attributes via glVertexAttribPointer.
+//	Vertex buffer objekte, die mit vertex attributes verbunden sind durch Aufrufe zu glVertexAttribPointer.
+//
+//
+//
+//Beispiel: (drauf achten wann man VBO und wann VAO benutzt)
+//		unsigned int VBO, VAO;
+//		glGenVertexArrays(1, &VAO); Erzeugung eines eindeutigen, der Grafikkarte bekannten, Speicherplatznamens (1 da man 1 haben will)
+//		glGenBuffers(1, &VBO);
+//// 		bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+//		glBindVertexArray(VAO);
+//
+//		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); -> die 0 am Anfang bezieht sich auf die Position, die wir per location im vertexshader festgelegt haben
+//		glEnableVertexAttribArray(0);
+//
+//// 		note that this is allowed; the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object, so afterwards we can safely unbind
+//			(mit anderen Worten durch glVertexAttribPointer-Call wird das gebindete VBO als zugehörig zu dem vetex attribut erarchtet)
+//		glBindBuffer(GL_ARRAY_BUFFER, 0);
+//
+//// 		You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+////		 VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+//		glBindVertexArray(0);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/////////////////////
+
+
+
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,6 +126,43 @@ void drawWireCube() // Kommentare muss in triangle stehen
 }
 
 
+unsigned int createTriangle() {
+	float vertices[] = {
+		-0.5f, -0.5f, 0.0f, // left  
+		0.5f, -0.5f, 0.0f, // right 
+		0.0f,  0.5f, 0.0f  // top   
+	};
+
+	unsigned int VBO, VAO;
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+	glBindVertexArray(0); // 0 unbinds the vertex array
+	
+	return VAO;
+}
+
+
+void drawTriangle(unsigned int VAO) {
+	glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindVertexArray(0); // 0 unbinds the vertex array
+
+}
+
 
 
 
@@ -120,8 +211,8 @@ static void createCube()
 	};
 
 	// insgesamt Laden der Nutzdaten in einen Buffer der Grafikkarten NICHT in den Vertex shader rein
-	glGenBuffers(1, &vertexbuffer); // ?
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); //?
+	glGenBuffers(1, &vertexbuffer); // hier wird das VBO also Vertex Buffer Object generiert: that can store a large number of vertices in the GPU's memory.
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); // hier wird VAO also Vertext Array Object
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW); //?
 
 	// One color for each vertex. They were generated randomly.
@@ -184,6 +275,26 @@ void drawCube()
 	glBindVertexArray(VertexArrayIDSolidCube);
 	// (wie viele Punkte gezeichnet werden müssen -> 12 Dreiecke a 3 Punkte
 	glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+}
+
+void drawCubeWithBlending()
+{
+	if (!VertexArrayIDSolidCube) //Erstellen muss man nur beim ersten mal zeichnen machen
+	{
+		createCube();// legt Datenstruktur an
+	}
+
+	// Draw the triangles !
+	// sagt, wo kommen die Daten her, + wie sind Daten aufgebaut, ...
+	glBindVertexArray(VertexArrayIDSolidCube);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+	// (wie viele Punkte gezeichnet werden müssen -> 12 Dreiecke a 3 Punkte
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles
+	glDisable(GL_BLEND);
 }
 
 

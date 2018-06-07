@@ -322,9 +322,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="Szene1.cpp" />
     <ClCompile Include="Szene2.cpp" />
+    <ClCompile Include="Szene3.cpp" />
     <ClCompile Include="texture.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">external\glfw-3.1.2\include;external\glew-1.13.0;external\glm-0.9.4.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.hpp" />
@@ -334,7 +336,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="Szene1.h" />
     <ClInclude Include="Szene2.h" />
+    <ClInclude Include="Szene3.h" />
     <ClInclude Include="texture.hpp" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
