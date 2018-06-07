@@ -319,6 +319,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="CGTutorial.cpp" />
     <ClCompile Include="objects.cpp" />
     <ClCompile Include="objloader.cpp" />
+    <ClCompile Include="Positions.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="Szene1.cpp" />
     <ClCompile Include="Szene2.cpp" />
@@ -331,6 +332,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="Obj3D.h" />
     <ClInclude Include="objects.hpp" />
     <ClInclude Include="objloader.hpp" />
+    <ClInclude Include="Positions.hpp" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="Szene1.h" />
     <ClInclude Include="Szene2.h" />

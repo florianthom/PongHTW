@@ -350,16 +350,18 @@ int main(void)
 	time_t t_check;
 	time_t needed;
 	int frame_counter = 0;
-	Szene1 szene1(&programID, &View, &Projection);
 
 
-	const double maxFPS = 20.0;
+	const double maxFPS = 60.0;
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
 	Ball ball1(&programID,&View, &Projection, glm::vec3(1.0f, 0.0f, 0.0f));
+	Szene1 szene1(&programID, &View, &Projection,1);
+	Szene2 szene2(&programID, &View, &Projection, 1);
+
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
-	glm::vec3 tempPos;
+	glm::vec4 tempPos;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -407,9 +409,8 @@ if (deltaTime >= maxPeriod) {
 	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 	sendMVP();
 
-	Szene2 szene2(&programID, &View, &Projection);
-	//szene1.drawSzene(1);
-	szene2.drawSzene(1);
+	szene2.drawSzene();
+	//szene1.drawSzene();
 
 	ball1.moveBall();
 	tempPos = ball1.getBallPosition();
