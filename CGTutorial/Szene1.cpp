@@ -19,7 +19,7 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	ModelRightBorder = glm::mat4(1.0f);
 
 
-	//ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
+	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
 	ModelTopBorder = glm::translate(ModelTopBorder, glm::vec3(0, 30.0 * groesse, 0.0));
 
 	ModelButtomBorder = glm::scale(ModelButtomBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
@@ -71,10 +71,7 @@ void Szene1::setMVP(glm::mat4* v, glm::mat4* p) {
 	//sendModel();
 }
 void Szene1::drawSzene() {
-	/*Model = glm::translate(Model, move);
-	sendModel();
-	drawSphere(10, 10);*/
-	//std::cout << ModelTopBorder << std::endl;
+
 
 	printMat4(ModelTopBorder);
 
@@ -90,9 +87,9 @@ void Szene1::drawSzene() {
 	sendModel(ModelRightBorder);
 	drawCube();
 
-	/*printMat4(ModelLeftBorder);
+	printMat4(ModelLeftBorder);
 	sendModel(ModelLeftBorder);
-	drawCube();
+	drawCube();/*
 	std::cout << "test" << std::endl;*/
 }
 

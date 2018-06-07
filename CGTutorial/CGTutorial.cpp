@@ -31,6 +31,8 @@
 #include "Ball.hpp"
 #include "Szene1.h"
 #include "Szene2.h"
+#include "text2D.h"
+
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
@@ -326,26 +328,29 @@ int main(void)
 
 	// Create and compile our GLSL program from the shaders
 	// programID = LoadShaders("TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader");
-
 	programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
 
+	//------------------------------------------------------------------------------------------------------------------------------
 
 	// Shader auch benutzen !
-	glUseProgram(programID);
+	/**--1*/glUseProgram(programID);
 
 	// sagt, dass die z Werte angezeigt werden, die kleienr sind (das nicht beide angezeigt werden, da wir ja nur die "Oberseite" sehen wollen)
-	glEnable(GL_DEPTH_TEST);
+	/**--1*/glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
 	// Load the texture
 	//benoetigt 24 bit bmp picture
 	GLuint Texture = loadBMP_custom("mandrill.bmp");
 	// Bind our texture in Texture Unit 0
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture);
+	/**--1*/glActiveTexture(GL_TEXTURE0);
+	/**--1*/glBindTexture(GL_TEXTURE_2D, Texture);
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
-	glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
+	/**--*/glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
+	//-----------------------------------------------
 
+
+	
 
 	Obj3D hi = Obj3D("teapot.obj");
 	time_t t_start = time(0);/*time(0)*/;
@@ -354,13 +359,14 @@ int main(void)
 	int frame_counter = 0;
 
 
-	const double maxFPS = 20.0;
+	const double maxFPS = 100.0;
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
 	Ball ball1(&programID,&View, &Projection, glm::vec3(1.0f, 0.0f, 0.0f));
 	Szene1 szene1(&programID, &View, &Projection,1);
 	Szene2 szene2(&programID, &View, &Projection, 1);
+	initText2D("Holstein.DDS");
 
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
 	glm::vec3 tempPos;
@@ -411,17 +417,46 @@ if (deltaTime >= maxPeriod) {
 	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 	sendMVP();
 
-	//szene2.drawSzene();
-	szene1.drawSzene();
+
+
+	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
+	///**--*/glEnable(GL_DEPTH_TEST);
+	///**--*/glActiveTexture(GL_TEXTURE0);
+	///**--*/glBindTexture(GL_TEXTURE_2D, Texture);
+	///**--*/glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
+	//glDepthFunc(GL_LESS);
+	//glfwMakeContextCurrent(window);
+
+
+
+	char text[256];
+	sprintf(text,"Hallo");
+	printText2D(text, 10, 500, 60);
+
+
+
+	glUseProgram(programID);
+	//createCube();
+
+
+
+	szene2.drawSzene();
+	//szene1.drawSzene();
 
 	ball1.moveBall();
+
 	tempPos = ball1.getBallPosition();
 	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
+
+
+
 
 	drawCS();
 	//drawBalken();
 	//drawSzene2(1.0f);
 
+
+	//cleanupText2D();
 
 	// Swap buffers
 	glfwSwapBuffers(window);
@@ -433,6 +468,8 @@ if (deltaTime >= maxPeriod) {
 	glDeleteProgram(programID);
 	// Cleanup VBO and shader
 	glDeleteTextures(1, &Texture);
+	cleanupText2D();
+
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
 	return 0;
