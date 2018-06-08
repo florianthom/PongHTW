@@ -1,19 +1,8 @@
 ﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLEW_190.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLFW_276.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
-  Ball.cpp
-  CGTutorial.cpp
-  Obj3D.cpp
   Szene1.cpp
-Ball.cpp(51): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-Ball.cpp(52): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-Ball.cpp(53): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-  Szene2.cpp
-CGTutorial.cpp(408): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
-  Szene3.cpp
-  Triangle.cpp
   objects.cpp
-  texture.cpp
 objects.cpp(324): warning C4018: '<=': signed/unsigned mismatch
 objects.cpp(334): warning C4018: '<=': signed/unsigned mismatch
   LINK : Debug\CGTutorial.exe not found or not built by the last incremental link; performing full link
