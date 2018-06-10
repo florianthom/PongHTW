@@ -10,6 +10,7 @@ private:
 	GLuint* programmID;
 	glm::mat4 InitialBalkenModel;
 	glm::mat4 InitialBalkenModel2;
+	glm::mat4 EnvironmentCube;
 
 	glm::mat4 ModelTopBorder;
 	glm::mat4 ModelButtomBorder;
@@ -24,7 +25,7 @@ private:
 public:
 	Szene3(GLuint * programID, glm::mat4* v, glm::mat4* p, double groesse);
 	~Szene3();
-	void drawSzene();
+	void drawSzene(GLuint TextureOrigin, GLuint TextureIWantToUse, GLuint Additional);
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
 	void printMat4(glm::mat4 ModelToSend);

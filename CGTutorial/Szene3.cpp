@@ -9,11 +9,15 @@ Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	Projection = p;
 
 	InitialBalkenModel = glm::mat4(1.0f);
-	InitialBalkenModel = glm::scale(InitialBalkenModel, glm::vec3(1.0/1, 1.0 / 1, 1.0 / 1));
+	InitialBalkenModel = glm::scale(InitialBalkenModel, glm::vec3(1.0 / 5, 1.0 / 5, 1.0 / 5));
+	InitialBalkenModel = glm::translate(InitialBalkenModel, glm::vec3(0.0, 0.0, -20.0));
+
 
 	InitialBalkenModel2 = glm::mat4(1.0f);
 	InitialBalkenModel2 = glm::scale(InitialBalkenModel2, glm::vec3(1.0 / 5, 1.0 / 5, 1.0 / 5));
 
+	EnvironmentCube = glm::mat4(1.0f);
+	EnvironmentCube = glm::scale(EnvironmentCube, glm::vec3(2.0 / 1, 2.0 / 1, 5.0 / 1));
 
 
 }
@@ -54,21 +58,34 @@ void Szene3::setMVP(glm::mat4* v, glm::mat4* p) {
 	Projection = p;
 	//sendModel();
 }
-void Szene3::drawSzene() {
-	/*Model = glm::translate(Model, move);
-	sendModel();
-	drawSphere(10, 10);*/
-	//std::cout << ModelTopBorder << std::endl;
+void Szene3::drawSzene(GLuint TextureOrigin, GLuint TextureIWantToUse, GLuint Additional) {
+
+	//*Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+	*Projection = glm::perspective(90.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+
+
+
+	glBindTexture(GL_TEXTURE_2D, TextureIWantToUse);
+	sendModel(EnvironmentCube);
+	drawCube();
+	glBindTexture(GL_TEXTURE_2D, TextureOrigin);
+
+
+
 	printMat4(InitialBalkenModel);
 
 
-	//sendModel(InitialBalkenModel2);
-	//drawCube();
+	glBindTexture(GL_TEXTURE_2D, Additional);
+	sendModel(InitialBalkenModel2);
+	drawCube();
 
-	/*sendModel(InitialBalkenModel);
-	drawCube();*/
+	sendModel(InitialBalkenModel);
+	drawCubeWithBlending();
+	
+	glBindTexture(GL_TEXTURE_2D, TextureOrigin);
 
 
+	
 
 
 }

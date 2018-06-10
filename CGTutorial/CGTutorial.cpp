@@ -353,7 +353,8 @@ int main(void)
 	// Create and compile our GLSL program from the shaders
 	// programID = LoadShaders("TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader");
 
-	programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
+	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
+	programID = LoadShaders("StandardShading.vertexshader", "StandardTransparentShading.fragmentshader");
 
 
 	// Shader auch benutzen !
@@ -365,10 +366,17 @@ int main(void)
 
 	// Load the texture
 	//benoetigt 24 bit bmp picture
-	GLuint Texture = loadBMP_custom("mandrill.bmp");
+	GLuint TextureMandrill = loadBMP_custom("mandrill.bmp");
+	GLuint TextureStone = loadBMP_custom("Steinwand.bmp");
+	GLuint TextureRed = loadBMP_custom("red.bmp");
+	GLuint TextureYellow = loadBMP_custom("yellow.bmp");
+	GLuint TextureGreen = loadBMP_custom("green.bmp");
+	GLuint TextureBlack = loadBMP_custom("black.bmp");
+	GLuint TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
+
 	// Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture);
+	glBindTexture(GL_TEXTURE_2D, TextureMandrill);
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
 	glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
 
@@ -394,6 +402,9 @@ int main(void)
 
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
 	glm::vec3 tempPos;
+
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -440,16 +451,18 @@ if (deltaTime >= maxPeriod) {
 	// senden an den Vertex-Shader
 	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 	sendMVP();
+	drawCS();
+
 	//drawCube();
-	szene3.drawSzene();
+	szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
+	//drawCubeWithBlending();
 	//szene2.drawSzene();
 	//szene1.drawSzene();
-	triangle1.drawTriangleThroughObject();
+	//triangle1.drawTriangleThroughObject();
 	ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 	tempPos = ball1.getBallPosition();
 	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
 	
-	//drawCS();
 	//drawBalken();
 	//drawSzene2(1.0f);
 
@@ -463,7 +476,7 @@ if (deltaTime >= maxPeriod) {
 
 	glDeleteProgram(programID);
 	// Cleanup VBO and shader
-	glDeleteTextures(1, &Texture);
+	glDeleteTextures(1, &TextureMandrill);
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
 	return 0;

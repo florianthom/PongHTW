@@ -270,6 +270,8 @@ void drawCube()
 		createCube();// legt Datenstruktur an
 	}
 
+
+
 	// Draw the triangles !
 	// sagt, wo kommen die Daten her, + wie sind Daten aufgebaut, ...
 	glBindVertexArray(VertexArrayIDSolidCube);
@@ -279,6 +281,7 @@ void drawCube()
 
 void drawCubeWithBlending()
 {
+
 	if (!VertexArrayIDSolidCube) //Erstellen muss man nur beim ersten mal zeichnen machen
 	{
 		createCube();// legt Datenstruktur an
@@ -289,7 +292,7 @@ void drawCubeWithBlending()
 	glBindVertexArray(VertexArrayIDSolidCube);
 
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //GL_ONE_MINUS_DST_COLOR
 
 
 	// (wie viele Punkte gezeichnet werden müssen -> 12 Dreiecke a 3 Punkte
