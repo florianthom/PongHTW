@@ -383,6 +383,8 @@ int main(void)
 	GLuint TextureGreen = loadBMP_custom("green.bmp");
 	GLuint TextureBlack = loadBMP_custom("black.bmp");
 	GLuint TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
+	GLuint TextureOrange = loadBMP_custom("orange.bmp");
+
 
 	// Bind our texture in Texture Unit 0
 
@@ -479,7 +481,7 @@ int main(void)
 			//drawCubeWithBlending();
 			//szene2.drawSzene();
 			//szene1.drawSzene();
-			triangle1.drawTriangleThroughObject();
+			triangle1.drawTriangleThroughObject(TextureOrange);
 			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 			//tempPos = ball1.getBallPosition();
 			//std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;

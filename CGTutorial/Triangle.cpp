@@ -11,7 +11,7 @@ Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse
 	ModelTriangle = glm::mat4(1.0f);
 
 
-	ModelTriangle = glm::scale(ModelTriangle, glm::vec3(2.0f, 2.0 / 1.0, 2.0 / 1.0));
+	ModelTriangle = glm::scale(ModelTriangle, glm::vec3(2.5f, 2.5 / 1.0, 2.5 / 1.0));
 	VAO1 = createTriangle();
 
 
@@ -54,8 +54,9 @@ void Triangle::setMVP(glm::mat4* v, glm::mat4* p) {
 	//sendModel();
 }
 
-void Triangle::drawTriangleThroughObject() {
+void Triangle::drawTriangleThroughObject(GLuint TextureOrange) {
 
+	glBindTexture(GL_TEXTURE_2D, TextureOrange);
 	sendModel(ModelTriangle);
 	drawTriangle(VAO1);
 }

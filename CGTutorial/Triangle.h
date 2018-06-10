@@ -17,7 +17,7 @@ private:
 public:
 	Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse);
 	~Triangle();
-	void drawTriangleThroughObject();
+	void drawTriangleThroughObject(GLuint TextureOrange);
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
 	void printMat4(glm::mat4 ModelToSend);
