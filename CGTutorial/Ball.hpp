@@ -26,6 +26,7 @@ public:
 	~Ball();
 	void moveBall();
 	void changeDirection(glm::vec3 newDirect);
+	glm::vec3 getCurrentDirection();
 	glm::vec4 getBallPosition();
 	glm::vec4 getBallUpLeftPosition();
 	glm::vec4 getBallDownRightPosition();

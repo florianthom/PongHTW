@@ -57,6 +57,10 @@ void Ball::moveBall() {
 	drawSphere(10,10);
 }
 
+glm::vec3 Ball::getCurrentDirection() {
+	return direction;
+}
+
 void Ball::changeDirection(glm::vec3 newDirect) {
 	direction = newDirect;
 }

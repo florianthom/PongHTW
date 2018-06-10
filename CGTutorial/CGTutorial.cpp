@@ -382,7 +382,7 @@ int main(void)
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
-	Ball ball1(&programID,&View, &Projection, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Ball ball1(&programID,&View, &Projection, glm::vec3(0.0f, 1.0f, 0.0f));
 	Szene1 szene1(&programID, &View, &Projection,1);
 	Szene2 szene2(&programID, &View, &Projection, 1);
 
@@ -439,13 +439,15 @@ if (deltaTime >= maxPeriod) {
 	//szene2.drawSzene();
 	szene1.drawSzene();
 
-	if (Collision::checkCollision(&szene1.getTopBorder(), &ball1)) {
-		ball1.changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
-	}
+	//if (Collision::checkCollision(&szene1.getTopBorder(), &ball1)) {
+		//ball1.changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
+	//}
 
-	if (Collision::checkCollision(&szene1.getLeftBorder(), &ball1)) {
-		ball1.changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
-	}
+	//if (Collision::checkCollision(&szene1.getLeftBorder(), &ball1)) {
+		//ball1.changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
+	//}
+
+	Collision::doWallCollision(&szene1.getTopBorder(), &ball1, glm::vec3(0.0f, -1.0f, 0.0f));
 
 	ball1.moveBall();
 	tempPos = ball1.getBallPosition();
