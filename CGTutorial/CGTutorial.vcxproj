@@ -315,6 +315,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Obj3D.cpp" />
     <ClCompile Include="CGTutorial.cpp" />
     <ClCompile Include="objects.cpp" />
@@ -329,6 +330,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.hpp" />
+    <ClInclude Include="Collision.hpp" />
     <ClInclude Include="Obj3D.h" />
     <ClInclude Include="objects.hpp" />
     <ClInclude Include="objloader.hpp" />

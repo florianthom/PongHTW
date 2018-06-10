@@ -69,7 +69,7 @@ void Szene1::drawSzene() {
 	sendModel();
 	drawSphere(10, 10);*/
 	//std::cout << ModelTopBorder << std::endl;
-	printMat4(ModelTopBorder);
+	//printMat4(ModelTopBorder);
 
 	sendModel(ModelTopBorder);
 	drawCube();
@@ -85,9 +85,16 @@ void Szene1::drawSzene() {
 
 	sendModel(ModelLeftBorder);
 	drawCube();
-	std::cout << "test" << std::endl;
+	//std::cout << "test" << std::endl;
 }
 
+glm::mat4 Szene1::getTopBorder() {
+	return ModelTopBorder;
+}
+
+glm::mat4 Szene1::getLeftBorder() {
+	return ModelLeftBorder;
+}
 
 Szene1::~Szene1()
 {
