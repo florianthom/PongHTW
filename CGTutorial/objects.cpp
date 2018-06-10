@@ -75,6 +75,7 @@ static void createWireCube()
 	glGenVertexArrays(1, &VertexArrayIDWireCube);
 	glBindVertexArray(VertexArrayIDWireCube);
 
+	//vertices == Eckpunkte
 	// Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 	// A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
 	static const GLfloat g_vertex_buffer_data[] = {
@@ -123,6 +124,7 @@ void drawWireCube() // Kommentare muss in triangle stehen
 	glBindVertexArray(VertexArrayIDWireCube);
 	
 	glDrawArrays(GL_LINES, 0, 24); // 12 Linien haben 24 Punkte
+	glBindVertexArray(0);
 }
 
 
@@ -174,19 +176,50 @@ void drawTriangle(unsigned int VAO) {
 
 // das ist mein Container für alle Matrizen / Container
 GLuint VertexArrayIDSolidCube = 0;
+static const GLfloat g_vertex_buffer_data[] = {
+	-1.0f,-1.0f,-1.0f, -1.0f,-1.0f, 1.0f, -1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f,-1.0f, -1.0f,-1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
+	1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,  1.0f,-1.0f,-1.0f,
+	1.0f, 1.0f,-1.0f,  1.0f,-1.0f,-1.0f, -1.0f,-1.0f,-1.0f,
+	-1.0f,-1.0f,-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f,
+	1.0f,-1.0f, 1.0f, -1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,
+	-1.0f, 1.0f, 1.0f, -1.0f,-1.0f, 1.0f,  1.0f,-1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,  1.0f,-1.0f,-1.0f,  1.0f, 1.0f,-1.0f,
+	1.0f,-1.0f,-1.0f,  1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,  1.0f, 1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
+	1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f
+};
+
+static const GLfloat g_color_buffer_data[] = {
+	0.583f,  0.771f,  0.014f,   0.609f,  0.115f,  0.436f,   0.327f,  0.483f,  0.844f,
+	0.822f,  0.569f,  0.201f,   0.435f,  0.602f,  0.223f,   0.310f,  0.747f,  0.185f,
+	0.597f,  0.770f,  0.761f,   0.559f,  0.436f,  0.730f,   0.359f,  0.583f,  0.152f,
+	0.483f,  0.596f,  0.789f,   0.559f,  0.861f,  0.639f,   0.195f,  0.548f,  0.859f,
+	0.014f,  0.184f,  0.576f,   0.771f,  0.328f,  0.970f,   0.406f,  0.615f,  0.116f,
+	0.676f,  0.977f,  0.133f,   0.971f,  0.572f,  0.833f,   0.140f,  0.616f,  0.489f,
+	0.997f,  0.513f,  0.064f,   0.945f,  0.719f,  0.592f,	0.543f,  0.021f,  0.978f,
+	0.279f,  0.317f,  0.505f,	0.167f,  0.620f,  0.077f,	0.347f,  0.857f,  0.137f,
+	0.055f,  0.953f,  0.042f,	0.714f,  0.505f,  0.345f,	0.783f,  0.290f,  0.734f,
+	0.722f,  0.645f,  0.174f,	0.302f,  0.455f,  0.848f,	0.225f,  0.587f,  0.040f,
+	0.517f,  0.713f,  0.338f,	0.053f,  0.959f,  0.120f,	0.393f,  0.621f,  0.362f,
+	0.673f,  0.211f,  0.457f,	0.820f,  0.883f,  0.371f,	0.982f,  0.099f,  0.879f
+};
+
+GLuint vertexbuffer;
+// erstellt einen Buffer / Container für Farben des Objektes
+// wird hier nicht direkt verwendet
+GLuint colorbuffer;
 
 static void createCube()
 {
 	// erstellt einen Buffer / Container für Koordinaten des Objektes
 	// wird hier nicht direkt verwendet
-	GLuint vertexbuffer;
-	// erstellt einen Buffer / Container für Farben des Objektes
-	// wird hier nicht direkt verwendet
-	GLuint colorbuffer;
+
 	
 	// sagt, dass man alle Nutzdaten(versch. Objekte und Farben Daten) in einem Block bindet, damit man dann alles zusammen in den Vertex-Shader machen kann
 	// also hier konkret wird per Pointer der Buffer in den Grafikspeicher geladen
-	glGenVertexArrays(1, &VertexArrayIDSolidCube);
+	glGenVertexArrays(1, &VertexArrayIDSolidCube); // generiert Namen für dieses Array
 	// hier konkret wird dieser Buffer an den Vortex buffer gebindet
 	glBindVertexArray(VertexArrayIDSolidCube);
 
@@ -195,21 +228,8 @@ static void createCube()
 
 	// Nutzdaten, 12 Dreiecke mit ihren 3 Eckpunkten
 	// solch eine Matrix muss für jedes Objekt einzeln existieren
-	static const GLfloat g_vertex_buffer_data[] = {
-		-1.0f,-1.0f,-1.0f, -1.0f,-1.0f, 1.0f, -1.0f, 1.0f, 1.0f,
-		 1.0f, 1.0f,-1.0f, -1.0f,-1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
-		 1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,  1.0f,-1.0f,-1.0f,
-		 1.0f, 1.0f,-1.0f,  1.0f,-1.0f,-1.0f, -1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f,
-		 1.0f,-1.0f, 1.0f, -1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f, -1.0f,-1.0f, 1.0f,  1.0f,-1.0f, 1.0f,
-		 1.0f, 1.0f, 1.0f,  1.0f,-1.0f,-1.0f,  1.0f, 1.0f,-1.0f,
-		 1.0f,-1.0f,-1.0f,  1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f,
-		 1.0f, 1.0f, 1.0f,  1.0f, 1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
-		 1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f, 1.0f,
-		 1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f
-	};
-
+	
+	//------------------------------------------g_vertex_buffer_data ehemmals
 	// insgesamt Laden der Nutzdaten in einen Buffer der Grafikkarten NICHT in den Vertex shader rein
 	glGenBuffers(1, &vertexbuffer); // hier wird das VBO also Vertex Buffer Object generiert: that can store a large number of vertices in the GPU's memory.
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); // hier wird VAO also Vertext Array Object
@@ -218,25 +238,19 @@ static void createCube()
 	// One color for each vertex. They were generated randomly.
 	// Farben
 	// muss für jedes Objekt einzeln erstellt werden
-	static const GLfloat g_color_buffer_data[] = { 
-		0.583f,  0.771f,  0.014f,   0.609f,  0.115f,  0.436f,   0.327f,  0.483f,  0.844f,
-		0.822f,  0.569f,  0.201f,   0.435f,  0.602f,  0.223f,   0.310f,  0.747f,  0.185f,
-		0.597f,  0.770f,  0.761f,   0.559f,  0.436f,  0.730f,   0.359f,  0.583f,  0.152f,
-		0.483f,  0.596f,  0.789f,   0.559f,  0.861f,  0.639f,   0.195f,  0.548f,  0.859f,
-		0.014f,  0.184f,  0.576f,   0.771f,  0.328f,  0.970f,   0.406f,  0.615f,  0.116f,
-		0.676f,  0.977f,  0.133f,   0.971f,  0.572f,  0.833f,   0.140f,  0.616f,  0.489f,   
-		0.997f,  0.513f,  0.064f,   0.945f,  0.719f,  0.592f,	0.543f,  0.021f,  0.978f,
-		0.279f,  0.317f,  0.505f,	0.167f,  0.620f,  0.077f,	0.347f,  0.857f,  0.137f,
-		0.055f,  0.953f,  0.042f,	0.714f,  0.505f,  0.345f,	0.783f,  0.290f,  0.734f,
-		0.722f,  0.645f,  0.174f,	0.302f,  0.455f,  0.848f,	0.225f,  0.587f,  0.040f,
-		0.517f,  0.713f,  0.338f,	0.053f,  0.959f,  0.120f,	0.393f,  0.621f,  0.362f,
-		0.673f,  0.211f,  0.457f,	0.820f,  0.883f,  0.371f,	0.982f,  0.099f,  0.879f
-	};
+	
+	//-------------------------------------------g_color_buffer_data ehemals
+	/*glBindBuffer(GL_ARRAY_BUFFER, Text2DVertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, Text2DUVBufferID);
+	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);*/
 
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 
+
+	glGenBuffers(1, &colorbuffer); // gibt 1 Speicherplatz für 1ne Variable
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer); // jetzt wird diese Variable benutzt
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW); // jetzt wird der Speicherplatz gefüllt
+	////////////////////7
 	glEnableVertexAttribArray(0); // Kein Disable ausführen !
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glVertexAttribPointer(
@@ -263,12 +277,23 @@ static void createCube()
 	glBindVertexArray(0);
 }
 
+void set_things_up_after_print_words() {
+
+	glBindVertexArray(VertexArrayIDSolidCube);
+	glEnableVertexAttribArray(0); // muss enabled werden, da in print2d disabled wurde
+	glEnableVertexAttribArray(1); // Kein Disable ausführen !
+
+
+}
+
 void drawCube()
 {
 	if (!VertexArrayIDSolidCube) //Erstellen muss man nur beim ersten mal zeichnen machen
 	{
 		createCube();// legt Datenstruktur an
 	}
+	set_things_up_after_print_words();
+
 
 
 
@@ -277,6 +302,10 @@ void drawCube()
 	glBindVertexArray(VertexArrayIDSolidCube);
 	// (wie viele Punkte gezeichnet werden müssen -> 12 Dreiecke a 3 Punkte
 	glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+	
+	glBindVertexArray(0); // important!; Why? -> to unbind Vertex-Array, otherwise there will be some cool random stuff
+
+
 }
 
 void drawCubeWithBlending()
@@ -298,6 +327,7 @@ void drawCubeWithBlending()
 	// (wie viele Punkte gezeichnet werden müssen -> 12 Dreiecke a 3 Punkte
 	glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles
 	glDisable(GL_BLEND);
+	glBindVertexArray(0); // very important
 }
 
 
@@ -353,6 +383,7 @@ static void createSphere()
 			  sphereNormalBufferData[index] = z1;
 			  sphereVertexBufferData[index++] = z1;
           }
+
      }
 
 	GLuint vertexbuffer;
@@ -405,4 +436,5 @@ void drawSphere(GLuint slats, GLuint slongs)
 	glBindVertexArray(VertexArrayIDSphere);
 	// Draw the triangles !
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 2 * (lats + 1) * (longs + 1)); 
+	glBindVertexArray(0);
 }
