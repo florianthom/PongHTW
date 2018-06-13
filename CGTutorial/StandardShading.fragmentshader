@@ -1,4 +1,4 @@
-// fuer opengl gibt es im groben die Shader: GLSL, HLSL, wir eig GLSF
+// fuer opengl gibt es im groben die Shader: wir eig GLSL, HLSL, GLSF
 
 
 
@@ -14,6 +14,7 @@ in vec3 LightDirection_cameraspace;
 
 // Ouput data
 out vec3 color; // out symbolisiert den einzigen output -> ist variable die geoutputtet wird
+//out vec4 color; fuer orange
 
 // Values that stay constant for the whole mesh.
 uniform sampler2D myTextureSampler;
@@ -36,7 +37,7 @@ void main(){
 
 	// Material properties
 	vec3 MaterialDiffuseColor = texture2D( myTextureSampler, UV ).rgb;
-	vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
+	vec3 MaterialAmbientColor = vec3(1,1,1) * MaterialDiffuseColor;
 	vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
 
 	// Distance to the light
@@ -63,7 +64,7 @@ void main(){
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 	
-	color = 
+	color = //vec4(1.0f, 0.5f, 0.2f, 1.0f); fuer orange
 		// Ambient : simulates indirect lighting
 		MaterialAmbientColor +
 		// Diffuse : "color" of the object

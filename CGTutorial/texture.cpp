@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 #include <GLFW/glfw3.h>
+#include "iostream"
 
 
 GLuint loadBMP_custom(const char * imagepath){
@@ -67,6 +68,9 @@ GLuint loadBMP_custom(const char * imagepath){
 
 	// Give the image to OpenGL
 	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+	//std::cout << width << "\t" << height << std::endl;
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
 
 	// OpenGL has now copied the data. Free our own version
 	delete [] data;

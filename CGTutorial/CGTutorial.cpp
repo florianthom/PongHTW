@@ -1,3 +1,5 @@
+// 	printf("hallo\n");
+
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,6 +31,12 @@
 #include "Ball.hpp"
 #include "Szene1.h"
 #include "Szene2.h"
+#include "Szene3.h"
+#include "Triangle.h"
+
+#include "text2D.h"
+
+
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
@@ -87,7 +95,7 @@ GLuint programID;
 void sendMVP()
 {
 	// Our ModelViewProjection : multiplication of our 3 matrices
-	glm::mat4 MVP = Projection * View * Model; 
+	glm::mat4 MVP = Projection * View * Model;
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform, konstant fuer alle Eckpunkte
 	glUniformMatrix4fv(glGetUniformLocation(programID, "MVP"), 1, GL_FALSE, &MVP[0][0]);
@@ -121,15 +129,15 @@ int flag = true;
 int moove = 0;
 
 void moove_balken() {
-	if(counter_richtung < 3 && flag){
-	Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
-	counter_richtung = counter_richtung + 0.01;
-	std::cout << "if" << std::endl;
+	if (counter_richtung < 3 && flag) {
+		Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
+		counter_richtung = counter_richtung + 0.01;
+		std::cout << "if" << std::endl;
 	}
 	else {
 		flag = false;
 		Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
-		counter_richtung = counter_richtung-0.01;
+		counter_richtung = counter_richtung - 0.01;
 		std::cout << "else" << std::endl;
 		if (counter_richtung < -3) {
 			flag = true;
@@ -297,17 +305,17 @@ int main(void)
 	// Fehler werden auf stderr ausgegeben, s. o.
 	glfwSetErrorCallback(error_callback);
 
-	
+
 
 	// -> man brauch mindestens 1 Fenster(window) für OpenGL (wo muss grafischer Output hin...)
 	// Somit wird hier 1 window und dem damit verbundenen Context erzeugt
 	// ---------------> As the window and context are inseparably linked, the object pointer is used as both a context and window handle
 	// glfwWindowHint vorher aufrufen, um erforderliche Resourcen festzulegen
 	GLFWwindow* window = glfwCreateWindow(1024, // Breite
-										  768,  // Hoehe
-										  "Pong", // Ueberschrift
-										  NULL,  // use windowed mode
-										  NULL); // shared windoe
+		768,  // Hoehe
+		"Pong", // Ueberschrift
+		NULL,  // use windowed mode
+		NULL); // shared windoe
 
 	if (!window)
 	{
@@ -321,7 +329,7 @@ int main(void)
 	//		Damit OpenGL-Befehle funktionieren, muss ein Kontext aktuell sein. Alle OpenGL-Befehle beeinflussen den Status des aktuellen Kontextes
 	//		denken an Java, wo man auch in einen bestimmten Context zeichnen konnte
 	// Make the window's context current (wird nicht automatisch gemacht)
-    glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(window);
 
 	// Initialize GLEW
 	// GLEW ermöglicht Zugriff auf OpenGL-API > 1.1
@@ -340,7 +348,7 @@ int main(void)
 	// Dark blue background
 	// Parameter: R G B Deckkraft
 	// Werte der Parameter gehen nicht von 0-255 sondern von 0-1
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -350,112 +358,161 @@ int main(void)
 	// Create and compile our GLSL program from the shaders
 	// programID = LoadShaders("TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader");
 
-	programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
 
+	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
+	programID = LoadShaders("StandardShading.vertexshader", "StandardTransparentShading.fragmentshader");
+
+	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
+
+
+	//------------------------------------------------------------------------------------------------------------------------------
 
 	// Shader auch benutzen !
-	glUseProgram(programID);
+	/**--1*/glUseProgram(programID);
 
 	// sagt, dass die z Werte angezeigt werden, die kleienr sind (das nicht beide angezeigt werden, da wir ja nur die "Oberseite" sehen wollen)
-	glEnable(GL_DEPTH_TEST);
+	/**--1*/glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
 	// Load the texture
 	//benoetigt 24 bit bmp picture
-	GLuint Texture = loadBMP_custom("mandrill.bmp");
+	GLuint TextureMandrill = loadBMP_custom("mandrill.bmp");
+	GLuint TextureStone = loadBMP_custom("Steinwand.bmp");
+	GLuint TextureRed = loadBMP_custom("red.bmp");
+	GLuint TextureYellow = loadBMP_custom("yellow.bmp");
+	GLuint TextureGreen = loadBMP_custom("green.bmp");
+	GLuint TextureBlack = loadBMP_custom("black.bmp");
+	GLuint TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
+	GLuint TextureOrange = loadBMP_custom("orange.bmp");
+
+
 	// Bind our texture in Texture Unit 0
+
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture);
+	glBindTexture(GL_TEXTURE_2D, TextureMandrill);
+
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
-	glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
+	/**--*/glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
+	//-----------------------------------------------
 
 
-	Obj3D hi = Obj3D("teapot.obj");
+
+
+	//Obj3D hi = Obj3D("teapot.obj");
 	time_t t_start = time(0);/*time(0)*/;
 	time_t t_check;
 	time_t needed;
 	int frame_counter = 0;
 
 
-	const double maxFPS = 60.0;
+	const double maxFPS = 100.0;
+
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
-	Ball ball1(&programID,&View, &Projection, glm::vec3(1.0f, 0.0f, 0.0f));
-	Szene1 szene1(&programID, &View, &Projection,1);
+	Ball ball1(&programID, &View, &Projection, glm::vec3(1.0f, 0.0f, 0.0f));
+	Szene1 szene1(&programID, &View, &Projection, 1);
 	Szene2 szene2(&programID, &View, &Projection, 1);
 
+
+	Szene3 szene3(&programID, &View, &Projection, 1);
+	Triangle triangle1(&programID, &View, &Projection, 1);
+
+
+
+
+	initText2D("Holstein.DDS");
+
+
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
-	glm::vec4 tempPos;
+	glm::vec3 tempPos;
+
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	while (!glfwWindowShouldClose(window))
 	{
-	double timeLimiter = glfwGetTime();
-double deltaTime = timeLimiter - lastTime;
+		double timeLimiter = glfwGetTime();
+		double deltaTime = timeLimiter - lastTime;
 
-if (deltaTime >= maxPeriod) {
-	lastTime = timeLimiter;
+		if (deltaTime >= maxPeriod) {
+			lastTime = timeLimiter;
 
-	frame_counter += 1;
-	t_check = time(0);
-	needed = difftime(t_check, t_start);
-	// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
-	if ((1000 * needed) != 0)
-		std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;
+			frame_counter += 1;
+			t_check = time(0);
+			needed = difftime(t_check, t_start);
+			// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
+			if ((1000 * needed) != 0)
+				std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;
 
-	// 1. Löschen des voherigen Bildes
-	// Clear the screen und lösche z speicher
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
+			// 1. Löschen des voherigen Bildes
+			// Clear the screen und lösche z speicher
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			// 2. JETZT Erstellen des neuen Bildes (aka Rendern des neuen Bildes mit MVP-Prinzip (Model, View, Projection))
 
-	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
-	// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
-	Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+			// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units d.h. zwischen der Range von 0.1 bis 100 wird alles angezeigt
+			// Parameter: 1.: wie weit ist Würfel hinten, 2. Seitenverhältnis, 3.  + 4. kA
+			Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
-	// Wo steht Kamera
-	// Camera matrix
-	View = glm::lookAt(glm::vec3(0, 0, -5), // Wo ist Kamera / Betrachter
-		glm::vec3(0, 0, 0),  // Wo schaut er hin
-		glm::vec3(0, 1, 0)); // Wo ist oben (damit man sicherstellt, dass Betrachter nicht schief guckt)
+			// Wo steht Kamera
+			// Camera matrix
+			View = glm::lookAt(glm::vec3(0, 0, -5), // Wo ist Kamera / Betrachter
+				glm::vec3(0, 0, 0),  // Wo schaut er hin
+				glm::vec3(0, 1, 0)); // Wo ist oben (damit man sicherstellt, dass Betrachter nicht schief guckt)
 
-// was passiert mit Objekten bezogen auf Welt
-// Model matrix : an identity matrix = Einheitsmatrix = Es passiert nichts = kein Einfluss ( ??= Am Ursprung?? -> war voheriger Kommentar)
-	Model = glm::mat4(1.0f);
+		// was passiert mit Objekten bezogen auf Welt
+		// Model matrix : an identity matrix = Einheitsmatrix = Es passiert nichts = kein Einfluss ( ??= Am Ursprung?? -> war voheriger Kommentar)
+			Model = glm::mat4(1.0f);
 
-	//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
-	//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
-	Model = glm::rotate(Model, angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
-	Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
+			//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
+			//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+			Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
+			Model = glm::rotate(Model, angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
+			Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
 
-	// skaliert alles
-	Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
-	// senden an den Vertex-Shader
-	// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
-	sendMVP();
-
-	szene2.drawSzene();
-	//szene1.drawSzene();
-
-	ball1.moveBall();
-	//tempPos = ball1.getBallPosition();
-	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
-
-	drawCS();
-	//drawBalken();
-	//drawSzene2(1.0f);
+			// skaliert alles
+			//Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
+			// senden an den Vertex-Shader
+			// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
+			sendMVP();
+			glBindTexture(GL_TEXTURE_2D, TextureMandrill);
+			drawCS();
 
 
-	// Swap buffers
-	glfwSwapBuffers(window);
-	// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
-	glfwPollEvents();
-}
-	} 
+			//drawCube();
+			//szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
+			//drawCubeWithBlending();
+			//szene2.drawSzene();
+			//szene1.drawSzene();
+			triangle1.drawTriangleThroughObject(TextureOrange);
+			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
+			//tempPos = ball1.getBallPosition();
+			//std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
+
+
+
+			//createCube();
+
+			//drawBalken();
+			//drawSzene2(1.0f);
+			char text[256];
+			sprintf(text, "Hallo");
+			printText2D(text, 90, 100, 80);
+			glUseProgram(programID);
+
+			// Swap buffers
+			glfwSwapBuffers(window);
+			// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
+			glfwPollEvents();
+		}
+	}
 
 	glDeleteProgram(programID);
 	// Cleanup VBO and shader
-	glDeleteTextures(1, &Texture);
+
+	glDeleteTextures(1, &TextureMandrill);
+	cleanupText2D();
+
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
 	return 0;
