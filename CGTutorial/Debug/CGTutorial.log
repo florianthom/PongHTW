@@ -3,5 +3,19 @@ C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
   CGTutorial.cpp
 CGTutorial.cpp(401): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
+  LINK : Debug\CGTutorial.exe not found or not built by the last incremental link; performing full link
+glfw3d.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(context.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(init.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(input.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(monitor.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(window.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(win32_init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(win32_init.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(win32_monitor.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(win32_time.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(win32_time.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(win32_tls.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(win32_tls.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(win32_window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(win32_window.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(winmm_joystick.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(winmm_joystick.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glfw3d.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'glfw3d.lib(wgl_context.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glfw.pdb'; linking object as if no debug info
+glew32sd.lib(glew.obj) : warning LNK4099: PDB 'glew_static.pdb' was not found with 'glew32sd.lib(glew.obj)' or at 'C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\glew_static.pdb'; linking object as if no debug info
   CGTutorial.vcxproj -> C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Debug\CGTutorial.exe
   CGTutorial.vcxproj -> Debug/CGTutorial.pdb (Full PDB)

@@ -438,7 +438,7 @@ if (deltaTime >= maxPeriod) {
 	//szene1.drawSzene();
 
 	ball1.moveBall();
-	tempPos = ball1.getBallPosition();
+	//tempPos = ball1.getBallPosition();
 	std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
 
 	drawCS();
