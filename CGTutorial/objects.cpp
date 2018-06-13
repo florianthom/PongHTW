@@ -437,4 +437,5 @@ void drawSphere(GLuint slats, GLuint slongs)
 	// Draw the triangles !
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 2 * (lats + 1) * (longs + 1)); 
 	glBindVertexArray(0);
+
 }

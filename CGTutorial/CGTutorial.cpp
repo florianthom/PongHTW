@@ -410,7 +410,7 @@ int main(void)
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
-	Ball ball1(&programID, &View, &Projection, glm::vec3(1.0f, 0.0f, 0.0f));
+	
 	Szene1 szene1(&programID, &View, &Projection, 1);
 	Szene2 szene2(&programID, &View, &Projection, 1);
 

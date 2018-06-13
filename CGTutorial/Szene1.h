@@ -2,6 +2,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "Ball.hpp"
+#include "Collision.hpp"
 #include "iostream"
 #pragma once
 class Szene1
@@ -13,6 +15,7 @@ private:
 	glm::mat4 ModelLeftBorder;
 	glm::mat4 ModelRightBorder;
 	glm::mat4 ModelAll;
+	Ball* ball1;
 
 	glm::mat4 * View;
 	glm::mat4 * Projection;

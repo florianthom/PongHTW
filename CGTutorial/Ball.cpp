@@ -9,7 +9,7 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct)
 	View = v;
 	Projection = p;
 	direction = direct;
-	velocity = 4.0;
+	velocity = 5.0;
 	lastTime = 0.0;
 	time = 0.0;
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
@@ -19,7 +19,7 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm:
 	programmID = programID;
 	Model = glm::mat4(1.0f);
 	direction = direct;
-	velocity = 4.0;
+	velocity = 1.0;
 	lastTime = 0.0;
 	time = 0.0;
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
@@ -43,6 +43,7 @@ void Ball::sendModel() {
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "P"), 1, GL_FALSE, &ProjectionTemp[0][0]);
 }
 
+
 void Ball::moveBall() {
 	glm::vec3 tmpDirect = direction;
 	time = glfwGetTime() - lastTime;
@@ -56,16 +57,24 @@ void Ball::moveBall() {
 	drawSphere(10,10);
 }
 
+glm::vec3 Ball::getCurrentDirection() {
+	return direction;
+}
+
 void Ball::changeDirection(glm::vec3 newDirect) {
 	direction = newDirect;
 }
 
-glm::vec3 Ball::getBallPosition() {
-	position.x = Model[3][0];
-	position.y = Model[3][1];
-	position.z = Model[3][2];
-	
-	return position;
+glm::vec4 Ball::getBallPosition() {
+	return Position::getCurrentOriginPosition(&Model);
+}
+
+glm::vec4 Ball::getBallUpLeftPosition() {
+	return Position::getLeftUpperPoint(&Model);
+}
+
+glm::vec4 Ball::getBallDownRightPosition() {
+	return Position::getRightLowPoint(&Model);
 }
 
 

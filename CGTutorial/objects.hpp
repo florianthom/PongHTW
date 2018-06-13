@@ -9,3 +9,4 @@ unsigned int createTriangle();
 void drawTriangle(unsigned int VAO);
 
 #endif
+
