@@ -12,6 +12,7 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
 
+	ball1 = new Ball(programmID, View, Projection, glm::vec3(1.0f, 1.0f, 0.0f));
 
 	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
 	ModelTopBorder = glm::translate(ModelTopBorder, glm::vec3(0, 30.0 * groesse, 0.0));
@@ -71,6 +72,12 @@ void Szene1::drawSzene() {
 	//std::cout << ModelTopBorder << std::endl;
 	//printMat4(ModelTopBorder);
 
+	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
+	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	ball1->moveBall();
+
 	sendModel(ModelTopBorder);
 	drawCube();
 
@@ -86,14 +93,6 @@ void Szene1::drawSzene() {
 	sendModel(ModelLeftBorder);
 	drawCube();
 	//std::cout << "test" << std::endl;
-}
-
-glm::mat4 Szene1::getTopBorder() {
-	return ModelTopBorder;
-}
-
-glm::mat4 Szene1::getLeftBorder() {
-	return ModelLeftBorder;
 }
 
 Szene1::~Szene1()

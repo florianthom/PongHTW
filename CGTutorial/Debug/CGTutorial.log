@@ -1,18 +1,9 @@
 ﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLEW_190.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLFW_276.vcxproj' does not exist.
 C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
-glfw3d.lib(context.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(context.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(init.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(init.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(input.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(input.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(monitor.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(monitor.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(window.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(window.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(win32_init.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(win32_init.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(win32_monitor.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(win32_monitor.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(win32_time.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(win32_time.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(win32_tls.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(win32_tls.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(win32_window.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(win32_window.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(winmm_joystick.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(winmm_joystick.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glfw3d.lib(wgl_context.obj) : warning LNK4099: PDB "glfw.pdb" wurde nicht mit "glfw3d.lib(wgl_context.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glfw.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-glew32sd.lib(glew.obj) : warning LNK4099: PDB "glew_static.pdb" wurde nicht mit "glew32sd.lib(glew.obj)" oder an "C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\glew_static.pdb" gefunden; Objekt wird verknüpft, als ob keine Debuginformationen vorhanden wären.
-  CGTutorial.vcxproj -> C:\Users\Stefan\Documents\Computergrafik\Projekt\PongHTW\CGTutorial\Debug\CGTutorial.exe
+  CGTutorial.cpp
+  Collision.cpp
+  Szene1.cpp
+CGTutorial.cpp(401): warning C4244: "=": Konvertierung von "double" in "time_t", möglicher Datenverlust
+  CGTutorial.vcxproj -> Z:\Dokumente\ComputerGrafik\Projekt\PongHTW\CGTutorial\Debug\CGTutorial.exe
   CGTutorial.vcxproj -> Debug/CGTutorial.pdb (Full PDB)

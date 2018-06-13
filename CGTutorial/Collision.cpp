@@ -17,17 +17,19 @@ bool Collision::checkCollision(glm::mat4* border, Ball* ball) {
 void Collision::doWallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal) {
 	if (checkCollision(border, ball)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
-		glm::vec3 newDirection = glm::vec3(0.0f, 0.0f, 0.0f);
-		double winkel = (ballDirection.x * normal.x + ballDirection.y * normal.y + ballDirection.z * normal.z) /
+		glm::vec3 newDirection = ballDirection - 2.0f * glm::dot(normal, ballDirection) * normal;
+
+		/*double winkel = (ballDirection.x * normal.x + ballDirection.y * normal.y + ballDirection.z * normal.z) /
 			((sqrt(pow(ballDirection.x, 2) + pow(ballDirection.y, 2) + pow(ballDirection.z, 2))) * (sqrt(pow(normal.x, 2) + pow(normal.y, 2) + pow(normal.z, 2))));
 		winkel = acos(winkel) * 180 / 3.14159265;
-		int test = winkel;
-		newDirection.x = normal.x * cos(test) - normal.y * sin(test);
-		newDirection.y = normal.x * cos(test) + normal.y * sin(test);
+		winkel = 180 - winkel;
+		
+		newDirection.x = normal.x * cos(winkel) - normal.y * sin(winkel);
+		newDirection.y = normal.x * cos(winkel) + normal.y * sin(winkel);
 		printf("Winkel: %.10f\n", winkel);
-		printf("TestWinkel: %d\n", test);
-		printf("NewDirection x: %.10f y: %.10f\n", newDirection.x, newDirection.y);
+		printf("NewDirection x: %.10f y: %.10f\n", newDirection.x, newDirection.y);*/
 		//ball->changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
+		printf("newX: %.10f, newY: %.10f, newZ: %.10f", newDirection.x, newDirection.y, newDirection.z);
 		ball->changeDirection(newDirection);
 	}
 }

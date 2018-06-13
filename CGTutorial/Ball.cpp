@@ -9,7 +9,7 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct)
 	View = v;
 	Projection = p;
 	direction = direct;
-	velocity = 1.0;
+	velocity = 5.0;
 	lastTime = 0.0;
 	time = 0.0;
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
