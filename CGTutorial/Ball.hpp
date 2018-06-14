@@ -12,7 +12,7 @@ private:
 	double distance;
 	double lastTime;
 	double time;
-	const float SCALE = 0.125f;
+	const float SCALE = 0.0625f;
 	glm::mat4 Model;
 	glm::mat4* View;
 	glm::mat4* Projection;
@@ -24,11 +24,14 @@ public:
 	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct);
 	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm::vec3 direct);
 	~Ball();
+	void resetBall();
 	void moveBall();
 	void changeDirection(glm::vec3 newDirect);
 	glm::vec3 getCurrentDirection();
 	glm::vec4 getBallPosition();
 	glm::vec4 getBallUpLeftPosition();
+	glm::vec4 getBallUpRightPosition();
+	glm::vec4 getBallDownLeftPosition();
 	glm::vec4 getBallDownRightPosition();
 };
 

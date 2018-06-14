@@ -9,7 +9,7 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct)
 	View = v;
 	Projection = p;
 	direction = direct;
-	velocity = 5.0;
+	velocity = 10.0;
 	lastTime = 0.0;
 	time = 0.0;
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
@@ -43,6 +43,11 @@ void Ball::sendModel() {
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "P"), 1, GL_FALSE, &ProjectionTemp[0][0]);
 }
 
+void Ball::resetBall() {
+	Model[3][0] = 0.0f;
+	Model[3][1] = 0.0f;
+	Model[3][2] = 0.0f;
+}
 
 void Ball::moveBall() {
 	glm::vec3 tmpDirect = direction;
@@ -71,6 +76,14 @@ glm::vec4 Ball::getBallPosition() {
 
 glm::vec4 Ball::getBallUpLeftPosition() {
 	return Position::getLeftUpperPoint(&Model);
+}
+
+glm::vec4 Ball::getBallUpRightPosition() {
+	return Position::getRightUpperPoint(&Model);
+}
+
+glm::vec4 Ball::getBallDownLeftPosition() {
+	return Position::getLeftLowPoint(&Model);
 }
 
 glm::vec4 Ball::getBallDownRightPosition() {

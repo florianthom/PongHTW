@@ -411,8 +411,8 @@ int main(void)
 	double lastTime = 0.0;
 
 	
-	//Szene1 szene1(&programID, &View, &Projection, 1);
-	Szene2 szene2(&programID, &View, &Projection, 1);
+	Szene1 szene1(&programID, &View, &Projection, 1);
+	//Szene2 szene2(&programID, &View, &Projection, 1);
 
 
 	//Szene3 szene3(&programID, &View, &Projection, 1);
@@ -421,7 +421,7 @@ int main(void)
 
 
 
-	initText2D("Holstein.DDS");
+	//initText2D("Holstein.DDS");
 
 
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
@@ -482,8 +482,8 @@ int main(void)
 			//drawCube();
 			//szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
 			//drawCubeWithBlending();
-			szene2.drawSzene();
-			//szene1.drawSzene();
+			//szene2.drawSzene();
+			szene1.drawSzene();
 			//triangle1.drawTriangleThroughObject(TextureOrange);
 			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 			//tempPos = ball1.getBallPosition();
@@ -495,9 +495,9 @@ int main(void)
 
 			//drawBalken();
 			//drawSzene2(1.0f);
-			char text[256];
-			sprintf(text, "Hallo");
-			printText2D(text, 90, 100, 80);
+			//char text[256];
+			//sprintf(text, "Hallo");
+			//printText2D(text, 90, 100, 80);
 			glUseProgram(programID);
 
 			// Swap buffers
@@ -511,7 +511,7 @@ int main(void)
 	// Cleanup VBO and shader
 
 	glDeleteTextures(1, &TextureMandrill);
-	cleanupText2D();
+	//cleanupText2D();
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
