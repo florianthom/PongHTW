@@ -80,27 +80,22 @@ void Szene1::drawSzene() {
 
 	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
 	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
-	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
-	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
 	ball1->moveBall();
 
 
 	sendModel(ModelTopBorder);
 	drawCube();
 
-
-	
 	sendModel(ModelButtomBorder);
 	drawCube();
-
 	
 	sendModel(ModelRightBorder);
 	drawCube();
 
-	printMat4(ModelLeftBorder);
 	sendModel(ModelLeftBorder);
-	drawCube();/*
-	std::cout << "test" << std::endl;*/
+	drawCube();
 }
 
 

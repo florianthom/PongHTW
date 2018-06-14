@@ -411,11 +411,11 @@ int main(void)
 	double lastTime = 0.0;
 
 	
-	Szene1 szene1(&programID, &View, &Projection, 1);
+	//Szene1 szene1(&programID, &View, &Projection, 1);
 	Szene2 szene2(&programID, &View, &Projection, 1);
 
 
-	Szene3 szene3(&programID, &View, &Projection, 1);
+	//Szene3 szene3(&programID, &View, &Projection, 1);
 	Triangle triangle1(&programID, &View, &Projection, 1);
 
 
@@ -442,8 +442,8 @@ int main(void)
 			t_check = time(0);
 			needed = difftime(t_check, t_start);
 			// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
-			if ((1000 * needed) != 0)
-				std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;
+			/*if ((1000 * needed) != 0)
+				std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;*/
 
 			// 1. Löschen des voherigen Bildes
 			// Clear the screen und lösche z speicher
@@ -476,15 +476,15 @@ int main(void)
 			// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 			sendMVP();
 			glBindTexture(GL_TEXTURE_2D, TextureMandrill);
-			drawCS();
+			//drawCS();
 
 
 			//drawCube();
 			//szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
 			//drawCubeWithBlending();
-			//szene2.drawSzene();
+			szene2.drawSzene();
 			//szene1.drawSzene();
-			triangle1.drawTriangleThroughObject(TextureOrange);
+			//triangle1.drawTriangleThroughObject(TextureOrange);
 			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 			//tempPos = ball1.getBallPosition();
 			//std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;

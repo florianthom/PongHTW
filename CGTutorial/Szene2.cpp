@@ -86,6 +86,8 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 
 	View = v;
 	Projection = p;
+
+	ball1 = new Ball(programmID, View, Projection, glm::vec3(-1.0f, 1.0f, 0.0f));
 }
 
 
@@ -110,7 +112,21 @@ void Szene2::sendModel(glm::mat4 ModelToSend) {
 
 
 void Szene2::drawSzene() {
-	
+	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
+	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelC, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelF, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelB, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelG, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelD, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelE, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
+	Collision::doWallCollision(&ModelA, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelH, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	ball1->moveBall();
+
 	sendModel(ModelTopBorder);
 	drawCube();
 
@@ -154,7 +170,6 @@ void Szene2::drawSzene() {
 
 	sendModel(ModelH);
 	drawCube();
-
 }
 
 

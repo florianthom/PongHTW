@@ -2,6 +2,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "Ball.hpp"
+#include "Collision.hpp"
 #pragma once
 class Szene2
 {
@@ -25,6 +27,8 @@ private:
 	glm::mat4* View;
 	glm::mat4* Projection;
 	glm::vec3 Position;
+
+	Ball* ball1;
 
 	void sendModel(glm::mat4 ModelToSend);
 public:

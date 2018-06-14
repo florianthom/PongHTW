@@ -8,8 +8,8 @@ bool Collision::checkCollision(glm::mat4* border, Ball* ball) {
 		Position::getRightLowPoint(border).y <= ball->getBallUpLeftPosition().y) || (Position::getLeftUpperPoint(border).y >= 
 			ball->getBallDownRightPosition().y && Position::getRightLowPoint(border).y <= ball->getBallDownRightPosition().y);
 	
-	printf("Kollision auf X-Achse: %d\n", collisionX);
-	printf("Kollision auf Y-Achse: %d\n\n", collisionY);
+	//printf("Kollision auf X-Achse: %d\n", collisionX);
+	//printf("Kollision auf Y-Achse: %d\n\n", collisionY);
 
 	return collisionX && collisionY;
 }
@@ -29,7 +29,7 @@ void Collision::doWallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal)
 		printf("Winkel: %.10f\n", winkel);
 		printf("NewDirection x: %.10f y: %.10f\n", newDirection.x, newDirection.y);*/
 		//ball->changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
-		printf("newX: %.10f, newY: %.10f, newZ: %.10f", newDirection.x, newDirection.y, newDirection.z);
+		//printf("newX: %.10f, newY: %.10f, newZ: %.10f", newDirection.x, newDirection.y, newDirection.z);
 		ball->changeDirection(newDirection);
 	}
 }
