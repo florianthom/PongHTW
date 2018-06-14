@@ -29,5 +29,8 @@ public:
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
 	void printMat4(glm::mat4 ModelToSend);
+	void enterState();
+	void exitState();
+
 };
 

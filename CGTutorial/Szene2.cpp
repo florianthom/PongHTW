@@ -2,7 +2,7 @@
 #include "objects.hpp"
 
 
-Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
+Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
 {
 	programmID = programID;
 	ModelTopBorder = glm::mat4(1.0f);
@@ -160,4 +160,10 @@ void Szene2::drawSzene() {
 
 Szene2::~Szene2()
 {
+}
+
+void Szene2::exitState() {
+
+}
+void Szene2::enterState() {
 }

@@ -30,5 +30,6 @@ public:
 	glm::vec4 getBallPosition();
 	glm::vec4 getBallUpLeftPosition();
 	glm::vec4 getBallDownRightPosition();
+	void set_initial_position();
 };
 

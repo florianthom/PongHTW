@@ -2,7 +2,7 @@
 #include "objects.hpp"
 
 
-Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
+Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
 {
 	glUseProgram(*programID);
 	View = v;
@@ -11,9 +11,11 @@ Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse
 	ModelTriangle = glm::mat4(1.0f);
 
 
-	ModelTriangle = glm::scale(ModelTriangle, glm::vec3(2.5f, 2.5 / 1.0, 2.5 / 1.0));
+	ModelTriangle = glm::scale(ModelTriangle, glm::vec3(4.f, 3.6f / 1.0, 2.5 / 1.0));
 	VAO1 = createTriangle();
+	initText2D("Holstein.DDS");
 
+	TextureOrange = loadBMP_custom("orange.bmp");
 
 }
 
@@ -59,9 +61,36 @@ void Triangle::drawTriangleThroughObject(GLuint TextureOrange) {
 	glBindTexture(GL_TEXTURE_2D, TextureOrange);
 	sendModel(ModelTriangle);
 	drawTriangle(VAO1);
+
+	char text[256];
+	sprintf(text, "PLAY PONG (1)");
+	printText2D(text, 270, 250, 20);
+	glUseProgram(*programmID);
+	printControlKeysToConsole();
+}
+
+void Triangle::drawSzene() {
+
+	glBindTexture(GL_TEXTURE_2D, TextureOrange);
+	sendModel(ModelTriangle);
+	drawTriangle(VAO1);
+
+	char text[256];
+	sprintf(text, "PLAY PONG (1)");
+	printText2D(text, 270, 250, 20);
+	glUseProgram(*programmID);
+	printControlKeysToConsole();
 }
 
 
 Triangle::~Triangle()
 {
+}
+
+void Triangle::printControlKeysToConsole() {
+	std::cout << "1: START PONG\n" << "2: RETURN TO MENU" << std::endl;
+}
+void Triangle::enterState() {
+}
+void Triangle::exitState() {
 }

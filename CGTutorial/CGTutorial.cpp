@@ -33,14 +33,22 @@
 #include "Szene2.h"
 #include "Szene3.h"
 #include "Triangle.h"
-
 #include "text2D.h"
+#include "StateContext.h"
+
+
 
 
 
 
 //Header: hier steht alles was man in cpp findet -> Funktionen
 //Cpp-File: hier steht der Großteil der Implementierung
+StateContext * state_context;
+Szene1 * szene1;
+Szene2 * szene2;
+Szene3 * szene3;
+Triangle * triangle1;
+
 
 //0 = False; 1 = True
 
@@ -75,6 +83,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		break;
 	case GLFW_KEY_W:
 		angle_z += 5.0;
+		break;
+	case GLFW_KEY_1:
+		state_context->set_state(triangle1);
+
+		break;
+	case GLFW_KEY_2:
+		state_context->set_state(szene1);
+
+		break;
+	case GLFW_KEY_3:
+		state_context->set_state(szene2);
+		break;
+	case GLFW_KEY_4:
+		//state_context->set_state(szene3);
 		break;
 	default:
 		break;
@@ -411,17 +433,16 @@ int main(void)
 	double lastTime = 0.0;
 
 	
-	Szene1 szene1(&programID, &View, &Projection, 1);
-	Szene2 szene2(&programID, &View, &Projection, 1);
+	szene1 = new Szene1(&programID, &View, &Projection, 1);
+	szene2 = new Szene2(&programID, &View, &Projection, 1);
 
 
-	Szene3 szene3(&programID, &View, &Projection, 1);
-	Triangle triangle1(&programID, &View, &Projection, 1);
+	szene3 = new Szene3(&programID, &View, &Projection, 1);
+	triangle1 = new Triangle(&programID, &View, &Projection, 1);
+	state_context = new StateContext(&programID, &View, &Projection, 1);
 
 
 
-
-	initText2D("Holstein.DDS");
 
 
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
@@ -483,8 +504,13 @@ int main(void)
 			//szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
 			//drawCubeWithBlending();
 			//szene2.drawSzene();
+			//menu.drawSzene();
+			//drawBalken();
 			//szene1.drawSzene();
-			triangle1.drawTriangleThroughObject(TextureOrange);
+			//state_context.drawSzene();
+			//state_context.set_state(triangle);
+			state_context->drawSzene();
+			//triangle1.drawTriangleThroughObject(TextureOrange);
 			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 			//tempPos = ball1.getBallPosition();
 			//std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
@@ -495,10 +521,10 @@ int main(void)
 
 			//drawBalken();
 			//drawSzene2(1.0f);
-			char text[256];
+			/*char text[256];
 			sprintf(text, "Hallo");
 			printText2D(text, 90, 100, 80);
-			glUseProgram(programID);
+			glUseProgram(programID);*/
 
 			// Swap buffers
 			glfwSwapBuffers(window);

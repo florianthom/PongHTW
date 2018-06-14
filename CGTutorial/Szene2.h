@@ -2,8 +2,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "State.h"
 #pragma once
-class Szene2
+class Szene2 : public State
 {
 private:
 	GLuint* programmID;
@@ -33,5 +34,8 @@ public:
 	void drawSzene();
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
+	void enterState();
+	void exitState();
+
 };
 

@@ -94,3 +94,9 @@ void Szene3::drawSzene(GLuint TextureOrigin, GLuint TextureIWantToUse, GLuint Ad
 Szene3::~Szene3()
 {
 }
+void Szene3::enterState() {
+
+}
+void Szene3::exitState() {
+
+}
