@@ -18,7 +18,15 @@ public:
 	void set_state(State * new_state);
 	State * get_active_state();
 	void drawSzene();
+	GLuint * get_program_id();
+	glm::mat4* get_view();
+	glm::mat4* get_projection();
+	double get_groesse();
 private:
 	State * active_state;
+	GLuint * programID;
+		glm::mat4* v;
+		glm::mat4* p;
+		double groesse;
 };
 

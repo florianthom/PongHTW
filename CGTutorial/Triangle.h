@@ -32,7 +32,8 @@ public:
 	void printControlKeysToConsole();
 	void enterState();
 	void exitState();
-
+	Triangle();
+	void lol();
 
 };
 

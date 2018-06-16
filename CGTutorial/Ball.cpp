@@ -28,7 +28,6 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm:
 
 Ball::~Ball()
 {
-
 }
 
 void Ball::set_initial_position() {

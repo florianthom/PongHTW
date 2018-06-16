@@ -22,9 +22,11 @@ private:
 	glm::mat4 * View;
 	glm::mat4 * Projection;
 	glm::vec3 Position;
+	double groesse;
 	void sendModel(glm::mat4 ModelToSend);
 public:
 	Szene1(GLuint * programID, glm::mat4* v, glm::mat4* p, double groesse);
+	Szene1();
 	~Szene1();
 	virtual void drawSzene();
 
@@ -32,5 +34,6 @@ public:
 	void printMat4(glm::mat4 ModelToSend);
 	void enterState();
 	void exitState();
+	void lol();
 };
 

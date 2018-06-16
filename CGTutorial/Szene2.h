@@ -36,6 +36,7 @@ public:
 	void setMVP(glm::mat4* v, glm::mat4* p);
 	void enterState();
 	void exitState();
-
+	void lol();
+	Szene2();
 };
 

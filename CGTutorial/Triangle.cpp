@@ -75,10 +75,29 @@ void Triangle::drawSzene() {
 	sendModel(ModelTriangle);
 	drawTriangle(VAO1);
 
-	char text[256];
-	sprintf(text, "PLAY PONG (1)");
-	printText2D(text, 270, 250, 20);
+	char text0[256];
+	sprintf(text0, "MAIN MENU (1)");
+	printText2D(text0, 270, 250, 20);
 	glUseProgram(*programmID);
+	char text[256];
+	sprintf(text, "PLAY PONG (2)");
+	printText2D(text, 270, 200, 20);
+	glUseProgram(*programmID);
+	char text2[256];
+	sprintf(text2, "PLAY PONG ADVANCED (3)");
+	printText2D(text2, 180, 150, 20);
+	glUseProgram(*programmID);
+	char text3[256];
+	sprintf(text3, "PLAY PONG IN real 3D (4)");
+	printText2D(text3, 160, 100, 20);
+	glUseProgram(*programmID);
+	char text4[256];
+	sprintf(text4, "HIGHSCORES (5)");
+	printText2D(text4, 270, 50, 20);
+	glUseProgram(*programmID);
+
+
+
 	printControlKeysToConsole();
 }
 
@@ -93,4 +112,12 @@ void Triangle::printControlKeysToConsole() {
 void Triangle::enterState() {
 }
 void Triangle::exitState() {
+}
+
+Triangle::Triangle() {
+
+}
+void Triangle::lol() {
+	std::cout << "1" << std::endl;
+
 }

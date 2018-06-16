@@ -167,3 +167,9 @@ void Szene2::exitState() {
 }
 void Szene2::enterState() {
 }
+Szene2::Szene2() {
+
+}
+void Szene2::lol() {
+
+}

@@ -35,6 +35,9 @@
 #include "Triangle.h"
 #include "text2D.h"
 #include "StateContext.h"
+#include <thread>
+#include "Highscore.h"
+
 
 
 
@@ -48,13 +51,19 @@ Szene1 * szene1;
 Szene2 * szene2;
 Szene3 * szene3;
 Triangle * triangle1;
+Highscore * highscore;
 
 
 //0 = False; 1 = True
 
 float angle_x = 0.0f;
+//float * angle_y;
 float angle_y = 0.0f;
 float angle_z = 0.0f;
+bool r_pressed = false;
+bool e_pressed = false;
+bool w_pressed = false;
+
 
 // Funktion, die angibt, was man im Fehlerfall machen möchte
 // Funktion wird glfwSetErrorCallback übergeben, da glfw die Fehlerbehandlung für uns ausführt
@@ -65,43 +74,109 @@ void error_callback(int error, const char* description)
 
 // Funktion, die angibt, was man im Fall einer Tastatureingabe machen möchte
 // Funktion wird glfwKeyCallBack übergeben, da glfw die Eingaben verwaltet, bzw auch gleich einem window zuordnet
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	switch (key)
-	{
-	case GLFW_KEY_ESCAPE:
-		glfwSetWindowShouldClose(window, GL_TRUE);
-		break;
-	case GLFW_KEY_R:
-		angle_y = angle_y + 5.0f;
-		break;
-	case GLFW_KEY_Q:
-		angle_y -= 5.0;
-		break;
-	case GLFW_KEY_E:
-		angle_x += 5.0;
-		break;
-	case GLFW_KEY_W:
-		angle_z += 5.0;
-		break;
-	case GLFW_KEY_1:
-		state_context->set_state(triangle1);
 
-		break;
-	case GLFW_KEY_2:
-		state_context->set_state(szene1);
 
-		break;
-	case GLFW_KEY_3:
-		state_context->set_state(szene2);
-		break;
-	case GLFW_KEY_4:
-		//state_context->set_state(szene3);
-		break;
-	default:
-		break;
+
+void test_function_r_pressed() {
+	int i = 0;
+	while(r_pressed){
+		std::cout << "" << std::endl;
+		angle_y += 0.001;
+		i++;
 	}
 }
+
+void test_function_e_pressed() {
+	int i = 0;
+	while (e_pressed) {
+		std::cout << "" << std::endl;
+		angle_x += 0.001;
+		i++;
+	}
+}
+
+void test_function_w_pressed() {
+	int i = 0;
+	while (w_pressed) {
+		std::cout << "" << std::endl;
+		angle_z += 0.001;
+		i++;
+	}
+}
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+		//if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+	//std::thread t1(increment_angle_y);
+	////t1.join();
+//}
+//else if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
+//	t1.join();
+//}
+
+	if (key == GLFW_KEY_1 && action == GLFW_RELEASE) {
+		state_context->set_state(triangle1);
+
+	}
+	else if (key == GLFW_KEY_2 && action == GLFW_RELEASE) {
+		state_context->set_state(szene1);
+
+	}
+	else if (key == GLFW_KEY_3 && action == GLFW_RELEASE) {
+		state_context->set_state(szene2);
+
+	}
+	else if (key == GLFW_KEY_4 && action == GLFW_RELEASE) {
+		state_context->set_state(szene3);
+
+	}
+	else if(key == GLFW_KEY_5 && action == GLFW_RELEASE){
+		state_context->set_state(new Highscore(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
+
+	}
+
+
+
+
+	else if (key == GLFW_KEY_R &&  (action==GLFW_PRESS)) {
+		//angle_y = angle_y + 5.0f;
+		r_pressed = true;
+		std::thread t1(test_function_r_pressed);
+		t1.detach();
+
+	}
+	else if (key == GLFW_KEY_R && (action == GLFW_RELEASE)) {
+		r_pressed = false;
+
+	}
+	else if (key == GLFW_KEY_E &&  action == GLFW_PRESS) {
+		e_pressed = true;
+		std::thread t1(test_function_e_pressed);
+		t1.detach();
+
+	}
+	else if (key == GLFW_KEY_E && (action == GLFW_RELEASE)) {
+		e_pressed = false;
+
+	}
+
+	else if (key == GLFW_KEY_W &&  action == GLFW_PRESS) {
+		w_pressed = true;
+		std::thread t1(test_function_w_pressed);
+		t1.detach();
+
+	}
+	else if (key == GLFW_KEY_W && (action == GLFW_RELEASE)) {
+		w_pressed = false;
+
+	}
+	else if (key == GLFW_KEY_ESCAPE &&  action == GLFW_PRESS) {
+		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	}
+}
+
+
+
 
 
 // Diese Drei Matrizen global (Singleton-Muster), damit sie jederzeit modifiziert und
@@ -408,6 +483,9 @@ int main(void)
 	GLuint TextureOrange = loadBMP_custom("orange.bmp");
 
 
+
+
+
 	// Bind our texture in Texture Unit 0
 
 	glActiveTexture(GL_TEXTURE0);
@@ -427,7 +505,7 @@ int main(void)
 	int frame_counter = 0;
 
 
-	const double maxFPS = 100.0;
+	const double maxFPS = 60;
 
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;

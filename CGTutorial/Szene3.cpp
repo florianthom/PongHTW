@@ -2,7 +2,7 @@
 #include "objects.hpp"
 
 
-Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
+Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
 {
 	programmID = programID;
 	View = v;
@@ -19,6 +19,9 @@ Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	EnvironmentCube = glm::mat4(1.0f);
 	EnvironmentCube = glm::scale(EnvironmentCube, glm::vec3(2.0 / 1, 2.0 / 1, 5.0 / 1));
 
+	TextureMandrill = loadBMP_custom("mandrill.bmp");
+	TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
+	TextureGreen = loadBMP_custom("green.bmp");
 
 }
 
@@ -58,31 +61,31 @@ void Szene3::setMVP(glm::mat4* v, glm::mat4* p) {
 	Projection = p;
 	//sendModel();
 }
-void Szene3::drawSzene(GLuint TextureOrigin, GLuint TextureIWantToUse, GLuint Additional) {
+void Szene3::drawSzene() {
 
 	//*Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 	*Projection = glm::perspective(90.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 
 
 
-	glBindTexture(GL_TEXTURE_2D, TextureIWantToUse);
+	glBindTexture(GL_TEXTURE_2D, TextureStripes);
 	sendModel(EnvironmentCube);
 	drawCube();
-	glBindTexture(GL_TEXTURE_2D, TextureOrigin);
+	glBindTexture(GL_TEXTURE_2D, TextureGreen);
 
 
 
 	printMat4(InitialBalkenModel);
 
 
-	glBindTexture(GL_TEXTURE_2D, Additional);
+	glBindTexture(GL_TEXTURE_2D, TextureGreen);
 	sendModel(InitialBalkenModel2);
 	drawCube();
 
 	sendModel(InitialBalkenModel);
 	drawCubeWithBlending();
 	
-	glBindTexture(GL_TEXTURE_2D, TextureOrigin);
+	glBindTexture(GL_TEXTURE_2D, TextureMandrill);
 
 
 	
@@ -94,9 +97,16 @@ void Szene3::drawSzene(GLuint TextureOrigin, GLuint TextureIWantToUse, GLuint Ad
 Szene3::~Szene3()
 {
 }
+Szene3::Szene3(){
+
+}
 void Szene3::enterState() {
 
 }
 void Szene3::exitState() {
+
+}
+
+void Szene3::lol() {
 
 }

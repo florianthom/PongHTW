@@ -10,11 +10,11 @@
 class State
 {
 public:
-	State();
-	virtual ~State();
-	virtual void drawSzene();
-	virtual void enterState();
-	virtual void exitState();
+
+	virtual void drawSzene() = 0;
+	virtual void enterState() = 0;
+	virtual void exitState() = 0;
+	virtual void lol() = 0;
 
 };
 

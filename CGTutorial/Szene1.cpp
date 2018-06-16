@@ -8,11 +8,12 @@
 // BIESPIEL: ModelRightBorder SPRICHT DIE LINKEBORDER AN -> MAN NIMMT MODELRIGHTMODER WEG D.h. linke Border geht weg
 
 
-Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
+Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara) : State()
 {
 	View = v;
 	Projection = p;
 	programmID = programID;
+	groesse = groessePara;
 	ModelTopBorder = glm::mat4(1.0f);
 	ModelButtomBorder = glm::mat4(1.0f);
 	ModelLeftBorder = glm::mat4(1.0f);
@@ -107,10 +108,17 @@ void Szene1::drawSzene() {
 Szene1::~Szene1()
 {
 }
+Szene1::Szene1() {
+	
+}
+void Szene1::lol() {
+
+}
 
 void Szene1::enterState() {
 	ball1->set_initial_position();
 }
 void Szene1::exitState() {
-
+	delete ball1;
+	ball1 = NULL;
 }

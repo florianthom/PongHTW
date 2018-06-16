@@ -3,8 +3,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "iostream"
+#include "State.h"
+#include "texture.hpp"
+
 #pragma once
-class Szene3
+class Szene3 : public State
 {
 private:
 	GLuint* programmID;
@@ -20,17 +23,21 @@ private:
 
 	glm::mat4 * View;
 	glm::mat4 * Projection;
+	GLuint TextureMandrill;
+	GLuint TextureStripes;
+	GLuint TextureGreen;
 
 	void sendModel(glm::mat4 ModelToSend);
 public:
 	Szene3(GLuint * programID, glm::mat4* v, glm::mat4* p, double groesse);
 	~Szene3();
-	void drawSzene(GLuint TextureOrigin, GLuint TextureIWantToUse, GLuint Additional);
+	void drawSzene();
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
 	void printMat4(glm::mat4 ModelToSend);
 	void enterState();
 	void exitState();
-
+		void lol();
+	Szene3();
 };
 
