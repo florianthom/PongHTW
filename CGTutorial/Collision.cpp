@@ -65,9 +65,7 @@ bool Collision::checkCollision(Paddle* paddle, Ball* ball, int location) {
 void Collision::doWallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal) {
 	if (checkCollision(border, ball)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
-		//printf("Before: X: %.10f, Y: %.10f, Z: %.10f\n", ballDirection.x, ballDirection.y, ballDirection.z);
 		ballDirection = glm::normalize(ballDirection);
-		//printf("After: X: %.10f, Y: %.10f, Z: %.10f\n", ballDirection.x, ballDirection.y, ballDirection.z);
 		glm::vec3 newDirection = ballDirection - 2.0f * glm::dot(normal, ballDirection) * normal;
 		ball->changeDirection(newDirection);
 	}
@@ -76,6 +74,7 @@ void Collision::doWallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal)
 void Collision::doWallCollision(glm::mat4* border, Paddle* paddle, glm::vec3 normal) {
 	if (checkCollision(border, paddle)) {
 		glm::vec3 paddleDirection = paddle->getCurrentDirection();
+		paddleDirection = glm::normalize(paddleDirection);
 		glm::vec3 newDirection = paddleDirection - 2.0f * glm::dot(normal, paddleDirection) * normal;
 		paddle->changeDirection(newDirection);
 	}
@@ -84,6 +83,7 @@ void Collision::doWallCollision(glm::mat4* border, Paddle* paddle, glm::vec3 nor
 void Collision::doPaddleCollision(Paddle* paddle, Ball* ball, int location) {
 	if (checkCollision(paddle, ball, location)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
+		ballDirection = glm::normalize(ballDirection);
 		glm::vec3 newDirection = ballDirection - 2.0f * glm::dot(paddle->getNormal(), ballDirection) * paddle->getNormal();
 		ball->changeDirection(newDirection);
 	}
