@@ -3,16 +3,18 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Positions.hpp"
+#include "GlobalTime.hpp"
 #pragma once
 class Ball
 {
 private:
 	GLuint* programmID;
-	double velocity;
+	const double velocity = 2.0;
 	double distance;
-	double lastTime;
 	double time;
 	const float SCALE = 0.0625f;
+	float x;
+	float y;
 	glm::mat4 Model;
 	glm::mat4* View;
 	glm::mat4* Projection;
@@ -21,8 +23,8 @@ private:
 
 	void sendModel();
 public:
-	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct);
-	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm::vec3 direct);
+	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p);
+	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos);
 	~Ball();
 	void resetBall();
 	void moveBall();

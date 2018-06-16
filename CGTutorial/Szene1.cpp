@@ -17,9 +17,11 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	ModelButtomBorder = glm::mat4(1.0f);
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
-	ball1 = new Ball(programmID, View, Projection, glm::vec3(1.0f, 1.0f, 0.0f));
-	player1 = new CPUPaddle(programID, v, p, PLAYER1POSITION,glm::vec3(-1.0f, 0.0f, 0.0f), true);
-	player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION,glm::vec3(1.0f, 0.0f, 0.0f), false);
+	ball1 = new Ball(programmID, View, Projection);
+	// Integerwert am Ende gibt die Position des Paddles an: 0 -> links, 1 -> oben, 2 -> rechts, 3 -> unten
+	player1 = new CPUPaddle(programID, v, p, PLAYER1POSITION, 0);
+	//player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+	player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
 	player1Points = 0;
 	player2Points = 0;
 
@@ -115,8 +117,9 @@ void Szene1::drawSzene() {
 	}
 	//Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
 
-	Collision::doPaddleCollision(player1, ball1, player1->isLeft());
-	Collision::doPaddleCollision(player2, ball1, player2->isLeft());
+	// Prueft, ob der Ball mit einem Paddle zusammengestoßen ist
+	Collision::doPaddleCollision(player1, ball1, player1->getLocation());
+	Collision::doPaddleCollision(player2, ball1, player2->getLocation());
 	ball1->moveBall();
 
 
@@ -140,4 +143,12 @@ void Szene1::drawSzene() {
 Szene1::~Szene1()
 {
 	cleanupText2D();
+}
+
+void Szene1::doInputPlayer1(glm::vec3 input) {
+	player1->setInput(input);
+};
+
+void Szene1::doInputPlayer2(glm::vec3 input) {
+	player2->setInput(input);
 }

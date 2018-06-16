@@ -65,16 +65,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 		break;
 	case GLFW_KEY_R:
-		angle_y = angle_y + 5.0f;
+		//angle_y = angle_y + 5.0f;
 		break;
 	case GLFW_KEY_Q:
-		angle_y -= 5.0;
+		//angle_y -= 5.0;
 		break;
 	case GLFW_KEY_E:
-		angle_x += 5.0;
+		//angle_x += 5.0;
 		break;
 	case GLFW_KEY_W:
-		angle_z += 5.0;
+		//angle_z += 5.0;
 		break;
 	default:
 		break;
@@ -405,14 +405,14 @@ int main(void)
 	int frame_counter = 0;
 
 
-	const double maxFPS = 100.0;
+	const double maxFPS = 60.0;
 
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
 	
-	Szene1 szene1(&programID, &View, &Projection, 1);
-	//Szene2 szene2(&programID, &View, &Projection, 1);
+	//Szene1 szene1(&programID, &View, &Projection, 1);
+	Szene2 szene2(&programID, &View, &Projection, 1);
 
 
 	//Szene3 szene3(&programID, &View, &Projection, 1);
@@ -482,8 +482,8 @@ int main(void)
 			//drawCube();
 			//szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
 			//drawCubeWithBlending();
-			//szene2.drawSzene();
-			szene1.drawSzene();
+			szene2.drawSzene();
+			//szene1.drawSzene();
 			//triangle1.drawTriangleThroughObject(TextureOrange);
 			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 			//tempPos = ball1.getBallPosition();

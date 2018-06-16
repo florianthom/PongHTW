@@ -5,10 +5,16 @@
 Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 {
 	programmID = programID;
+	View = v;
+	Projection = p;
 	ModelTopBorder = glm::mat4(1.0f);
 	ModelButtomBorder = glm::mat4(1.0f);
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
+
+	width = 1 * groesse;
+	height = 1.0f / 40.0f;
+	depth = 1.0f / 40.0f;
 
 	ModelA = glm::mat4(1.0f);
 	ModelB = glm::mat4(1.0f);
@@ -19,6 +25,14 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	ModelG = glm::mat4(1.0f);
 	ModelH = glm::mat4(1.0f);
 
+	ball1 = new Ball(programmID, v, p);
+	player1_1 = new CPUPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+	player1_2 = new CPUPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+	player2_1 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+	player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+	player1Points = 0;
+	player2Points = 0;
+
 
 	// top and buttom
 	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(1 * groesse, 1.0 / 40.0, 1.0 / 40.0));
@@ -28,38 +42,32 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 	ModelButtomBorder = glm::translate(ModelButtomBorder, glm::vec3(0, -80.0 * groesse, 0.0));
 
 	// left and right
-	ModelRightBorder = glm::rotate(ModelRightBorder, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelRightBorder = glm::scale(ModelRightBorder, glm::vec3(1 * groesse, 1.0 / 40.0, 1.0 / 40.0));
-	ModelRightBorder = glm::translate(ModelRightBorder, glm::vec3(0.0, 80 * groesse, 0.0));
+	ModelRightBorder = glm::scale(ModelRightBorder, glm::vec3(height, width, depth));
+	ModelRightBorder = glm::translate(ModelRightBorder, glm::vec3(-80 * groesse, 0.0f, 0.0f));
 
-	ModelLeftBorder = glm::rotate(ModelLeftBorder, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(1 * groesse, 1.0 / 40.0, 1.0 / 40.0));
-	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(0.0, -80 * groesse, 0.0));
+	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(height, width, depth));
+	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(80 * groesse, 0.0f, 0.0f));
 
 	//little verticals
-	ModelC = glm::rotate(ModelC, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelC = glm::scale(ModelC, glm::vec3(0.525 * groesse, 1.0 / 40.0, 1.0 / 40.0));
+	ModelC = glm::scale(ModelC, glm::vec3(height, 0.525 * groesse, depth));
 
-	ModelC = glm::translate(ModelC, glm::vec3(0.0, 39 * groesse, 0.0));
-	ModelC = glm::translate(ModelC, glm::vec3(2.81 * groesse, 0.0, 0.0));
+	ModelC = glm::translate(ModelC, glm::vec3(-39 * groesse, 0.0f, 0.0f));
+	ModelC = glm::translate(ModelC, glm::vec3(0.0f, 2.81 * groesse, 0.0f));
 
-	ModelF = glm::rotate(ModelF, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelF = glm::scale(ModelF, glm::vec3(0.525 * groesse, 1.0 / 40.0, 1.0 / 40.0));
+	ModelF = glm::scale(ModelF, glm::vec3(height, 0.525 * groesse, depth));
 
-	ModelF = glm::translate(ModelF, glm::vec3(0.0, -39 * groesse, 0.0));
-	ModelF = glm::translate(ModelF, glm::vec3(2.81 * groesse, 0.0, 0.0));
+	ModelF = glm::translate(ModelF, glm::vec3(39 * groesse, 0.0f, 0.0f));
+	ModelF = glm::translate(ModelF, glm::vec3(0.0f, 2.81 * groesse, 0.0f));
 
-	ModelB = glm::rotate(ModelB, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelB = glm::scale(ModelB, glm::vec3(0.525 * groesse, 1.0 / 40.0, 1.0 / 40.0));
+	ModelB = glm::scale(ModelB, glm::vec3(height, 0.525 * groesse, depth));
 
-	ModelB = glm::translate(ModelB, glm::vec3(0.0, 39 * groesse, 0.0));
-	ModelB = glm::translate(ModelB, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+	ModelB = glm::translate(ModelB, glm::vec3(-39 * groesse, 0.0f, 0.0f));
+	ModelB = glm::translate(ModelB, glm::vec3(0.0f, -2.81 * groesse, 0.0f));
 
-	ModelG = glm::rotate(ModelG, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	ModelG = glm::scale(ModelG, glm::vec3(0.525 * groesse, 1.0 / 40.0, 1.0 / 40.0));
+	ModelG = glm::scale(ModelG, glm::vec3(height, 0.525 * groesse, depth));
 
-	ModelG = glm::translate(ModelG, glm::vec3(0.0, -39 * groesse, 0.0));
-	ModelG = glm::translate(ModelG, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+	ModelG = glm::translate(ModelG, glm::vec3(39 * groesse, 0.0f, 0.0f));
+	ModelG = glm::translate(ModelG, glm::vec3(0.0f, -2.81 * groesse, 0.0f));
 
 	//little horizontals
 	ModelD = glm::scale(ModelD, glm::vec3(0.525f * groesse, 1.0 / 40.0, 1.0 / 40.0));
@@ -81,13 +89,6 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse)
 
 	ModelH = glm::translate(ModelH, glm::vec3(0.0, -39 * groesse, 0.0));
 	ModelH = glm::translate(ModelH, glm::vec3(-2.81 * groesse, 0.0, 0.0));
-
-
-
-	View = v;
-	Projection = p;
-
-	ball1 = new Ball(programmID, View, Projection, glm::vec3(-1.0f, 1.0f, 0.0f));
 }
 
 
@@ -95,6 +96,14 @@ void Szene2::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
 	//sendModel();
+}
+
+void Szene2::resetScene() {
+	ball1->resetBall();
+	player1_1->resetPaddle();
+	player1_2->resetPaddle();
+	player2_1->resetPaddle();
+	player2_2->resetPaddle();
 }
 
 void Szene2::sendModel(glm::mat4 ModelToSend) {
@@ -112,10 +121,45 @@ void Szene2::sendModel(glm::mat4 ModelToSend) {
 
 
 void Szene2::drawSzene() {
-	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
-	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
-	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
-	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
+	// Prueft, ob das erste Paddle (links) mit einer Wand kollidiert
+	Collision::doWallCollision(&ModelD, player1_1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelE, player1_1, glm::vec3(0.0f, 1.0f, 0.0f));
+	player1_1->movePaddle();
+
+	// Prueft, ob das zweite Paddle (oben) mit einer Wand kollidiert
+	Collision::doWallCollision(&ModelF, player1_2, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelC, player1_2, glm::vec3(1.0f, 0.0f, 0.0f));
+	player1_2->movePaddle();
+
+	// Prueft, ob das dritte Paddle (rechts) mit einer Wand kollidiert
+	Collision::doWallCollision(&ModelA, player2_1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelH, player2_1, glm::vec3(0.0f, 1.0f, 0.0f));
+	player2_1->movePaddle();
+
+	// Prueft, ob das vierte Paddle (unten) mit einer Wand kollidiert
+	Collision::doWallCollision(&ModelG, player2_2, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelB, player2_2, glm::vec3(1.0f, 0.0f, 0.0f));
+	player2_2->movePaddle();
+
+	// Falls Punkte relevante Wand getroffen wird
+	if (Collision::checkCollision(&ModelLeftBorder, ball1)) {
+		++player2Points;
+		this->resetScene();
+	}
+	if (Collision::checkCollision(&ModelTopBorder, ball1)) {
+		++player2Points;
+		this->resetScene();
+	}
+	if (Collision::checkCollision(&ModelRightBorder, ball1)) {
+		++player1Points;
+		this->resetScene();
+	}
+	if (Collision::checkCollision(&ModelButtomBorder, ball1)) {
+		++player1Points;
+		this->resetScene();
+	}
+
+	// Prueft, ob Ball mit einer Wand kollidiert
 	Collision::doWallCollision(&ModelC, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
 	Collision::doWallCollision(&ModelF, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
 	Collision::doWallCollision(&ModelB, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -124,6 +168,12 @@ void Szene2::drawSzene() {
 	Collision::doWallCollision(&ModelE, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
 	Collision::doWallCollision(&ModelA, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
 	Collision::doWallCollision(&ModelH, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	//Prueft, ob der Ball mit einem Paddle kollidiert ist
+	Collision::doPaddleCollision(player1_1, ball1, player1_1->getLocation());
+	Collision::doPaddleCollision(player1_2, ball1, player1_2->getLocation());
+	Collision::doPaddleCollision(player2_1, ball1, player2_1->getLocation());
+	Collision::doPaddleCollision(player2_2, ball1, player2_2->getLocation());
 
 	ball1->moveBall();
 

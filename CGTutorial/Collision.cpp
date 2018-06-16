@@ -22,29 +22,52 @@ bool Collision::checkCollision(glm::mat4* border, Paddle* paddle) {
 	return collisionX && collisionY;
 }
 
-bool Collision::checkCollision(Paddle* paddle, Ball* ball, bool left) {
+bool Collision::checkCollision(Paddle* paddle, Ball* ball, int location) {
 	bool collisionX;
 	bool collisionY;
-	if (left) {
-		collisionX = paddle->getPaddleUpRightPosition().x <= ball->getBallUpLeftPosition().x && 
-			(paddle->getPaddleUpRightPosition().x + 0.2f)  >= ball->getBallUpLeftPosition().x;
+
+	switch (location) {
+	case 0:
+		collisionX = paddle->getPaddleUpRightPosition().x <= ball->getBallUpLeftPosition().x &&
+		(paddle->getPaddleUpRightPosition().x + 0.1f) >= ball->getBallUpLeftPosition().x;
 		collisionY = paddle->getPaddleUpRightPosition().y >= ball->getBallUpLeftPosition().y &&
-			paddle->getPaddleDownRightPosition().y <= ball->getBallUpLeftPosition().y || paddle->getPaddleUpRightPosition().y >=
-			ball->getBallDownLeftPosition().y && paddle->getPaddleDownRightPosition().y <= ball->getBallDownLeftPosition().y;
-	}
-	else {
+		paddle->getPaddleDownRightPosition().y <= ball->getBallUpLeftPosition().y || paddle->getPaddleUpRightPosition().y >=
+		ball->getBallDownLeftPosition().y && paddle->getPaddleDownRightPosition().y <= ball->getBallDownLeftPosition().y;
+		break;
+	case 1:
+		collisionX = paddle->getpaddleDownLeftPosition().x >= ball->getBallUpLeftPosition().x &&
+		paddle->getPaddleDownRightPosition().x <= ball->getBallUpLeftPosition().x || paddle->getpaddleDownLeftPosition().x >=
+		ball->getBallUpRightPosition().x && paddle->getPaddleDownRightPosition().x <= ball->getBallUpRightPosition().x;
+		collisionY = paddle->getpaddleDownLeftPosition().y <= ball->getBallUpLeftPosition().y &&
+		(paddle->getPaddleUpLeftPosition().y + 0.1f) >= ball->getBallUpLeftPosition().y;
+		break;
+	case 2:
 		collisionX = paddle->getPaddleUpLeftPosition().x >= ball->getBallUpRightPosition().x &&
-			(paddle->getPaddleUpLeftPosition().x - 0.2f) <= ball->getBallUpRightPosition().x;
+		(paddle->getPaddleUpLeftPosition().x - 0.1f) <= ball->getBallUpRightPosition().x;
 		collisionY = paddle->getPaddleUpLeftPosition().y >= ball->getBallUpRightPosition().y &&
-			paddle->getpaddleDownLeftPosition().y <= ball->getBallUpRightPosition().y || paddle->getPaddleUpLeftPosition().y >=
-			ball->getBallDownRightPosition().y && paddle->getpaddleDownLeftPosition().y <= ball->getBallDownRightPosition().y;
+		paddle->getpaddleDownLeftPosition().y <= ball->getBallUpRightPosition().y || paddle->getPaddleUpLeftPosition().y >=
+		ball->getBallDownRightPosition().y && paddle->getpaddleDownLeftPosition().y <= ball->getBallDownRightPosition().y;
+		break;
+	case 3:
+		collisionX = paddle->getPaddleUpLeftPosition().x >= ball->getBallDownLeftPosition().x &&
+			paddle->getPaddleUpRightPosition().x <= ball->getBallDownLeftPosition().x || paddle->getPaddleUpRightPosition().x >=
+			ball->getBallDownRightPosition().x && paddle->getPaddleUpRightPosition().x <= ball->getBallDownRightPosition().x;
+		collisionY = paddle->getPaddleUpLeftPosition().y <= ball->getBallDownLeftPosition().y &&
+			(paddle->getPaddleUpLeftPosition().y + 0.1f) >= ball->getBallDownLeftPosition().y;
+		break;
+	default: printf("Ungueltige Position des Paddles");
+
 	}
+	
 	return collisionX && collisionY;
 }
 
 void Collision::doWallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal) {
 	if (checkCollision(border, ball)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
+		//printf("Before: X: %.10f, Y: %.10f, Z: %.10f\n", ballDirection.x, ballDirection.y, ballDirection.z);
+		ballDirection = glm::normalize(ballDirection);
+		//printf("After: X: %.10f, Y: %.10f, Z: %.10f\n", ballDirection.x, ballDirection.y, ballDirection.z);
 		glm::vec3 newDirection = ballDirection - 2.0f * glm::dot(normal, ballDirection) * normal;
 		ball->changeDirection(newDirection);
 	}
@@ -58,8 +81,8 @@ void Collision::doWallCollision(glm::mat4* border, Paddle* paddle, glm::vec3 nor
 	}
 }
 
-void Collision::doPaddleCollision(Paddle* paddle, Ball* ball, bool left) {
-	if (checkCollision(paddle, ball, left)) {
+void Collision::doPaddleCollision(Paddle* paddle, Ball* ball, int location) {
+	if (checkCollision(paddle, ball, location)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
 		glm::vec3 newDirection = ballDirection - 2.0f * glm::dot(paddle->getNormal(), ballDirection) * paddle->getNormal();
 		ball->changeDirection(newDirection);

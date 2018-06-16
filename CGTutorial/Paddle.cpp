@@ -1,7 +1,7 @@
 #include "Paddle.hpp"
 
 Paddle::Paddle() {
-	lastTime = 0.0;
+	time = GlobalTime::getGobalTime();
 	Model = glm::mat4(1.0f);
 };
 
@@ -28,9 +28,9 @@ glm::vec3 Paddle::getCurrentDirection() { return glm::vec3(); };
 
 void Paddle::changeDirection(glm::vec3 newDirection) {};
 
-bool Paddle::isLeft() {
-	return left;
-}
+int Paddle::getLocation() {
+	return location;
+};
 
 void Paddle::resetPaddle() {
 	Model[3][0] = 0.0f;
@@ -59,31 +59,79 @@ glm::vec4 Paddle::getPaddleDownRightPosition() {
 	return Position::getRightLowPoint(&Model);
 }
 
-CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position ,glm::vec3 n, bool l) {
+CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position , int l) {
 	programmID = id;
 	View = v;
 	Projection = p;
-	Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
-	Model = glm::translate(Model, position);
+	//Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
 	this->position = position;
 	int start = rand() % 100;
-	if (start < 50) {
-		direction = glm::vec3(0.0f, -1.0f, 0.0f);
+	if (l == 0 || l == 2) {
+		if (start < 50) {
+			direction = glm::vec3(0.0f, -1.0f, 0.0f);
+		}
+		else {
+			direction = glm::vec3(0.0f, 1.0f, 0.0f);
+		}
+		Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
 	}
 	else {
-		direction = glm::vec3(0.0f, 1.0f, 0.0f);
+		if (start < 50) {
+			direction = glm::vec3(1.0f, 0.0f, 0.0f);
+		}
+		else {
+			direction = glm::vec3(-1.0f, 0.0f, 0.0f);
+		}
+		Model = glm::scale(Model, glm::vec3(SCALEY, SCALEX, SCALEZ));
 	}
-	normal = n;
-	left = l;
+	/*if (start < 50) {
+		if (l == 0 || l == 2) {
+			Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
+			direction = glm::vec3(0.0f, -1.0f, 0.0f);
+		}
+		else {
+			Model = glm::scale(Model, glm::vec3(SCALEY, SCALEX, SCALEZ));
+			direction = glm::vec3(-1.0f, 0.0f, 0.0f);
+		}
+	}
+	else {
+		if (l == 0 || l == 2) {
+			direction = glm::vec3(0.0f, 1.0f, 0.0f);
+		}
+		else {
+			direction = glm::vec3(1.0f, 0.0f, 0.0f);
+		}
+	}*/
+
+	switch (l)
+	{
+	case 0:
+		normal = glm::vec3(-1.0f, 0.0f, 0.0f);
+		break;
+	case 1:
+		normal = glm::vec3(0.0f, -1.0f, 0.0f);
+		break;
+	case 2:
+		normal = glm::vec3(1.0f, 0.0f, 0.0f);
+		break;
+	case 3:
+		normal = glm::vec3(0.0f, 1.0f, 0.0f);
+		break;
+	default:
+		printf("Ungueltige Position des Paddles");
+	}
+
+	Model = glm::translate(Model, position);
+	location = l;
 }
 
 CPUPaddle::~CPUPaddle() {}
 
 void CPUPaddle::movePaddle(){
 	glm::vec3 tmpDirection = direction;
-	deltaTime = glfwGetTime() - lastTime;
-	lastTime = glfwGetTime();
-	distance = VELOCITY * deltaTime;
+	//deltaTime = glfwGetTime() - lastTime;
+	//lastTime = glfwGetTime();
+	distance = VELOCITY * time;
 	tmpDirection *= distance;
 	Model = glm::translate(Model, tmpDirection);
 	sendMVP();
@@ -99,3 +147,47 @@ glm::vec3 CPUPaddle::getCurrentDirection() {
 void CPUPaddle::changeDirection(glm::vec3 newDirection) {
 	direction = newDirection;
 }
+
+PlayerPaddle::PlayerPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position, int l) {
+	programmID = id;
+	View = v;
+	Projection = p;
+	Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
+	Model = glm::translate(Model, position);
+	this->position = position;
+
+	switch (l)
+	{
+	case 0:
+		normal = glm::vec3(-1.0f, 0.0f, 0.0f);
+		break;
+	case 1:
+		normal = glm::vec3(0.0f, -1.0f, 0.0f);
+		break;
+	case 2:
+		normal = glm::vec3(1.0f, 0.0f, 0.0f);
+		break;
+	case 3:
+		normal = glm::vec3(0.0f, 1.0f, 0.0f);
+	default:
+		printf("Ungueltige Position des Paddles");
+	}
+
+	location = l;
+}
+
+PlayerPaddle::~PlayerPaddle() {};
+
+void PlayerPaddle::movePaddle() {
+	sendMVP();
+	drawCube();
+}
+
+void PlayerPaddle::setInput(glm::vec3 input){
+	direction = input;
+	distance = VELOCITY * time;
+	input *= distance;
+	Model = glm::translate(Model, input);
+	sendMVP();
+	drawCube();
+};
