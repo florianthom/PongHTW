@@ -146,9 +146,15 @@ Szene1::~Szene1()
 }
 
 void Szene1::doInputPlayer1(glm::vec3 input) {
-	player1->setInput(input);
+	if (!(Collision::checkCollision(&ModelTopBorder, player1) ||
+		Collision::checkCollision(&ModelButtomBorder, player1))) {
+		player1->setInput(input);
+	}
 };
 
 void Szene1::doInputPlayer2(glm::vec3 input) {
-	player2->setInput(input);
+	if (!(Collision::checkCollision(&ModelTopBorder, player2) ||
+		Collision::checkCollision(&ModelButtomBorder, player2))) {
+		player2->setInput(input);
+	}
 }

@@ -222,6 +222,34 @@ void Szene2::drawSzene() {
 	drawCube();
 }
 
+void Szene2::doInputPlayer1_1(glm::vec3 input) {
+	if (!(Collision::checkCollision(&ModelE, player1_1) ||
+		Collision::checkCollision(&ModelD, player1_1))) {
+		player1_1->setInput(input);
+	}
+}
+
+void Szene2::doInputPlayer1_2(glm::vec3 input) {
+	if (!(Collision::checkCollision(&ModelF, player1_2) ||
+		Collision::checkCollision(&ModelC, player1_2))) {
+		player1_2->setInput(input);
+	}
+}
+
+void Szene2::doInputPlayer2_1(glm::vec3 input) {
+	if (!(Collision::checkCollision(&ModelA, player2_1) ||
+		Collision::checkCollision(&ModelH, player2_1))) {
+		player2_1->setInput(input);
+	}
+}
+
+void Szene2::doInputPlayer2_2(glm::vec3 input) {
+	if (!(Collision::checkCollision(&ModelG, player2_2) ||
+		Collision::checkCollision(&ModelB, player2_2))) {
+		player2_2->setInput(input);
+	}
+}
+
 
 Szene2::~Szene2()
 {
