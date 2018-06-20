@@ -26,6 +26,8 @@ void StateContext::set_state(State * new_state) {
 	std::cout << "hi" << std::endl;
 	new_state->enterState();
 	active_state = new_state;
+	new_state->enterState();
+
 
 }
 

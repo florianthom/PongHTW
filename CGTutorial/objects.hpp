@@ -7,6 +7,7 @@ void drawSphere(GLuint slices, GLuint stacks); // Kugel mit radius 1 bzw. Durchm
 void drawCubeWithBlending();
 unsigned int createTriangle();
 void drawTriangle(unsigned int VAO);
+void deleteSphere();
 
 #endif
 

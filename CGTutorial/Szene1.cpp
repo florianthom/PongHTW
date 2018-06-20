@@ -18,7 +18,10 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelButtomBorder = glm::mat4(1.0f);
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
-	ball1 = new Ball(programmID, View, Projection, glm::vec3(1.0f, 1.0f, 0.0f));
+
+	ball1 = new Ball(programmID, View, Projection,glm::vec3(1.0f, 1.0f, 0.0f));
+	ball1->set_initial_position();
+
 
 
 	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
@@ -79,10 +82,13 @@ void Szene1::drawSzene() {
 	//std::cout << ModelTopBorder << std::endl;
 	//printMat4(ModelTopBorder);
 
+	sendModel(glm::mat4(1.0f));
 	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
 	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
 	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
 	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+	//ball1->set_initial_position();
+
 	ball1->moveBall();
 
 
@@ -107,6 +113,9 @@ void Szene1::drawSzene() {
 
 Szene1::~Szene1()
 {
+	ball1->set_initial_position();
+	delete ball1;
+	delete this;
 }
 Szene1::Szene1() {
 	
@@ -117,8 +126,9 @@ void Szene1::lol() {
 
 void Szene1::enterState() {
 	ball1->set_initial_position();
+	ball1->set_initial_position();
 }
 void Szene1::exitState() {
+	ball1->set_initial_position();
 	delete ball1;
-	ball1 = NULL;
 }

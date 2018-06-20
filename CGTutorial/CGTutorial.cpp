@@ -105,13 +105,6 @@ void test_function_w_pressed() {
 }
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-		//if (key == GLFW_KEY_R && action == GLFW_PRESS) {
-	//std::thread t1(increment_angle_y);
-	////t1.join();
-//}
-//else if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
-//	t1.join();
-//}
 
 	if (key == GLFW_KEY_1 && action == GLFW_RELEASE) {
 		state_context->set_state(triangle1);

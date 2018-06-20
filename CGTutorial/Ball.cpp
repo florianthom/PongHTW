@@ -28,13 +28,18 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm:
 
 Ball::~Ball()
 {
+	//Model= glm::mat4(1.0f);
+	//deleteSphere();
 }
 
 void Ball::set_initial_position() {
 	Model = glm::mat4(1.0f);
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
+	sendModel();
 
 }
+
+
 
 void Ball::sendModel() {
 	// Our ModelViewProjection : multiplication of our 3 matrices
@@ -51,6 +56,7 @@ void Ball::sendModel() {
 
 
 void Ball::moveBall() {
+
 	glm::vec3 tmpDirect = direction;
 	time = glfwGetTime() - lastTime;
 	lastTime = glfwGetTime();
@@ -66,6 +72,7 @@ void Ball::moveBall() {
 glm::vec3 Ball::getCurrentDirection() {
 	return direction;
 }
+
 
 void Ball::changeDirection(glm::vec3 newDirect) {
 	direction = newDirect;
