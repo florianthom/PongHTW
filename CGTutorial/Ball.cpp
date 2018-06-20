@@ -2,26 +2,29 @@
 #include "objects.hpp"
 
 
-Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 direct)
+Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 {
+	x = (rand() % 100);
+	x /= 100;
+	x += 0.2f;
+	y = 1 - x;
 	programmID = programID;
 	Model = glm::mat4(1.0f);
 	View = v;
 	Projection = p;
-	direction = direct;
-	velocity = 5.0;
-	lastTime = 0.0;
-	time = 0.0;
+	direction = glm::vec3(x, y, 0.0f);
+	time = GlobalTime::getGobalTime();
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
 }
 
-Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos, glm::vec3 direct) {
+Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos) {
+	x = (rand() % 100);
+	x /= 100;
+	y = 1 - x;
 	programmID = programID;
 	Model = glm::mat4(1.0f);
-	direction = direct;
-	velocity = 1.0;
-	lastTime = 0.0;
-	time = 0.0;
+	direction = glm::vec3(x, y, 0.0f);
+	time = GlobalTime::getGobalTime();
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
 	Model = glm::translate(Model, newPos);
 }
@@ -54,12 +57,20 @@ void Ball::sendModel() {
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "P"), 1, GL_FALSE, &ProjectionTemp[0][0]);
 }
 
+void Ball::resetBall() {
+	Model[3][0] = 0.0f;
+	Model[3][1] = 0.0f;
+	Model[3][2] = 0.0f;
+	x = (rand() % 100) + 1;
+	x /= 100;
+	x += 0.2f;
+	y = 1 - x;
+	direction = glm::vec3(x, y, 0.0f);
+}
 
 void Ball::moveBall() {
 
 	glm::vec3 tmpDirect = direction;
-	time = glfwGetTime() - lastTime;
-	lastTime = glfwGetTime();
 	distance = velocity * time;
 	tmpDirect.x *= distance;
 	tmpDirect.y *= distance;
@@ -84,6 +95,14 @@ glm::vec4 Ball::getBallPosition() {
 
 glm::vec4 Ball::getBallUpLeftPosition() {
 	return Position::getLeftUpperPoint(&Model);
+}
+
+glm::vec4 Ball::getBallUpRightPosition() {
+	return Position::getRightUpperPoint(&Model);
+}
+
+glm::vec4 Ball::getBallDownLeftPosition() {
+	return Position::getLeftLowPoint(&Model);
 }
 
 glm::vec4 Ball::getBallDownRightPosition() {

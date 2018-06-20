@@ -439,6 +439,3 @@ void drawSphere(GLuint slats, GLuint slongs)
 	glBindVertexArray(0);
 
 }
-void deleteSphere() {
-	VertexArrayIDSphere = NULL;
-}

@@ -54,6 +54,7 @@ Triangle * triangle1;
 Highscore * highscore;
 
 
+
 //0 = False; 1 = True
 
 float angle_x = 0.0f;
@@ -141,6 +142,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		r_pressed = false;
 
 	}
+
 	else if (key == GLFW_KEY_E &&  action == GLFW_PRESS) {
 		e_pressed = true;
 		std::thread t1(test_function_e_pressed);
@@ -164,7 +166,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	else if (key == GLFW_KEY_ESCAPE &&  action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
-
 	}
 }
 
@@ -498,20 +499,18 @@ int main(void)
 	int frame_counter = 0;
 
 
-	const double maxFPS = 60;
+	const double maxFPS = 30.0;
 
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
 	
-	szene1 = new Szene1(&programID, &View, &Projection, 1);
 	szene2 = new Szene2(&programID, &View, &Projection, 1);
-
+	szene1 = new Szene1(&programID, &View, &Projection, 1);
 
 	szene3 = new Szene3(&programID, &View, &Projection, 1);
 	triangle1 = new Triangle(&programID, &View, &Projection, 1);
 	state_context = new StateContext(&programID, &View, &Projection, 1);
-
 
 
 
@@ -534,8 +533,8 @@ int main(void)
 			t_check = time(0);
 			needed = difftime(t_check, t_start);
 			// * 100 damit wir time in milli sekunden bekommen, dadurch müssen wir aber auch frames *1000 rechnen, da Ursprungsgleichung: Gesamtframes / Gesamtzeit in Seconds
-			if ((1000 * needed) != 0)
-				std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;
+			/*if ((1000 * needed) != 0)
+				std::cout << "current fps: " << ((frame_counter * 1000) / (1000 * needed)) << std::endl;*/
 
 			// 1. Löschen des voherigen Bildes
 			// Clear the screen und lösche z speicher
@@ -577,10 +576,11 @@ int main(void)
 			//szene2.drawSzene();
 			//menu.drawSzene();
 			//drawBalken();
-			//szene1.drawSzene();
-			//state_context.drawSzene();
-			//state_context.set_state(triangle);
+			//szene1->drawSzene();
 			state_context->drawSzene();
+			//state_context.set_state(triangle);
+			//state_context->drawSzene();
+
 			//triangle1.drawTriangleThroughObject(TextureOrange);
 			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
 			//tempPos = ball1.getBallPosition();
@@ -597,6 +597,7 @@ int main(void)
 			printText2D(text, 90, 100, 80);
 			glUseProgram(programID);*/
 
+
 			// Swap buffers
 			glfwSwapBuffers(window);
 			// gettet alle Events und ruft eventuell Callback auf falls individuell vorhanden
@@ -608,7 +609,7 @@ int main(void)
 	// Cleanup VBO and shader
 
 	glDeleteTextures(1, &TextureMandrill);
-	cleanupText2D();
+	//cleanupText2D();
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();

@@ -1,10 +1,10 @@
-#include "Szene1.h"
+﻿#include "Szene1.h"
 #include "objects.hpp"
 
 // Beachten: translatieren translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach rechts gegangen
 // Beachten: translatieren translate(ModelLeftBorder, glm::vec3(79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach links gegangen
 
-// DAS HEIST: ALLE NAMEN MIT LEFT BORDER ZUM BEISPIEL STIMMEN NICHT -> RICHTUNG MUSS IMMER UMGEKEHRT GENOMMEN WERDEN UM TATS�CHLICHE TRANSLATIONSRICHTUNG ZU BEKOMMEN
+// DAS HEIST: ALLE NAMEN MIT LEFT BORDER ZUM BEISPIEL STIMMEN NICHT -> RICHTUNG MUSS IMMER UMGEKEHRT GENOMMEN WERDEN UM TATSÄCHLICHE TRANSLATIONSRICHTUNG ZU BEKOMMEN
 // BIESPIEL: ModelRightBorder SPRICHT DIE LINKEBORDER AN -> MAN NIMMT MODELRIGHTMODER WEG D.h. linke Border geht weg
 
 
@@ -19,8 +19,14 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
 
-	ball1 = new Ball(programmID, View, Projection,glm::vec3(1.0f, 1.0f, 0.0f));
+	ball1 = new Ball(programmID, View, Projection);
 	ball1->set_initial_position();
+	//// Integerwert am Ende gibt die Position des Paddles an: 0 -> links, 1 -> oben, 2 -> rechts, 3 -> unten
+	player1 = new CPUPaddle(programID, v, p, PLAYER1POSITION, 0);
+	//player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+	player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
+	player1Points = 0;
+	player2Points = 0;
 
 
 
@@ -37,6 +43,7 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(1.0 / 40.0, 0.75 * groesse, 1.0 / 40.0));
 	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0));
 
+	initText2D("Holstein.DDS");
 }
 
 void Szene1::printMat4(glm::mat4 matrix) {
@@ -70,6 +77,12 @@ void Szene1::sendModel(glm::mat4 ModelToSend) {
 	glUniformMatrix4fv(glGetUniformLocation(*programmID, "P"), 1, GL_FALSE, &ProjectionTemp[0][0]);
 }
 
+void Szene1::resetScene() {
+	ball1->resetBall();
+	player1->resetPaddle();
+	player2->resetPaddle();
+}
+
 void Szene1::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
@@ -81,13 +94,37 @@ void Szene1::drawSzene() {
 	drawSphere(10, 10);*/
 	//std::cout << ModelTopBorder << std::endl;
 	//printMat4(ModelTopBorder);
-
 	sendModel(glm::mat4(1.0f));
+
+	//// Prueft, ob das erste Paddle mit einer Wand kollidiert und reagiert
+	Collision::doWallCollision(&ModelTopBorder, player1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelButtomBorder, player1, glm::vec3(0.0f, 1.0f, 0.0f));
+	player1->movePaddle();
+
+	//// Prueft, ob das zweite Paddle mit eíner Wand kollidiert und reagiert
+	Collision::doWallCollision(&ModelTopBorder, player2, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelButtomBorder, player2, glm::vec3(0.0f, 1.0f, 0.0f));
+	player2->movePaddle();
+
+	//// Prueft, ob Ball mit einer der Waenden kollidiert und reagiert
 	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
 	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
-	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
-	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
-	//ball1->set_initial_position();
+	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	if (Collision::checkCollision(&ModelRightBorder, ball1)) {
+		++player2Points;
+		this->resetScene();
+	}
+
+	if (Collision::checkCollision(&ModelLeftBorder, ball1)) {
+		++player1Points;
+		this->resetScene();
+	}
+	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
+
+	//// Prueft, ob der Ball mit einem Paddle zusammengestoßen ist
+	Collision::doPaddleCollision(player1, ball1, player1->getLocation());
+	Collision::doPaddleCollision(player2, ball1, player2->getLocation());
 
 	ball1->moveBall();
 
@@ -95,31 +132,27 @@ void Szene1::drawSzene() {
 	sendModel(ModelTopBorder);
 	drawCube();
 
-
-	
 	sendModel(ModelButtomBorder);
 	drawCube();
 
-	
 	sendModel(ModelRightBorder);
 	drawCube();
 
-	printMat4(ModelLeftBorder);
 	sendModel(ModelLeftBorder);
-	drawCube();/*
-	std::cout << "test" << std::endl;*/
+	drawCube();
+
+	sprintf(text, "Player1: %d  :  Player2: %d", player1Points, player2Points);
+	printText2D(text, 90, 100, 25);
+	glUseProgram(*programmID);
 }
 
 
 Szene1::~Szene1()
 {
-	ball1->set_initial_position();
-	delete ball1;
-	delete this;
+	//ball1->set_initial_position();
+
 }
-Szene1::Szene1() {
-	
-}
+
 void Szene1::lol() {
 
 }
@@ -130,5 +163,20 @@ void Szene1::enterState() {
 }
 void Szene1::exitState() {
 	ball1->set_initial_position();
-	delete ball1;
+	//cleanupText2D();
+}
+
+void Szene1::doInputPlayer1(glm::vec3 input) {
+	if (!(Collision::checkCollision(&ModelTopBorder, player1) ||
+		Collision::checkCollision(&ModelButtomBorder, player1))) {
+		player1->setInput(input);
+	}
+};
+
+void Szene1::doInputPlayer2(glm::vec3 input) {
+	if (!(Collision::checkCollision(&ModelTopBorder, player2) ||
+		Collision::checkCollision(&ModelButtomBorder, player2))) {
+		player2->setInput(input);
+	}
+
 }
