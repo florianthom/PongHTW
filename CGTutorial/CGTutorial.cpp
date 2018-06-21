@@ -66,6 +66,10 @@ float angle_z = 0.0f;
 bool r_pressed = false;
 bool e_pressed = false;
 bool w_pressed = false;
+bool a_pressed = false;
+
+bool s_pressed = false;
+
 
 
 // Funktion, die angibt, was man im Fehlerfall machen möchte
@@ -106,6 +110,23 @@ void test_function_w_pressed() {
 		i++;
 	}
 }
+
+
+void get_up() {
+	while (a_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+	}
+
+}
+
+void get_down() {
+	while (s_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+	}
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 
@@ -154,6 +175,42 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	else if (key == GLFW_KEY_0 && action == GLFW_RELEASE) {
 		state_context->set_state(new MatchHistory(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
+	}
+
+	///////////////////////////////////// PADDLE CONTROL///////////////////////////////////////////
+
+	else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
+			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));*/
+		if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+			a_pressed = true;
+			std::thread t1(get_up); //, glm::vec3(0.0f, 1.0f, 0.0f
+			t1.detach();
+		}
+	}
+	else if (key == GLFW_KEY_A && action == GLFW_RELEASE) {
+		a_pressed = false;
+	}
+	else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
+			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
+		if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+			s_pressed = true;
+			std::thread t1(get_down); //, glm::vec3(0.0f, 1.0f, 0.0f
+			t1.detach();
+		}
+	}
+	else if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
+		s_pressed = false;
+	}
+
+	else if (key == GLFW_KEY_F && action == GLFW_PRESS) {
+		if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
+			state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+	else if (key == GLFW_KEY_G && action == GLFW_PRESS) {
+		if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
+			state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));
 	}
 
 

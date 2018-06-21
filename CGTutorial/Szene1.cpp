@@ -9,8 +9,9 @@
 // DAS HEIST: ALLE NAMEN MIT LEFT BORDER ZUM BEISPIEL STIMMEN NICHT -> RICHTUNG MUSS IMMER UMGEKEHRT GENOMMEN WERDEN UM TATSÄCHLICHE TRANSLATIONSRICHTUNG ZU BEKOMMEN
 // BIESPIEL: ModelRightBorder SPRICHT DIE LINKEBORDER AN -> MAN NIMMT MODELRIGHTMODER WEG D.h. linke Border geht weg
 
-Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara,int player_number) : State()
+Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara,int player_numberPara) : State()
 {
+	player_number = player_numberPara;
 	View = v;
 	Projection = p;
 	programmID = programID;
@@ -25,7 +26,7 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	
 	player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
 	if(player_number==2)
-		player2 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+		player2 = new PlayerPaddle(programID, v, p, PLAYER2POSITION, 0);
 	else
 		player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
 
@@ -182,3 +183,5 @@ void Szene1::doInputPlayer2(glm::vec3 input) {
 	}
 	
 }
+
+

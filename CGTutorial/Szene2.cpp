@@ -2,8 +2,9 @@
 #include "objects.hpp"
 
 
-Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int player_number) : State()
+Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int player_numberPara) : State()
 {
+	player_number = player_numberPara;
 	programmID = programID;
 	View = v;
 	Projection = p;
@@ -28,28 +29,28 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int
 	ball1 = new Ball(programmID, v, p);
 	
 	if (player_number == 1) {
-		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player1_2 = new CPUPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player2_1 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player2 = new CPUPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player3 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player4 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
 	}
 	else if (player_number == 2) {
-		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player1_2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player2_1 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player3 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player4 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
 	}
 	else if (player_number == 3) {
-		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player1_2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player2_1 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player3 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player4 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
 	}
 	else if (player_number == 4) {
-		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player1_2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player2_1 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player2_2 = new PlayerPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player3 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player4 = new PlayerPaddle(programID, v, p, PLAYER2_2POSITION, 3);
 	}
 	
 	player1Points = 0;
@@ -125,10 +126,10 @@ void Szene2::setMVP(glm::mat4* v, glm::mat4* p) {
 
 void Szene2::resetScene() {
 	ball1->resetBall();
-	player1_1->resetPaddle();
-	player1_2->resetPaddle();
-	player2_1->resetPaddle();
-	player2_2->resetPaddle();
+	player1->resetPaddle();
+	player2->resetPaddle();
+	player3->resetPaddle();
+	player4->resetPaddle();
 }
 
 void Szene2::sendModel(glm::mat4 ModelToSend) {
@@ -147,24 +148,24 @@ void Szene2::sendModel(glm::mat4 ModelToSend) {
 
 void Szene2::drawSzene() {
 	// Prueft, ob das erste Paddle (links) mit einer Wand kollidiert
-	Collision::doWallCollision(&ModelD, player1_1, glm::vec3(0.0f, -1.0f, 0.0f));
-	Collision::doWallCollision(&ModelE, player1_1, glm::vec3(0.0f, 1.0f, 0.0f));
-	player1_1->movePaddle();
+	Collision::doWallCollision(&ModelD, player1, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelE, player1, glm::vec3(0.0f, 1.0f, 0.0f));
+	player1->movePaddle();
 
 	// Prueft, ob das zweite Paddle (oben) mit einer Wand kollidiert
-	Collision::doWallCollision(&ModelF, player1_2, glm::vec3(-1.0f, 0.0f, 0.0f));
-	Collision::doWallCollision(&ModelC, player1_2, glm::vec3(1.0f, 0.0f, 0.0f));
-	player1_2->movePaddle();
+	Collision::doWallCollision(&ModelF, player2, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelC, player2, glm::vec3(1.0f, 0.0f, 0.0f));
+	player2->movePaddle();
 
 	// Prueft, ob das dritte Paddle (rechts) mit einer Wand kollidiert
-	Collision::doWallCollision(&ModelA, player2_1, glm::vec3(0.0f, -1.0f, 0.0f));
-	Collision::doWallCollision(&ModelH, player2_1, glm::vec3(0.0f, 1.0f, 0.0f));
-	player2_1->movePaddle();
+	Collision::doWallCollision(&ModelA, player3, glm::vec3(0.0f, -1.0f, 0.0f));
+	Collision::doWallCollision(&ModelH, player3, glm::vec3(0.0f, 1.0f, 0.0f));
+	player3->movePaddle();
 
 	// Prueft, ob das vierte Paddle (unten) mit einer Wand kollidiert
-	Collision::doWallCollision(&ModelG, player2_2, glm::vec3(-1.0f, 0.0f, 0.0f));
-	Collision::doWallCollision(&ModelB, player2_2, glm::vec3(1.0f, 0.0f, 0.0f));
-	player2_2->movePaddle();
+	Collision::doWallCollision(&ModelG, player4, glm::vec3(-1.0f, 0.0f, 0.0f));
+	Collision::doWallCollision(&ModelB, player4, glm::vec3(1.0f, 0.0f, 0.0f));
+	player4->movePaddle();
 
 	// Falls Punkte relevante Wand getroffen wird
 	if (Collision::checkCollision(&ModelLeftBorder, ball1)) {
@@ -195,10 +196,10 @@ void Szene2::drawSzene() {
 	Collision::doWallCollision(&ModelH, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	//Prueft, ob der Ball mit einem Paddle kollidiert ist
-	Collision::doPaddleCollision(player1_1, ball1, player1_1->getLocation());
-	Collision::doPaddleCollision(player1_2, ball1, player1_2->getLocation());
-	Collision::doPaddleCollision(player2_1, ball1, player2_1->getLocation());
-	Collision::doPaddleCollision(player2_2, ball1, player2_2->getLocation());
+	Collision::doPaddleCollision(player1, ball1, player1->getLocation());
+	Collision::doPaddleCollision(player2, ball1, player2->getLocation());
+	Collision::doPaddleCollision(player3, ball1, player3->getLocation());
+	Collision::doPaddleCollision(player4, ball1, player4->getLocation());
 
 	ball1->moveBall();
 
@@ -248,30 +249,30 @@ void Szene2::drawSzene() {
 }
 
 void Szene2::doInputPlayer1_1(glm::vec3 input) {
-	if (!(Collision::checkCollision(&ModelE, player1_1) ||
-		Collision::checkCollision(&ModelD, player1_1))) {
-		player1_1->setInput(input);
+	if (!(Collision::checkCollision(&ModelE, player1) ||
+		Collision::checkCollision(&ModelD, player1))) {
+		player2->setInput(input);
 	}
 }
 
 void Szene2::doInputPlayer1_2(glm::vec3 input) {
-	if (!(Collision::checkCollision(&ModelF, player1_2) ||
-		Collision::checkCollision(&ModelC, player1_2))) {
-		player1_2->setInput(input);
+	if (!(Collision::checkCollision(&ModelF, player2) ||
+		Collision::checkCollision(&ModelC, player2))) {
+		player2->setInput(input);
 	}
 }
 
 void Szene2::doInputPlayer2_1(glm::vec3 input) {
-	if (!(Collision::checkCollision(&ModelA, player2_1) ||
-		Collision::checkCollision(&ModelH, player2_1))) {
-		player2_1->setInput(input);
+	if (!(Collision::checkCollision(&ModelA, player3) ||
+		Collision::checkCollision(&ModelH, player3))) {
+		player3->setInput(input);
 	}
 }
 
 void Szene2::doInputPlayer2_2(glm::vec3 input) {
-	if (!(Collision::checkCollision(&ModelG, player2_2) ||
-		Collision::checkCollision(&ModelB, player2_2))) {
-		player2_2->setInput(input);
+	if (!(Collision::checkCollision(&ModelG, player4) ||
+		Collision::checkCollision(&ModelB, player4))) {
+		player4->setInput(input);
 	}
 }
 

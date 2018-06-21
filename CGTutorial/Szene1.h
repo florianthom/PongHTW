@@ -21,8 +21,6 @@ private:
 	glm::mat4 ModelRightBorder;
 	glm::mat4 ModelAll;
 	Ball* ball1;
-	Paddle* player1;
-	Paddle* player2;
 	const glm::vec3 PLAYER1POSITION = glm::vec3(26.0f, 0.0f, 0.0f);
 	const glm::vec3 PLAYER2POSITION = glm::vec3(-26.0f, 0.0f, 0.0f);
 	int player1Points;
@@ -47,5 +45,8 @@ public:
 	void lol();
 	void doInputPlayer1(glm::vec3 input);
 	void doInputPlayer2(glm::vec3 input);
+	Paddle* get_paddle_player1();
+	Paddle* get_paddle_player2();
+
 };
 

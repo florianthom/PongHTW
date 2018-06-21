@@ -59,6 +59,7 @@ glm::vec4 Paddle::getPaddleDownRightPosition() {
 	return Position::getRightLowPoint(&Model);
 }
 
+// l ist location also wo paddle ist: l: 0/2 ist z.B. links und rechts
 CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position , int l) {
 	programmID = id;
 	View = v;

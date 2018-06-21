@@ -30,10 +30,6 @@ private:
 	glm::vec3 Position;
 
 	Ball* ball1;
-	Paddle* player1_1;
-	Paddle* player1_2;
-	Paddle* player2_1;
-	Paddle* player2_2;
 	const glm::vec3 PLAYER1_1POSITION = glm::vec3(26.0f, 0.0f, 0.0f);
 	const glm::vec3 PLAYER1_2POSITION = glm::vec3(0.0f, 26.0f, 0.0f);
 	const glm::vec3 PLAYER2_1POSITION = glm::vec3(-26.0f, 0.0f, 0.0f);

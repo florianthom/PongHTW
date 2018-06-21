@@ -69,3 +69,29 @@ void State::write_one_row_match_history(int points_player0, int points_player1) 
 	std::cout << "\n";
 
 }
+// why ista return of player1 ? Your MUST have at least 1 player
+Paddle* State::get_paddle_player1() {
+	return player1;
+}
+
+// if player_number != 2 aka you have only 1 player -> this function will return NULL
+Paddle* State::get_paddle_player2() {
+	if (player_number > 1)
+		return player2;
+	else
+		return NULL;
+}
+
+Paddle* State::get_paddle_player3() {
+	if (player_number > 2)
+		return player3;
+	else
+		return NULL;
+}
+
+Paddle* State::get_paddle_player4() {
+	if (player_number > 3)
+		return player4;
+	else
+		return NULL;
+}
