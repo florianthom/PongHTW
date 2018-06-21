@@ -161,7 +161,7 @@ void MatchHistory::lol() {
 }
 void MatchHistory::enterState() {
 
-	write_one_row(5,3);
+	//write_one_row(5,3);
 
 
 }

@@ -1,5 +1,7 @@
 ﻿#include "Szene1.h"
 #include "objects.hpp"
+#include <windows.h> 
+#include <stdio.h> 
 
 // Beachten: translatieren translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach rechts gegangen
 // Beachten: translatieren translate(ModelLeftBorder, glm::vec3(79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach links gegangen
@@ -163,7 +165,9 @@ void Szene1::enterState() {
 }
 void Szene1::exitState() {
 	ball1->set_initial_position();
-	//cleanupText2D();
+	write_one_row_match_history(player1Points, player2Points);
+	write_one_row_highscore(std::to_string(player1Points));
+	write_one_row_highscore(std::to_string(player2Points));
 }
 
 void Szene1::doInputPlayer1(glm::vec3 input) {

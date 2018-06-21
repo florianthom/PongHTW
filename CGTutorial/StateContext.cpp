@@ -24,7 +24,7 @@ StateContext::~StateContext()
 void StateContext::set_state(State * new_state) {
 	
 		 //active_state->~State();
-	//active_state->exitState();
+	active_state->exitState();
 	//delete active_state;
 	std::cout << "hi" << std::endl;
 	new_state->enterState();

@@ -8,6 +8,8 @@
 #include "State.h"
 #include "Paddle.hpp"
 #include"text2D.h"
+#include <thread>
+
 #pragma once
 class Szene1 : public State
 {
