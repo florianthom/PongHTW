@@ -1,3 +1,5 @@
+// Got Renamed to Math History
+
 #include "Highscore.h"
 #include "objects.hpp"
 #include <fstream>
@@ -82,17 +84,17 @@ void Highscore::drawSzene() {
 	char headline[256];
 	sprintf(headline, "HIGHSCORES");
 	int y = 450 ;
-	printText2D(headline, 220, y, 40);
+	printText2D(headline, 200, y, 40);
 	glUseProgram(*programmID);
 
 
 	for (int i = 0; (i < highscore_vector.size() && i < 5); i++) { //
 		char text[256];
-		std::string tmp1 = std::to_string(highscore_vector[i]);
+		std::string tmp1 = std::to_string(int(highscore_vector[i]));
 		const char * tmp2 = tmp1.c_str();
-		sprintf(text, tmp2);
-		int y = 300 - (i*50);
-		printText2D(text, 270, y, 20);
+		sprintf(text,"%d. place: \t %10s",i+1, tmp2);
+		int y = 330 - (i*50);
+		printText2D(text, 170, y, 20);
 		glUseProgram(*programmID);
 }
 

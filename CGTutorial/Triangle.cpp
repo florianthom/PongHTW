@@ -77,23 +77,27 @@ void Triangle::drawSzene() {
 
 	char text0[256];
 	sprintf(text0, "MAIN MENU (1)");
-	printText2D(text0, 270, 250, 20);
+	printText2D(text0, 270, 350, 20);
 	glUseProgram(*programmID);
 	char text[256];
 	sprintf(text, "PLAY PONG (2)");
-	printText2D(text, 270, 200, 20);
+	printText2D(text, 270, 300, 20);
 	glUseProgram(*programmID);
 	char text2[256];
 	sprintf(text2, "PLAY PONG ADVANCED (3)");
-	printText2D(text2, 180, 150, 20);
+	printText2D(text2, 180, 250, 20);
 	glUseProgram(*programmID);
 	char text3[256];
 	sprintf(text3, "PLAY PONG IN real 3D (4)");
-	printText2D(text3, 160, 100, 20);
+	printText2D(text3, 160, 200, 20);
 	glUseProgram(*programmID);
 	char text4[256];
-	sprintf(text4, "HIGHSCORES (5)");
-	printText2D(text4, 270, 50, 20);
+	sprintf(text4, "Highscore (5)");
+	printText2D(text4, 270, 150, 20);
+	glUseProgram(*programmID);
+	char text5[256];
+	sprintf(text5, "Match History (6)");
+	printText2D(text5, 270, 100, 20);
 	glUseProgram(*programmID);
 
 

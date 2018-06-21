@@ -37,6 +37,8 @@
 #include "StateContext.h"
 #include <thread>
 #include "Highscore.h"
+#include "MatchHistory.h"
+
 
 
 
@@ -125,6 +127,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	else if(key == GLFW_KEY_5 && action == GLFW_RELEASE){
 		state_context->set_state(new Highscore(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
+
+	}
+	else if (key == GLFW_KEY_6 && action == GLFW_RELEASE) {
+		state_context->set_state(new MatchHistory(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
 
