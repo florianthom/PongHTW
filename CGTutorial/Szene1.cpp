@@ -182,5 +182,5 @@ void Szene1::doInputPlayer2(glm::vec3 input) {
 		Collision::checkCollision(&ModelButtomBorder, player2))) {
 		player2->setInput(input);
 	}
-
+	
 }
