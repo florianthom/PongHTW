@@ -110,48 +110,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 
 	if (key == GLFW_KEY_1 && action == GLFW_RELEASE) {
-		state_context->set_state(new Triangle(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
+		state_context->set_state(triangle1);
 
 	}
 	else if (key == GLFW_KEY_2 && action == GLFW_RELEASE) {
 		//state_context->set_state(szene1);
-		state_context->set_state(new Szene1(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(),1));
+		state_context->set_state(new Szene1(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
 	else if (key == GLFW_KEY_3 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene1);
-		state_context->set_state(new Szene1(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(),2));
+		state_context->set_state(szene2);
 
 	}
 	else if (key == GLFW_KEY_4 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
-		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(),1));
+		state_context->set_state(szene3);
 
 	}
-	else if (key == GLFW_KEY_5 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
-		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 2));
-
-	}
-	else if (key == GLFW_KEY_6 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
-		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 3));
-
-	}
-	else if (key == GLFW_KEY_7 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
-		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 4));
-
-	}
-	else if (key == GLFW_KEY_8 && action == GLFW_RELEASE) {
-		state_context->set_state(new Szene3(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
-
-	}
-	else if(key == GLFW_KEY_9 && action == GLFW_RELEASE){
+	else if(key == GLFW_KEY_5 && action == GLFW_RELEASE){
 		state_context->set_state(new Highscore(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
-	else if (key == GLFW_KEY_0 && action == GLFW_RELEASE) {
+	else if (key == GLFW_KEY_6 && action == GLFW_RELEASE) {
 		state_context->set_state(new MatchHistory(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
@@ -533,8 +512,8 @@ int main(void)
 	double lastTime = 0.0;
 
 	
-	szene2 = new Szene2(&programID, &View, &Projection, 1,1);
-	szene1 = new Szene1(&programID, &View, &Projection, 1,2);
+	szene2 = new Szene2(&programID, &View, &Projection, 1);
+	szene1 = new Szene1(&programID, &View, &Projection, 1);
 
 	szene3 = new Szene3(&programID, &View, &Projection, 1);
 	triangle1 = new Triangle(&programID, &View, &Projection, 1);

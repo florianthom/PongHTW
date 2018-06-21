@@ -9,8 +9,7 @@
 // DAS HEIST: ALLE NAMEN MIT LEFT BORDER ZUM BEISPIEL STIMMEN NICHT -> RICHTUNG MUSS IMMER UMGEKEHRT GENOMMEN WERDEN UM TATSÄCHLICHE TRANSLATIONSRICHTUNG ZU BEKOMMEN
 // BIESPIEL: ModelRightBorder SPRICHT DIE LINKEBORDER AN -> MAN NIMMT MODELRIGHTMODER WEG D.h. linke Border geht weg
 
-
-Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara) : State()
+Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara,int player_number) : State()
 {
 	View = v;
 	Projection = p;
@@ -20,33 +19,32 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelButtomBorder = glm::mat4(1.0f);
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
-
 	ball1 = new Ball(programmID, View, Projection);
 	ball1->set_initial_position();
 	//// Integerwert am Ende gibt die Position des Paddles an: 0 -> links, 1 -> oben, 2 -> rechts, 3 -> unten
-	player1 = new CPUPaddle(programID, v, p, PLAYER1POSITION, 0);
-	//player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
-	player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
+	
+	player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+	if(player_number==2)
+		player2 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+	else
+		player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
+
 	player1Points = 0;
 	player2Points = 0;
-
-
-
 	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
 	ModelTopBorder = glm::translate(ModelTopBorder, glm::vec3(0, 30.0 * groesse, 0.0));
-
 	ModelButtomBorder = glm::scale(ModelButtomBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
 	ModelButtomBorder = glm::translate(ModelButtomBorder, glm::vec3(0, -30.0 * groesse, 0.0));
-
 	// mitte = wie viel , vec3=Achse um die gedreht werden soll
 	ModelRightBorder = glm::scale(ModelRightBorder, glm::vec3(1.0 / 40.0, 0.75 * groesse, 1.0 / 40.0));
 	ModelRightBorder = glm::translate(ModelRightBorder, glm::vec3(79 * groesse, 0.0, 0.0));
-
 	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(1.0 / 40.0, 0.75 * groesse, 1.0 / 40.0));
 	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0));
-
+	std::cout << "sdfghdffgsdghfdsaghdfghjkdhgjdafsghjkasdfghjdasfhjasdfghjdasfhjdfdfghjdghddfghdhdsfahjdsfghdf" << std::endl;
 	initText2D("Holstein.DDS");
 }
+
+
 
 void Szene1::printMat4(glm::mat4 matrix) {
 

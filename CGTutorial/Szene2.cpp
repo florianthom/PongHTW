@@ -2,7 +2,7 @@
 #include "objects.hpp"
 
 
-Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
+Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int player_number) : State()
 {
 	programmID = programID;
 	View = v;
@@ -26,10 +26,32 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : 
 	ModelH = glm::mat4(1.0f);
 
 	ball1 = new Ball(programmID, v, p);
-	player1_1 = new CPUPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-	player1_2 = new CPUPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-	player2_1 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-	player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+	
+	if (player_number == 1) {
+		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player1_2 = new CPUPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player2_1 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+	}
+	else if (player_number == 2) {
+		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player1_2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player2_1 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+	}
+	else if (player_number == 3) {
+		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player1_2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player2_1 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player2_2 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+	}
+	else if (player_number == 4) {
+		player1_1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
+		player1_2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
+		player2_1 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
+		player2_2 = new PlayerPaddle(programID, v, p, PLAYER2_2POSITION, 3);
+	}
+	
 	player1Points = 0;
 	player2Points = 0;
 
@@ -89,6 +111,9 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : 
 
 	ModelH = glm::translate(ModelH, glm::vec3(0.0, -39 * groesse, 0.0));
 	ModelH = glm::translate(ModelH, glm::vec3(-2.81 * groesse, 0.0, 0.0));
+
+	std::cout << "sdfghdffgsdghfdsaghdfghjkdhgjdafsghjkasdfghjdasfhjasdfghjdasfhjdfdfghjdghddfghdhdsfahjdsfghdf" << std::endl;
+
 }
 
 

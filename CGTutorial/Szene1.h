@@ -36,7 +36,7 @@ private:
 	void sendModel(glm::mat4 ModelToSend);
 	void resetScene();
 public:
-	Szene1(GLuint * programID, glm::mat4* v, glm::mat4* p, double groesse);
+	Szene1(GLuint * programID, glm::mat4* v, glm::mat4* p, double groesse, int player);
 	~Szene1();
 	virtual void drawSzene();
 

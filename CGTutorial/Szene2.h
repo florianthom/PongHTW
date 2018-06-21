@@ -48,7 +48,7 @@ private:
 	void resetScene();
 	void sendModel(glm::mat4 ModelToSend);
 public:
-	Szene2(GLuint* programID,glm::mat4* v, glm::mat4* p, double groesse);
+	Szene2(GLuint* programID,glm::mat4* v, glm::mat4* p, double groesse, int player_number);
 	~Szene2();
 	void drawSzene();
 	void doInputPlayer1_1(glm::vec3 input);
