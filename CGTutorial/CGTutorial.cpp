@@ -67,7 +67,8 @@ bool r_pressed = false;
 bool e_pressed = false;
 bool w_pressed = false;
 bool a_pressed = false;
-
+bool k_pressed = false;
+bool l_pressed = false;
 bool s_pressed = false;
 
 
@@ -115,7 +116,8 @@ void test_function_w_pressed() {
 void get_up() {
 	while (a_pressed) {
 		std::cout << "" << std::endl;
-		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 0);
+		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
 	}
 
 }
@@ -123,7 +125,22 @@ void get_up() {
 void get_down() {
 	while (s_pressed) {
 		std::cout << "" << std::endl;
-		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 0);
+		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+	}
+}
+
+void get_up_p2() {
+	while (k_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 2);
+	}
+}
+
+void get_down_p2() {
+	while (l_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 2);
 	}
 }
 
@@ -182,11 +199,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
 		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
 			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));*/
-		if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 			a_pressed = true;
 			std::thread t1(get_up); //, glm::vec3(0.0f, 1.0f, 0.0f
 			t1.detach();
-		}
+		//}
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_RELEASE) {
 		a_pressed = false;
@@ -194,23 +211,43 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
 		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
 			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
-		if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 			s_pressed = true;
 			std::thread t1(get_down); //, glm::vec3(0.0f, 1.0f, 0.0f
 			t1.detach();
-		}
+		//}
 	}
 	else if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
 		s_pressed = false;
 	}
 
+	else if (key == GLFW_KEY_K && action == GLFW_PRESS) {
+		k_pressed = true;
+		std::thread t1(get_up_p2);
+		t1.detach();
+	}
+
+	else if (key == GLFW_KEY_K && action == GLFW_RELEASE) {
+		k_pressed = false;
+	}
+
+	else if (key == GLFW_KEY_L && action == GLFW_PRESS) {
+		l_pressed = true;
+		std::thread t1(get_down_p2);
+		t1.detach();
+	}
+
+	else if (key == GLFW_KEY_L && action == GLFW_RELEASE) {
+		l_pressed = false;
+	}
+
 	else if (key == GLFW_KEY_F && action == GLFW_PRESS) {
-		if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
-			state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));
+		//if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
+			//state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 	else if (key == GLFW_KEY_G && action == GLFW_PRESS) {
-		if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
-			state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));
+		//if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
+			//state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));
 	}
 
 
@@ -590,8 +627,8 @@ int main(void)
 	double lastTime = 0.0;
 
 	
-	szene2 = new Szene2(&programID, &View, &Projection, 1,1);
-	szene1 = new Szene1(&programID, &View, &Projection, 1,2);
+	//szene2 = new Szene2(&programID, &View, &Projection, 1,1);
+	//szene1 = new Szene1(&programID, &View, &Projection, 1,2);
 
 	szene3 = new Szene3(&programID, &View, &Projection, 1);
 	triangle1 = new Triangle(&programID, &View, &Projection, 1);
@@ -652,7 +689,7 @@ int main(void)
 			// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
 			sendMVP();
 			glBindTexture(GL_TEXTURE_2D, TextureMandrill);
-			drawCS();
+			//drawCS();
 
 
 			//drawCube();

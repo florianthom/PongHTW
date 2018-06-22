@@ -20,15 +20,6 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelButtomBorder = glm::mat4(1.0f);
 	ModelLeftBorder = glm::mat4(1.0f);
 	ModelRightBorder = glm::mat4(1.0f);
-	ball1 = new Ball(programmID, View, Projection);
-	ball1->set_initial_position();
-	//// Integerwert am Ende gibt die Position des Paddles an: 0 -> links, 1 -> oben, 2 -> rechts, 3 -> unten
-	
-	player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
-	if(player_number==2)
-		player2 = new PlayerPaddle(programID, v, p, PLAYER2POSITION, 0);
-	else
-		player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
 
 	player1Points = 0;
 	player2Points = 0;
@@ -43,6 +34,22 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0));
 	std::cout << "sdfghdffgsdghfdsaghdfghjkdhgjdafsghjkasdfghjdasfhjasdfghjdasfhjdfdfghjdghddfghdhdsfahjdsfghdf" << std::endl;
 	initText2D("Holstein.DDS");
+
+	ball1 = new Ball(programmID, View, Projection);
+	ball1->set_initial_position();
+	//// Integerwert am Ende gibt die Position des Paddles an: 0 -> links, 1 -> oben, 2 -> rechts, 3 -> unten
+	switch (player_number)
+	{
+	case 1:	player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+			player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
+			break;
+	case 2:	player1 = new PlayerPaddle(programID, v, p, PLAYER1POSITION, 0);
+			player2 = new PlayerPaddle(programID, v, p, PLAYER2POSITION, 2);
+			break;
+	default:
+			player1 = new CPUPaddle(programID, v, p, PLAYER1POSITION, 0);
+			player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
+	}
 }
 
 
@@ -182,6 +189,30 @@ void Szene1::doInputPlayer2(glm::vec3 input) {
 		player2->setInput(input);
 	}
 	
+}
+
+void Szene1::doPlayerInput(glm::vec3 input, int location) {
+	switch (location)
+	{
+	case 0:
+		if (!(Collision::checkCollision(&ModelTopBorder, player1) ||
+			Collision::checkCollision(&ModelButtomBorder, player1))) {
+			player1->setInput(input);
+		}
+		break;
+	case 1:
+		break;
+	case 2:
+		if (!(Collision::checkCollision(&ModelTopBorder, player2) ||
+			Collision::checkCollision(&ModelButtomBorder, player2))) {
+			player2->setInput(input);
+		}
+		break;
+	case 3:
+		break;
+	default:
+		printf("Ungueltige Position");
+	}
 }
 
 

@@ -36,7 +36,10 @@ private:
 	const glm::vec3 PLAYER2_2POSITION = glm::vec3(0.0f, -26.0f, 0.0f);
 	int player1Points;
 	int player2Points;
-
+	Paddle* player1_1;
+	Paddle* player1_2;
+	Paddle* player2_1;
+	Paddle* player2_2;
 	double width;
 	double height;
 	double depth;
@@ -51,6 +54,7 @@ public:
 	void doInputPlayer1_2(glm::vec3 input);
 	void doInputPlayer2_1(glm::vec3 input);
 	void doInputPlayer2_2(glm::vec3 input);
+	void doPlayerInput(glm::vec3 input, int location);
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
 	void enterState();

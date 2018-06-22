@@ -23,6 +23,8 @@ private:
 	Ball* ball1;
 	const glm::vec3 PLAYER1POSITION = glm::vec3(26.0f, 0.0f, 0.0f);
 	const glm::vec3 PLAYER2POSITION = glm::vec3(-26.0f, 0.0f, 0.0f);
+	Paddle* player1;
+	Paddle* player2;
 	int player1Points;
 	int player2Points;
 	char text[256];
@@ -45,8 +47,6 @@ public:
 	void lol();
 	void doInputPlayer1(glm::vec3 input);
 	void doInputPlayer2(glm::vec3 input);
-	Paddle* get_paddle_player1();
-	Paddle* get_paddle_player2();
-
+	void doPlayerInput(glm::vec3 input, int location);
 };
 

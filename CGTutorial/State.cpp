@@ -70,12 +70,12 @@ void State::write_one_row_match_history(int points_player0, int points_player1) 
 
 }
 // why ista return of player1 ? Your MUST have at least 1 player
-Paddle* State::get_paddle_player1() {
+/*Paddle* State::get_paddle_player1() {
 	return player1;
-}
+}*/
 
 // if player_number != 2 aka you have only 1 player -> this function will return NULL
-Paddle* State::get_paddle_player2() {
+/*Paddle* State::get_paddle_player2() {
 	if (player_number > 1)
 		return player2;
 	else
@@ -94,4 +94,8 @@ Paddle* State::get_paddle_player4() {
 		return player4;
 	else
 		return NULL;
+}*/
+
+void State::doPlayerInput(glm::vec3 input, int location) {
+	printf("Hier bin ich falsch");
 }

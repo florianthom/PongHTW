@@ -64,7 +64,6 @@ CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position 
 	programmID = id;
 	View = v;
 	Projection = p;
-	//Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
 	this->position = position;
 	int start = rand() % 100;
 	if (l == 0 || l == 2) {
@@ -153,9 +152,14 @@ PlayerPaddle::PlayerPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 pos
 	programmID = id;
 	View = v;
 	Projection = p;
-	Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
-	Model = glm::translate(Model, position);
 	this->position = position;
+
+	if (l == 0 || l == 2) {
+		Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
+	}
+	else {
+		Model = glm::scale(Model, glm::vec3(SCALEY, SCALEX, SCALEZ));
+	}
 
 	switch (l)
 	{
@@ -175,6 +179,7 @@ PlayerPaddle::PlayerPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 pos
 	}
 
 	location = l;
+	Model = glm::translate(Model, position);
 }
 
 PlayerPaddle::~PlayerPaddle() {};
@@ -189,6 +194,6 @@ void PlayerPaddle::setInput(glm::vec3 input){
 	distance = VELOCITY * time;
 	input *= distance;
 	Model = glm::translate(Model, input);
-	sendMVP();
-	drawCube();
+	//sendMVP();
+	//drawCube();
 };

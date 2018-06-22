@@ -40,7 +40,6 @@ void StateContext::drawSzene()
 {
 	if (active_state) {
 		active_state->drawSzene();
-
 	}
 }
 
