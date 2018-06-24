@@ -84,24 +84,6 @@ CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position 
 		}
 		Model = glm::scale(Model, glm::vec3(SCALEY, SCALEX, SCALEZ));
 	}
-	/*if (start < 50) {
-		if (l == 0 || l == 2) {
-			Model = glm::scale(Model, glm::vec3(SCALEX, SCALEY, SCALEZ));
-			direction = glm::vec3(0.0f, -1.0f, 0.0f);
-		}
-		else {
-			Model = glm::scale(Model, glm::vec3(SCALEY, SCALEX, SCALEZ));
-			direction = glm::vec3(-1.0f, 0.0f, 0.0f);
-		}
-	}
-	else {
-		if (l == 0 || l == 2) {
-			direction = glm::vec3(0.0f, 1.0f, 0.0f);
-		}
-		else {
-			direction = glm::vec3(1.0f, 0.0f, 0.0f);
-		}
-	}*/
 
 	switch (l)
 	{
@@ -133,6 +115,7 @@ void CPUPaddle::movePaddle(){
 	//lastTime = glfwGetTime();
 	distance = VELOCITY * time;
 	tmpDirection *= distance;
+	tmpDirection /= 10.0f;
 	Model = glm::translate(Model, tmpDirection);
 	sendMVP();
 	drawCube();
@@ -194,6 +177,4 @@ void PlayerPaddle::setInput(glm::vec3 input){
 	distance = VELOCITY * time;
 	input *= distance;
 	Model = glm::translate(Model, input);
-	//sendMVP();
-	//drawCube();
 };

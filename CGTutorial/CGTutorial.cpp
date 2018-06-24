@@ -65,11 +65,17 @@ float angle_y = 0.0f;
 float angle_z = 0.0f;
 bool r_pressed = false;
 bool e_pressed = false;
+
 bool w_pressed = false;
 bool a_pressed = false;
+bool s_pressed = false;
+bool d_pressed = false;
+
+bool i_pressed = false;
+bool j_pressed = false;
 bool k_pressed = false;
 bool l_pressed = false;
-bool s_pressed = false;
+
 
 
 
@@ -85,7 +91,7 @@ void error_callback(int error, const char* description)
 
 
 
-void test_function_r_pressed() {
+/*void test_function_r_pressed() {
 	int i = 0;
 	while(r_pressed){
 		std::cout << "" << std::endl;
@@ -110,16 +116,30 @@ void test_function_w_pressed() {
 		angle_z += 0.001;
 		i++;
 	}
-}
+}*/
 
 
 void get_up() {
-	while (a_pressed) {
+	while (w_pressed) {
 		std::cout << "" << std::endl;
 		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 0);
 		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
 	}
 
+}
+
+void go_left() {
+	while (a_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 1);
+	}
+}
+
+void go_right() {
+	while (d_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.001f, 0.0f, 0.0f), 1);
+	}
 }
 
 void get_down() {
@@ -131,14 +151,28 @@ void get_down() {
 }
 
 void get_up_p2() {
-	while (k_pressed) {
+	while (i_pressed) {
 		std::cout << "" << std::endl;
 		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 2);
 	}
 }
 
-void get_down_p2() {
+void go_left2() {
+	while (j_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 3);
+	}
+}
+
+void go_right2() {
 	while (l_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.001f, 0.0f, 0.0f), 3);
+	}
+}
+
+void get_down_p2() {
+	while (k_pressed) {
 		std::cout << "" << std::endl;
 		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 2);
 	}
@@ -196,12 +230,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	///////////////////////////////////// PADDLE CONTROL///////////////////////////////////////////
 
+	// Player 1 Paddles
+	else if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+		w_pressed = true;
+		std::thread t1(get_up);
+		t1.detach();
+	}
+
+	else if (key == GLFW_KEY_W && action == GLFW_RELEASE) {
+		w_pressed = false;
+	}
+
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
 		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
 			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));*/
 		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 			a_pressed = true;
-			std::thread t1(get_up); //, glm::vec3(0.0f, 1.0f, 0.0f
+			std::thread t1(go_left); //, glm::vec3(0.0f, 1.0f, 0.0f
 			t1.detach();
 		//}
 	}
@@ -221,9 +266,40 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		s_pressed = false;
 	}
 
+	else if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+		d_pressed = true;
+		std::thread t1(go_right);
+		t1.detach();
+	}
+
+	else if (key == GLFW_KEY_D && action == GLFW_RELEASE) {
+		d_pressed = false;
+	}
+
+	// Player 2 Paddles
+	else if (key == GLFW_KEY_I && action == GLFW_PRESS) {
+		i_pressed = true;
+		std::thread t1(get_up_p2);
+		t1.detach();
+	}
+
+	else if (key == GLFW_KEY_I && action == GLFW_RELEASE) {
+		i_pressed = false;
+	}
+
+	else if (key == GLFW_KEY_J && action == GLFW_PRESS) {
+		j_pressed = true;
+		std::thread t1(go_left2);
+		t1.detach();
+	}
+
+	else if (key == GLFW_KEY_J && action == GLFW_RELEASE) {
+		j_pressed = false;
+	}
+
 	else if (key == GLFW_KEY_K && action == GLFW_PRESS) {
 		k_pressed = true;
-		std::thread t1(get_up_p2);
+		std::thread t1(get_down_p2);
 		t1.detach();
 	}
 
@@ -233,7 +309,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	else if (key == GLFW_KEY_L && action == GLFW_PRESS) {
 		l_pressed = true;
-		std::thread t1(get_down_p2);
+		std::thread t1(go_right2);
 		t1.detach();
 	}
 
@@ -253,7 +329,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 
 
-	else if (key == GLFW_KEY_R &&  (action==GLFW_PRESS)) {
+	/*else if (key == GLFW_KEY_R &&  (action==GLFW_PRESS)) {
 		//angle_y = angle_y + 5.0f;
 		r_pressed = true;
 		std::thread t1(test_function_r_pressed);
@@ -285,7 +361,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	else if (key == GLFW_KEY_W && (action == GLFW_RELEASE)) {
 		w_pressed = false;
 
-	}
+	}*/
 	else if (key == GLFW_KEY_ESCAPE &&  action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}

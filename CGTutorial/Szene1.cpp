@@ -35,8 +35,18 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	std::cout << "sdfghdffgsdghfdsaghdfghjkdhgjdafsghjkasdfghjdasfhjasdfghjdasfhjdfdfghjdghddfghdhdsfahjdsfghdf" << std::endl;
 	initText2D("Holstein.DDS");
 
-	ball1 = new Ball(programmID, View, Projection);
-	ball1->set_initial_position();
+	ModelAll = new glm::mat4[4];
+	ModelAll[0] = ModelRightBorder;
+	ModelAll[1] = ModelTopBorder;
+	ModelAll[2] = ModelLeftBorder;
+	ModelAll[3] = ModelButtomBorder;
+
+	normals = new glm::vec3[4];
+	normals[0] = glm::vec3(-1.0f, 0.0f, 0.0f);
+	normals[1] = glm::vec3(0.0f, -1.0f, 0.0f);
+	normals[2] = glm::vec3(1.0f, 0.0f, 0.0f);
+	normals[3] = glm::vec3(0.0f, 1.0f, 0.0f);
+	
 	//// Integerwert am Ende gibt die Position des Paddles an: 0 -> links, 1 -> oben, 2 -> rechts, 3 -> unten
 	switch (player_number)
 	{
@@ -50,6 +60,9 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 			player1 = new CPUPaddle(programID, v, p, PLAYER1POSITION, 0);
 			player2 = new CPUPaddle(programID, v, p, PLAYER2POSITION, 2);
 	}
+
+	ball1 = new Ball(programmID, View, Projection);
+	ball1->set_initial_position();
 }
 
 
@@ -97,44 +110,49 @@ void Szene1::setMVP(glm::mat4* v, glm::mat4* p) {
 	//sendModel();
 }
 void Szene1::drawSzene() {
-	/*Model = glm::translate(Model, move);
-	sendModel();
-	drawSphere(10, 10);*/
-	//std::cout << ModelTopBorder << std::endl;
-	//printMat4(ModelTopBorder);
+	
 	sendModel(glm::mat4(1.0f));
+	for (int i = 0; i < 10; i++) {
+		//// Prueft, ob das erste Paddle mit einer Wand kollidiert und reagiert
+		Collision::doWallCollision(&ModelTopBorder, player1, glm::vec3(0.0f, -1.0f, 0.0f));
+		Collision::doWallCollision(&ModelButtomBorder, player1, glm::vec3(0.0f, 1.0f, 0.0f));
+		player1->movePaddle();
 
-	//// Prueft, ob das erste Paddle mit einer Wand kollidiert und reagiert
-	Collision::doWallCollision(&ModelTopBorder, player1, glm::vec3(0.0f, -1.0f, 0.0f));
-	Collision::doWallCollision(&ModelButtomBorder, player1, glm::vec3(0.0f, 1.0f, 0.0f));
-	player1->movePaddle();
+		// Prueft, ob das zweite Paddle mit eíner Wand kollidiert und reagiert
+		Collision::doWallCollision(&ModelTopBorder, player2, glm::vec3(0.0f, -1.0f, 0.0f));
+		Collision::doWallCollision(&ModelButtomBorder, player2, glm::vec3(0.0f, 1.0f, 0.0f));
+		player2->movePaddle();
 
-	//// Prueft, ob das zweite Paddle mit eíner Wand kollidiert und reagiert
-	Collision::doWallCollision(&ModelTopBorder, player2, glm::vec3(0.0f, -1.0f, 0.0f));
-	Collision::doWallCollision(&ModelButtomBorder, player2, glm::vec3(0.0f, 1.0f, 0.0f));
-	player2->movePaddle();
+		// Prueft, ob Ball mit einer der Waenden kollidiert und reagiert
+		//std::thread threads[4];
+		// Prueft, ob mit einer Wand kollidiert wird
+		//threads[0] = std::thread(Collision::doWallBallCollision, &ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
+		//threads[1] = std::thread(Collision::doWallBallCollision, &ModelButtomBorder, ball1, glm::vec3(0.0f,1.0f, 0.0f));
+		Collision::doWallBallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
+		Collision::doWallBallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
 
-	//// Prueft, ob Ball mit einer der Waenden kollidiert und reagiert
-	Collision::doWallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
-	Collision::doWallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
-	Collision::doWallCollision(&ModelLeftBorder, ball1, glm::vec3(1.0f, 0.0f, 0.0f));
+		if (Collision::checkCollision(&ModelRightBorder, ball1)) {
+			++player2Points;
+			this->resetScene();
+		}
 
-	if (Collision::checkCollision(&ModelRightBorder, ball1)) {
-		++player2Points;
-		this->resetScene();
+		if (Collision::checkCollision(&ModelLeftBorder, ball1)) {
+			++player1Points;
+			this->resetScene();
+		}
+
+		//// Prueft, ob der Ball mit einem Paddle zusammengestoßen ist
+		//threads[2] = std::thread(Collision::doPaddleCollision, player1, ball1, player1->getLocation());
+		//threads[3] = std::thread(Collision::doPaddleCollision, player2, ball1, player2->getLocation());
+		Collision::doPaddleCollision(player1, ball1, player1->getLocation());
+		Collision::doPaddleCollision(player2, ball1, player2->getLocation());
+		// Threads wieder zusammenfuehren
+		/*for (int i = 0; i < 4; i++) {
+			if (threads[i].joinable())
+				threads[i].join();
+		}*/
+		ball1->moveBall();
 	}
-
-	if (Collision::checkCollision(&ModelLeftBorder, ball1)) {
-		++player1Points;
-		this->resetScene();
-	}
-	Collision::doWallCollision(&ModelRightBorder, ball1, glm::vec3(-1.0f, 0.0f, 0.0f));
-
-	//// Prueft, ob der Ball mit einem Paddle zusammengestoßen ist
-	Collision::doPaddleCollision(player1, ball1, player1->getLocation());
-	Collision::doPaddleCollision(player2, ball1, player2->getLocation());
-
-	ball1->moveBall();
 
 
 	sendModel(ModelTopBorder);
@@ -176,21 +194,6 @@ void Szene1::exitState() {
 	write_one_row_highscore(std::to_string(player2Points));
 }
 
-void Szene1::doInputPlayer1(glm::vec3 input) {
-	if (!(Collision::checkCollision(&ModelTopBorder, player1) ||
-		Collision::checkCollision(&ModelButtomBorder, player1))) {
-		player1->setInput(input);
-	}
-};
-
-void Szene1::doInputPlayer2(glm::vec3 input) {
-	if (!(Collision::checkCollision(&ModelTopBorder, player2) ||
-		Collision::checkCollision(&ModelButtomBorder, player2))) {
-		player2->setInput(input);
-	}
-	
-}
-
 void Szene1::doPlayerInput(glm::vec3 input, int location) {
 	switch (location)
 	{
@@ -199,6 +202,15 @@ void Szene1::doPlayerInput(glm::vec3 input, int location) {
 			Collision::checkCollision(&ModelButtomBorder, player1))) {
 			player1->setInput(input);
 		}
+		else {
+			if (Collision::checkCollision(&ModelTopBorder, player1)) {
+				player1->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+			}
+			else {
+				player1->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+			}
+		}
+
 		break;
 	case 1:
 		break;
@@ -206,6 +218,14 @@ void Szene1::doPlayerInput(glm::vec3 input, int location) {
 		if (!(Collision::checkCollision(&ModelTopBorder, player2) ||
 			Collision::checkCollision(&ModelButtomBorder, player2))) {
 			player2->setInput(input);
+		}
+		else {
+			if (Collision::checkCollision(&ModelTopBorder, player2)) {
+				player2->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+			}
+			else {
+				player2->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+			}
 		}
 		break;
 	case 3:

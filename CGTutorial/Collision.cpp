@@ -62,7 +62,7 @@ bool Collision::checkCollision(Paddle* paddle, Ball* ball, int location) {
 	return collisionX && collisionY;
 }
 
-void Collision::doWallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal) {
+void Collision::doWallBallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal) {
 	if (checkCollision(border, ball)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
 		ballDirection = glm::normalize(ballDirection);

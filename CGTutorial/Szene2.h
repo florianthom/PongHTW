@@ -50,10 +50,6 @@ public:
 	Szene2(GLuint* programID,glm::mat4* v, glm::mat4* p, double groesse, int player_number);
 	~Szene2();
 	void drawSzene();
-	void doInputPlayer1_1(glm::vec3 input);
-	void doInputPlayer1_2(glm::vec3 input);
-	void doInputPlayer2_1(glm::vec3 input);
-	void doInputPlayer2_2(glm::vec3 input);
 	void doPlayerInput(glm::vec3 input, int location);
 
 	void setMVP(glm::mat4* v, glm::mat4* p);

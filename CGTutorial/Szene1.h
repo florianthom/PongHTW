@@ -19,7 +19,8 @@ private:
 	glm::mat4 ModelButtomBorder;
 	glm::mat4 ModelLeftBorder;
 	glm::mat4 ModelRightBorder;
-	glm::mat4 ModelAll;
+	glm::mat4* ModelAll;
+	glm::vec3* normals;
 	Ball* ball1;
 	const glm::vec3 PLAYER1POSITION = glm::vec3(26.0f, 0.0f, 0.0f);
 	const glm::vec3 PLAYER2POSITION = glm::vec3(-26.0f, 0.0f, 0.0f);
@@ -45,8 +46,6 @@ public:
 	void enterState();
 	void exitState();
 	void lol();
-	void doInputPlayer1(glm::vec3 input);
-	void doInputPlayer2(glm::vec3 input);
 	void doPlayerInput(glm::vec3 input, int location);
 };
 

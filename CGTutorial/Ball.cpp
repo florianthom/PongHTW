@@ -4,7 +4,7 @@
 
 Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 {
-	x = (rand() % 100);
+	x = (rand() % 101);
 	x /= 100;
 	x += 0.2f;
 	y = 1 - x;
@@ -15,18 +15,6 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 	direction = glm::vec3(x, y, 0.0f);
 	time = GlobalTime::getGobalTime();
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
-}
-
-Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, glm::vec3 newPos) {
-	x = (rand() % 100);
-	x /= 100;
-	y = 1 - x;
-	programmID = programID;
-	Model = glm::mat4(1.0f);
-	direction = glm::vec3(x, y, 0.0f);
-	time = GlobalTime::getGobalTime();
-	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
-	Model = glm::translate(Model, newPos);
 }
 
 Ball::~Ball()
@@ -69,12 +57,10 @@ void Ball::resetBall() {
 }
 
 void Ball::moveBall() {
-
 	glm::vec3 tmpDirect = direction;
 	distance = velocity * time;
-	tmpDirect.x *= distance;
-	tmpDirect.y *= distance;
-	tmpDirect.z *= distance;
+	tmpDirect *= distance;
+	tmpDirect /= 10.0f;
 	Model = glm::translate(Model, tmpDirect);
 	sendModel();
 	drawSphere(10,10);
@@ -83,7 +69,6 @@ void Ball::moveBall() {
 glm::vec3 Ball::getCurrentDirection() {
 	return direction;
 }
-
 
 void Ball::changeDirection(glm::vec3 newDirect) {
 	direction = newDirect;
