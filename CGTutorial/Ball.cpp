@@ -17,6 +17,24 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
 }
 
+Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p,bool threeD)
+{
+	x = (rand() % 101);
+	x /= 100;
+	x += 0.2f;
+	y = 1 - x;
+	z = (rand() % 15);
+	programmID = programID;
+	Model = glm::mat4(1.0f);
+	View = v;
+	Projection = p;
+	direction = glm::vec3(x, y, z);
+	time = GlobalTime::getGobalTime();
+	Model = glm::translate(Model,glm::vec3(0.0f,0.0f,-4.30f));
+
+	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
+}
+
 Ball::~Ball()
 {
 	//Model= glm::mat4(1.0f);
@@ -94,4 +112,6 @@ glm::vec4 Ball::getBallDownRightPosition() {
 	return Position::getRightLowPoint(&Model);
 }
 
-
+glm::vec4 Ball::getBallDownRightBehindPosition() {
+	return Position::getRightBehindLowPoint(&Model);
+}

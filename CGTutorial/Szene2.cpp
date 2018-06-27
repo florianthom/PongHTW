@@ -26,6 +26,9 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int
 	ModelG = glm::mat4(1.0f);
 	ModelH = glm::mat4(1.0f);
 
+	initText2D("Holstein.DDS");
+
+
 	
 	
 	/*if (player_number == 1) {
@@ -132,8 +135,6 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int
 	}
 
 	ball1 = new Ball(programmID, v, p);
-
-	std::cout << "sdfghdffgsdghfdsaghdfghjkdhgjdafsghjkasdfghjdasfhjasdfghjdasfhjdfdfghjdghddfghdhdsfahjdsfghdf" << std::endl;
 
 }
 
@@ -269,6 +270,10 @@ void Szene2::drawSzene() {
 
 	sendModel(ModelH);
 	drawCube();
+
+	sprintf(text, "Player1: %d  :  Player2: %d", player1Points, player2Points);
+	printText2D(text, 90, 100, 25);
+	glUseProgram(*programmID);
 }
 
 void Szene2::doPlayerInput(glm::vec3 input, int location) {

@@ -59,6 +59,8 @@ glm::vec4 Paddle::getPaddleDownRightPosition() {
 	return Position::getRightLowPoint(&Model);
 }
 
+void Paddle::movePaddle3D() {};// hook method
+
 // l ist location also wo paddle ist: l: 0/2 ist z.B. links und rechts
 CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position , int l) {
 	programmID = id;
@@ -106,6 +108,30 @@ CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position 
 	Model = glm::translate(Model, position);
 	location = l;
 }
+
+
+CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position, int l, bool threeD) {
+	programmID = id;
+	View = v;
+	Projection = p;
+	this->position = position;
+	int start = rand() % 100;
+
+	normal = glm::vec3(0.0f, 0.0f, -1.0f);
+
+	if (start < 50) {
+		direction = glm::vec3(1.0f, 1.0f, 0.0f);
+	}
+	else {
+		direction = glm::vec3(-1.0f, -1.0f, 0.0f);
+	}
+
+	Model = glm::scale(Model, glm::vec3(SCALEX3D_CPU, SCALEY3D_CPU, SCALEZ3D_CPU));
+
+	Model = glm::translate(Model, position);
+	location = l;
+}
+
 
 CPUPaddle::~CPUPaddle() {}
 
@@ -165,11 +191,33 @@ PlayerPaddle::PlayerPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 pos
 	Model = glm::translate(Model, position);
 }
 
+PlayerPaddle::PlayerPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position, int l, bool threeD) {
+	programmID = id;
+	View = v;
+	Projection = p;
+	this->position = position;
+	Model = glm::scale(Model, glm::vec3(SCALEX3D,SCALEY3D,SCALEZ3D));
+
+	if (threeD) {
+		normal = glm::vec3(0.0f, 0.0f, 1.0f);
+	}
+	else {
+		normal = glm::vec3(0.0f, 0.0f, -1.0f);
+	}
+
+	Model = glm::translate(Model, position);
+}
+
 PlayerPaddle::~PlayerPaddle() {};
 
 void PlayerPaddle::movePaddle() {
 	sendMVP();
 	drawCube();
+}
+
+void PlayerPaddle::movePaddle3D() {
+	sendMVP();
+	drawCubeWithBlending();
 }
 
 void PlayerPaddle::setInput(glm::vec3 input){

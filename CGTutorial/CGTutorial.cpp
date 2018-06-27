@@ -78,6 +78,14 @@ bool l_pressed = false;
 
 
 
+bool up_pressed = false;
+bool down_pressed = false;
+bool left_pressed = false;
+bool right_pressed = false;
+
+
+
+
 
 // Funktion, die angibt, was man im Fehlerfall machen möchte
 // Funktion wird glfwSetErrorCallback übergeben, da glfw die Fehlerbehandlung für uns ausführt
@@ -128,10 +136,26 @@ void get_up() {
 
 }
 
+void get_up3D() {
+	while (up_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 0, true);
+		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+	}
+
+}
+
 void go_left() {
 	while (a_pressed) {
 		std::cout << "" << std::endl;
 		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 1);
+	}
+}
+
+void go_left3D() {
+	while (left_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 0, true);
 	}
 }
 
@@ -142,10 +166,26 @@ void go_right() {
 	}
 }
 
+void go_right3D() {
+	while (right_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.001f, 0.0f, 0.0f), 0, true);
+	}
+}
+
+
 void get_down() {
 	while (s_pressed) {
 		std::cout << "" << std::endl;
 		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 0);
+		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+	}
+}
+
+void get_down3D() {
+	while (down_pressed) {
+		std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 0, true);
 		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
 	}
 }
@@ -262,6 +302,64 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			t1.detach();
 		//}
 	}
+	else if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
+		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
+		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+		up_pressed = true;
+		std::thread t1(get_up3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		t1.detach();
+		//}
+	}
+	else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
+		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
+		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+		down_pressed = true;
+		std::thread t1(get_down3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		t1.detach();
+		//}
+	}
+	else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
+		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
+		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
+		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+		right_pressed = true;
+		std::thread t1(go_right3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		t1.detach();
+		//}
+	}
+	else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
+		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
+		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
+		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
+	left_pressed = true;
+		std::thread t1(go_left3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		t1.detach();
+		//}
+		std::cout << "hi" << std::endl;
+	}
+	else if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
+		left_pressed = false;
+	}
+	else if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
+		right_pressed = false;
+	}
+	else if (key == GLFW_KEY_UP && action == GLFW_RELEASE) {
+		up_pressed = false;
+	}
+	else if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE) {
+		down_pressed = false;
+	}
+
+
+
+
+
+
+
+	
+
 	else if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
 		s_pressed = false;
 	}

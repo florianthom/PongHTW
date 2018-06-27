@@ -17,6 +17,7 @@ private:
 	const float SCALE = 0.0625f;
 	float x;
 	float y;
+	float z;
 	glm::mat4 Model;
 	glm::mat4* View;
 	glm::mat4* Projection;
@@ -26,6 +27,7 @@ private:
 	void sendModel();
 public:
 	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p);
+	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, bool threeD);
 	~Ball();
 	void resetBall();
 	void moveBall();
@@ -36,6 +38,7 @@ public:
 	glm::vec4 getBallUpRightPosition();
 	glm::vec4 getBallDownLeftPosition();
 	glm::vec4 getBallDownRightPosition();
+	glm::vec4 getBallDownRightBehindPosition();
 	void set_initial_position();
 };
 

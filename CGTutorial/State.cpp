@@ -97,5 +97,6 @@ Paddle* State::get_paddle_player4() {
 }*/
 
 void State::doPlayerInput(glm::vec3 input, int location) {
-	printf("Hier bin ich falsch");
 }
+
+void State::doPlayerInput(glm::vec3 input, int location, bool threeD){}

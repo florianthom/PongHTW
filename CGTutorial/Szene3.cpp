@@ -2,19 +2,22 @@
 #include "objects.hpp"
 
 
+// InitBalkenModel = Transparenter Balken = Spieler Panel
+//InitBalkenModel2 = nicht transparenter Balken
 Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
 {
 	programmID = programID;
 	View = v;
 	Projection = p;
 
-	InitialBalkenModel = glm::mat4(1.0f);
-	InitialBalkenModel = glm::scale(InitialBalkenModel, glm::vec3(1.0 / 5, 1.0 / 5, 1.0 / 5));
-	InitialBalkenModel = glm::translate(InitialBalkenModel, glm::vec3(0.0, 0.0, -20.0));
 
+	player1Points = 0;
+	player2Points = 0;
 
-	InitialBalkenModel2 = glm::mat4(1.0f);
-	InitialBalkenModel2 = glm::scale(InitialBalkenModel2, glm::vec3(1.0 / 5, 1.0 / 5, 1.0 / 5));
+	ball1 = new Ball(programmID, v, p,true);
+
+	player1 = new PlayerPaddle(programID, v, p, glm::vec3(0.0f, 0.0f, -30.0), 0, true); // l = location = 0 = links
+	player2 = new CPUPaddle(programID, v, p, glm::vec3(0.0f, 0.0f, -10.0f), 2,true); // 2 = location = 0 = links
 
 	EnvironmentCube = glm::mat4(1.0f);
 	EnvironmentCube = glm::scale(EnvironmentCube, glm::vec3(2.0 / 1, 2.0 / 1, 5.0 / 1));
@@ -22,6 +25,9 @@ Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : 
 	TextureMandrill = loadBMP_custom("mandrill.bmp");
 	TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
 	TextureGreen = loadBMP_custom("green.bmp");
+
+	initText2D("Holstein.DDS");
+
 
 }
 
@@ -73,23 +79,40 @@ void Szene3::drawSzene() {
 	drawCube();
 	glBindTexture(GL_TEXTURE_2D, TextureGreen);
 
+	Collision::do3DWallBallCollision(&EnvironmentCube, ball1);
+	ball1->moveBall();
+
+	player2->movePaddle(); // CPU paddle
+	player1->movePaddle3D();
 
 
-	printMat4(InitialBalkenModel);
+
+
+
 
 
 	glBindTexture(GL_TEXTURE_2D, TextureGreen);
-	sendModel(InitialBalkenModel2);
-	drawCube();
+	//sendModel(InitialBalkenModel2);
+	//drawCube();
 
-	sendModel(InitialBalkenModel);
-	drawCubeWithBlending();
+	//sendModel(InitialBalkenModel);
+	//drawCubeWithBlending();
 	
 	glBindTexture(GL_TEXTURE_2D, TextureMandrill);
 
 
+	sprintf(text, "Player1: %d  :  Player2: %d", player1Points, player2Points);
+	printText2D(text, 90, 100, 25);
+	glUseProgram(*programmID);
 	
 
+
+}
+
+
+void Szene3::doPlayerInput(glm::vec3 input, int l, bool threeD) {
+	if(threeD)
+		player1->setInput(input);
 
 }
 
@@ -110,3 +133,68 @@ void Szene3::exitState() {
 void Szene3::lol() {
 
 }
+
+
+
+//
+//switch (location)
+//{
+//case 0:
+//	if (!(Collision::checkCollision(&ModelE, player1_1) ||
+//		Collision::checkCollision(&ModelD, player1_1))) {
+//		player1_1->setInput(input);
+//	}
+//	else {
+//		if (Collision::checkCollision(&ModelD, player1_1)) {
+//			player1_1->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+//		}
+//		else {
+//			player1_1->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+//		}
+//	}
+//	break;
+//case 1:
+//	if (!(Collision::checkCollision(&ModelF, player1_2) ||
+//		Collision::checkCollision(&ModelC, player1_2))) {
+//		player1_2->setInput(input);
+//	}
+//	else {
+//		if (Collision::checkCollision(&ModelF, player1_2)) {
+//			player1_2->setInput(glm::vec3(-0.001f, 0.0f, 0.0f));
+//		}
+//		else {
+//			player1_2->setInput(glm::vec3(0.001f, 0.0f, 0.0f));
+//		}
+//	}
+//	break;
+//case 2:
+//	if (!(Collision::checkCollision(&ModelA, player2_1) ||
+//		Collision::checkCollision(&ModelH, player2_1))) {
+//		player2_1->setInput(input);
+//	}
+//	else {
+//		if (Collision::checkCollision(&ModelA, player2_1)) {
+//			player2_1->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+//		}
+//		else {
+//			player2_1->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+//		}
+//	}
+//	break;
+//case 3:
+//	if (!(Collision::checkCollision(&ModelG, player2_2) ||
+//		Collision::checkCollision(&ModelB, player2_2))) {
+//		player2_2->setInput(input);
+//	}
+//	else {
+//		if (Collision::checkCollision(&ModelG, player2_2)) {
+//			player2_2->setInput(glm::vec3(-0.001f, 0.0f, 0.0f));
+//		}
+//		else {
+//			player2_2->setInput(glm::vec3(0.001f, 0.0f, 0.0f));
+//		}
+//	}
+//	break;
+//default:
+//	printf("Ungueltige Position");
+//}

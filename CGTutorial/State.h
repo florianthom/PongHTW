@@ -43,5 +43,6 @@ public:
 	Paddle* get_paddle_player3();
 	Paddle* get_paddle_player4();*/
 	virtual void doPlayerInput(glm::vec3 input, int location);
+	virtual void doPlayerInput(glm::vec3 input, int location, bool threeD);
 };
 

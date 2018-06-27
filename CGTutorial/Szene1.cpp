@@ -32,7 +32,6 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 	ModelRightBorder = glm::translate(ModelRightBorder, glm::vec3(79 * groesse, 0.0, 0.0));
 	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(1.0 / 40.0, 0.75 * groesse, 1.0 / 40.0));
 	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0));
-	std::cout << "sdfghdffgsdghfdsaghdfghjkdhgjdafsghjkasdfghjdasfhjasdfghjdasfhjdfdfghjdghddfghdhdsfahjdsfghdf" << std::endl;
 	initText2D("Holstein.DDS");
 
 	ModelAll = new glm::mat4[4];

@@ -5,6 +5,7 @@
 #include "iostream"
 #include "State.h"
 #include "texture.hpp"
+#include "Ball.hpp"
 
 #pragma once
 class Szene3 : public State
@@ -20,6 +21,14 @@ private:
 	glm::mat4 ModelLeftBorder;
 	glm::mat4 ModelRightBorder;
 	glm::mat4 ModelAll;
+
+	Ball* ball1;
+
+	int player1Points;
+	int player2Points;
+	char text[256];
+	Paddle* player1;
+	Paddle* player2;
 
 	glm::mat4 * View;
 	glm::mat4 * Projection;
@@ -39,5 +48,7 @@ public:
 	void exitState();
 		void lol();
 	Szene3();
+
+	void doPlayerInput(glm::vec3 input, int l, bool threeD);
 };
 

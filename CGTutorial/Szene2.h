@@ -36,6 +36,7 @@ private:
 	const glm::vec3 PLAYER2_2POSITION = glm::vec3(0.0f, -26.0f, 0.0f);
 	int player1Points;
 	int player2Points;
+	char text[256];
 	Paddle* player1_1;
 	Paddle* player1_2;
 	Paddle* player2_1;

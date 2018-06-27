@@ -62,6 +62,22 @@ bool Collision::checkCollision(Paddle* paddle, Ball* ball, int location) {
 	return collisionX && collisionY;
 }
 
+bool Collision::check3DCollision(glm::mat4* level, Ball* ball) {
+	bool collision;
+	glm::vec4 right_upper = Position::getRightUpperPoint(level);
+	glm::vec4 left_down = Position::getLeftLowPoint(level);
+	glm::vec4 right_behind_low = Position::getRightBehindLowPoint(level);
+	glm::vec4 ball_left_up = ball->getBallUpLeftPosition();
+	glm::vec4 ball_right_down = ball->getBallDownRightPosition();
+	glm::vec4 ball_right_behind = ball->getBallDownRightBehindPosition();
+
+
+	// true if ball is inside of the box
+	collision = left_down.y < ball_right_down.y && right_upper.y > ball_left_up.y && left_down.x > ball_left_up.x && right_behind_low.x < ball_right_down.x && left_down.z < ball_left_up.z && right_behind_low.z > ball_right_behind.z;
+	return !collision;
+}
+
+
 void Collision::doWallBallCollision(glm::mat4* border, Ball* ball, glm::vec3 normal) {
 	if (checkCollision(border, ball)) {
 		glm::vec3 ballDirection = ball->getCurrentDirection();
@@ -86,5 +102,11 @@ void Collision::doPaddleCollision(Paddle* paddle, Ball* ball, int location) {
 		ballDirection = glm::normalize(ballDirection);
 		glm::vec3 newDirection = ballDirection - 2.0f * glm::dot(paddle->getNormal(), ballDirection) * paddle->getNormal();
 		ball->changeDirection(newDirection);
+	}
+}
+
+void Collision::do3DWallBallCollision(glm::mat4* level, Ball* ball) {
+	if (check3DCollision(level, ball)) {
+		ball->changeDirection(glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 }
