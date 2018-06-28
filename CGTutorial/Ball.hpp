@@ -11,7 +11,7 @@ class Ball
 {
 private:
 	GLuint* programmID;
-	const double velocity = 1.0;
+	double velocity;
 	double distance;
 	double time;
 	const float SCALE = 0.0625f;
