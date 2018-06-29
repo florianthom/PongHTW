@@ -53,6 +53,8 @@ public:
 	glm::vec4 getPaddleUpRightPosition();
 	glm::vec4 getpaddleDownLeftPosition();
 	glm::vec4 getPaddleDownRightPosition();
+	glm::vec4 getPaddleUpLeftBehindPosition();
+	glm::vec4 getPaddleDownRightBehindPosition();
 };
 
 class CPUPaddle : public Paddle {

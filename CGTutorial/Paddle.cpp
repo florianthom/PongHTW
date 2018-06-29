@@ -59,6 +59,14 @@ glm::vec4 Paddle::getPaddleDownRightPosition() {
 	return Position::getRightLowPoint(&Model);
 }
 
+glm::vec4 Paddle::getPaddleUpLeftBehindPosition() {
+	return Position::getLeftBehindUpperPoint(&Model);
+}
+
+glm::vec4 Paddle::getPaddleDownRightBehindPosition() {
+	return Position::getRightBehindLowPoint(&Model);
+}
+
 void Paddle::movePaddle3D() {};// hook method
 
 // l ist location also wo paddle ist: l: 0/2 ist z.B. links und rechts

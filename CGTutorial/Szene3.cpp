@@ -80,9 +80,13 @@ void Szene3::drawSzene() {
 	glBindTexture(GL_TEXTURE_2D, TextureGreen);
 
 	Collision::do3DWallBallCollision(&EnvironmentCube, ball1);
+	Collision::do3DPaddleCollision(player1, ball1, 0);
+	Collision::do3DPaddleCollision(player2, ball1, 2);
 	ball1->moveBall();
 
+	Collision::do3DWallCollision(&EnvironmentCube, player2);
 	player2->movePaddle(); // CPU paddle
+	Collision::do3DWallCollision(&EnvironmentCube, player1);
 	player1->movePaddle3D();
 
 
