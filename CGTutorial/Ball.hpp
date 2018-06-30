@@ -30,6 +30,7 @@ public:
 	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, bool threeD);
 	~Ball();
 	void resetBall();
+	void resetBall3D();
 	void moveBall();
 	void changeDirection(glm::vec3 newDirect);
 	glm::vec3 getCurrentDirection();

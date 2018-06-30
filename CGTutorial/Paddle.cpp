@@ -128,10 +128,10 @@ CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position,
 	normal = glm::vec3(0.0f, 0.0f, -1.0f);
 
 	if (start < 50) {
-		direction = glm::vec3(1.0f, 1.0f, 0.0f);
+		direction = glm::vec3(1.0f, 0.75f, 0.0f);
 	}
 	else {
-		direction = glm::vec3(-1.0f, -1.0f, 0.0f);
+		direction = glm::vec3(-1.0f, -0.75f, 0.0f);
 	}
 
 	Model = glm::scale(Model, glm::vec3(SCALEX3D_CPU, SCALEY3D_CPU, SCALEZ3D_CPU));

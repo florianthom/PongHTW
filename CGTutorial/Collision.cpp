@@ -90,32 +90,32 @@ bool Collision::check3DCollision(glm::vec4 up, glm::vec4 down, Paddle* paddle, i
 	switch (location) {
 	case 0:
 		collision = up.z <  paddle->getPaddleUpLeftPosition().z && down.z > paddle->getPaddleDownRightPosition().z &&
-			up.y > paddle->getPaddleUpLeftPosition().y  && down.y < paddle->getPaddleDownRightPosition().y  && up.x > paddle->getPaddleUpLeftPosition().x;
+			up.y > paddle->getPaddleUpLeftPosition().y  && down.y < paddle->getPaddleDownRightPosition().y  && up.x <= paddle->getPaddleUpLeftPosition().x;
 		break;
 	case 1:
 		collision = up.x > paddle->getPaddleUpLeftPosition().x && down.x < paddle->getPaddleDownRightBehindPosition().x &&
 			up.z < paddle->getPaddleUpLeftPosition().z && down.z > paddle->getPaddleDownRightBehindPosition().z &&
-			up.y > paddle->getPaddleUpLeftPosition().y;
+			up.y <= paddle->getPaddleUpLeftPosition().y;
 		break;
 	case 2:
 		collision = up.y > paddle->getPaddleUpLeftPosition().y && down.y < paddle->getPaddleDownRightBehindPosition().y &&
 			up.z < paddle->getPaddleUpLeftPosition().z && down.z > paddle->getPaddleDownRightBehindPosition().z &&
-			up.x < paddle->getPaddleDownRightBehindPosition().x;
+			up.x >= paddle->getPaddleDownRightBehindPosition().x;
 		break;
 	case 3:
 		collision = up.x > paddle->getPaddleUpLeftPosition().x && down.x < paddle->getPaddleDownRightBehindPosition().x &&
 			up.z < paddle->getPaddleUpLeftPosition().z && down.z > paddle->getPaddleDownRightBehindPosition().z &&
-			up.y < paddle->getPaddleDownRightBehindPosition().y;
+			up.y >= paddle->getPaddleDownRightBehindPosition().y;
 		break;
 	case 4:
 		collision = up.x > paddle->getPaddleUpLeftPosition().x && down.x < paddle->getPaddleDownRightBehindPosition().x &&
 			up.y > paddle->getPaddleUpLeftPosition().y && down.x < paddle->getPaddleDownRightBehindPosition().y &&
-			up.z < paddle->getPaddleUpLeftPosition().z;
+			up.z >= paddle->getPaddleUpLeftPosition().z;
 		break;
 	case 5:
 		collision = up.x > paddle->getPaddleUpLeftPosition().x && down.x < paddle->getPaddleDownRightBehindPosition().x &&
 			up.y > paddle->getPaddleUpLeftPosition().y && down.y < paddle->getPaddleDownRightBehindPosition().y &&
-			up.z > paddle->getPaddleDownRightBehindPosition().z;
+			up.z <= paddle->getPaddleDownRightBehindPosition().z;
 		break;
 	default:
 		collision = false;
@@ -289,7 +289,7 @@ void Collision::do3DWallCollision(glm::mat4* level, Paddle* paddle) {
 		paddle->changeDirection(newDirection);
 	}
 	// Check front
-	if (check3DCollision(Position::getLeftUpperPoint(level), Position::getRightLowPoint(level), paddle, 4)) {
+	/*if (check3DCollision(Position::getLeftUpperPoint(level), Position::getRightLowPoint(level), paddle, 4)) {
 		glm::vec3 paddleDirection = paddle->getCurrentDirection();
 		paddleDirection = glm::normalize(paddleDirection);
 		glm::vec3 newDirection = paddleDirection - 2.0f * glm::dot(glm::vec3(0.0f, 0.0f, 1.0f), paddleDirection) * glm::vec3(0.0f, 0.0f, 1.0f);
@@ -301,5 +301,5 @@ void Collision::do3DWallCollision(glm::mat4* level, Paddle* paddle) {
 		paddleDirection = glm::normalize(paddleDirection);
 		glm::vec3 newDirection = paddleDirection - 2.0f * glm::dot(glm::vec3(0.0f, 0.0f, -1.0f), paddleDirection) * glm::vec3(0.0f, 0.0f, -1.0f);
 		paddle->changeDirection(newDirection);
-	}
+	}*/
 }
