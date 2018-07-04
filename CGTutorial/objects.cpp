@@ -135,20 +135,34 @@ unsigned int createTriangle() {
 		0.0f,  0.5f, 0.0f  // top   
 	};
 
-	unsigned int VBO, VAO;
+	float normals_triangle[]{
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0
+	};
+
+	unsigned int VBO_vertices, VBO_normals, VAO;
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &VBO_vertices);
+	glGenBuffers(1, &VBO_normals);
 	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
 	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-
+	//glEnableVertexAttribArray(2);
 	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
+	glEnableVertexAttribArray(2); // Kein Disable ausführen !
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_normals);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(normals_triangle), normals_triangle, GL_STATIC_DRAW);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);              // attribute. No particular reason for 2, but must match the layout in the shader. dort steht eben 2 für NormalBuffer
+
 
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
 	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
@@ -176,21 +190,8 @@ void drawTriangle(unsigned int VAO) {
 
 // das ist mein Container für alle Matrizen / Container
 GLuint VertexArrayIDSolidCube = 0;
-static const GLfloat g_vertex_buffer_data[] = {
-	-1.0f,-1.0f,-1.0f, -1.0f,-1.0f, 1.0f, -1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f,-1.0f, -1.0f,-1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
-	1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,  1.0f,-1.0f,-1.0f,
-	1.0f, 1.0f,-1.0f,  1.0f,-1.0f,-1.0f, -1.0f,-1.0f,-1.0f,
-	-1.0f,-1.0f,-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f,
-	1.0f,-1.0f, 1.0f, -1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,
-	-1.0f, 1.0f, 1.0f, -1.0f,-1.0f, 1.0f,  1.0f,-1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,  1.0f,-1.0f,-1.0f,  1.0f, 1.0f,-1.0f,
-	1.0f,-1.0f,-1.0f,  1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,  1.0f, 1.0f,-1.0f, -1.0f, 1.0f,-1.0f,
-	1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f
-};
 
+// brauchen wir nicht
 static const GLfloat g_color_buffer_data[] = {
 	0.583f,  0.771f,  0.014f,   0.609f,  0.115f,  0.436f,   0.327f,  0.483f,  0.844f,
 	0.822f,  0.569f,  0.201f,   0.435f,  0.602f,  0.223f,   0.310f,  0.747f,  0.185f,
@@ -205,11 +206,101 @@ static const GLfloat g_color_buffer_data[] = {
 	0.517f,  0.713f,  0.338f,	0.053f,  0.959f,  0.120f,	0.393f,  0.621f,  0.362f,
 	0.673f,  0.211f,  0.457f,	0.820f,  0.883f,  0.371f,	0.982f,  0.099f,  0.879f
 };
+static const GLfloat g_uv_tutorial[] = {
+	0.000059f, 1.0f - 0.000004f,
+	0.000103f, 1.0f - 0.336048f,
+	0.335973f, 1.0f - 0.335903f,
+	1.000023f, 1.0f - 0.000013f,
+	0.667979f, 1.0f - 0.335851f,
+	0.999958f, 1.0f - 0.336064f,
+	0.667979f, 1.0f - 0.335851f,
+	0.336024f, 1.0f - 0.671877f,
+	0.667969f, 1.0f - 0.671889f,
+	1.000023f, 1.0f - 0.000013f,
+	0.668104f, 1.0f - 0.000013f,
+	0.667979f, 1.0f - 0.335851f,
+	0.000059f, 1.0f - 0.000004f,
+	0.335973f, 1.0f - 0.335903f,
+	0.336098f, 1.0f - 0.000071f,
+	0.667979f, 1.0f - 0.335851f,
+	0.335973f, 1.0f - 0.335903f,
+	0.336024f, 1.0f - 0.671877f,
+	1.000004f, 1.0f - 0.671847f,
+	0.999958f, 1.0f - 0.336064f,
+	0.667979f, 1.0f - 0.335851f,
+	0.668104f, 1.0f - 0.000013f,
+	0.335973f, 1.0f - 0.335903f,
+	0.667979f, 1.0f - 0.335851f,
+	0.335973f, 1.0f - 0.335903f,
+	0.668104f, 1.0f - 0.000013f,
+	0.336098f, 1.0f - 0.000071f,
+	0.000103f, 1.0f - 0.336048f,
+	0.000004f, 1.0f - 0.671870f,
+	0.336024f, 1.0f - 0.671877f,
+	0.000103f, 1.0f - 0.336048f,
+	0.336024f, 1.0f - 0.671877f,
+	0.335973f, 1.0f - 0.335903f,
+	0.667969f, 1.0f - 0.671889f,
+	1.000004f, 1.0f - 0.671847f,
+	0.667979f, 1.0f - 0.335851f
+};
+
+static const GLfloat g_vertex_buffer_data[] = {
+	-1.0f,-1.0f,-1.0f, -1.0f,-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, // rechts hinten	// 1 Row = 1 Dreieck
+	1.0f, 1.0f,-1.0f, -1.0f,-1.0f,-1.0f, -1.0f, 1.0f,-1.0f, // vorne rechts // 2 Reihen = 1 Cube-Seite			d.h. wir brauchen 6 (Seiten) * 2 Reihen für 1 Cube
+	1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f,  1.0f,-1.0f,-1.0f, // unten das rechte
+	1.0f, 1.0f,-1.0f,  1.0f,-1.0f,-1.0f, -1.0f,-1.0f,-1.0f, // links vorne
+	-1.0f,-1.0f,-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, // rechts das vordere (von eben rechts links)
+	1.0f,-1.0f, 1.0f, -1.0f,-1.0f, 1.0f, -1.0f,-1.0f,-1.0f, // unten das linke
+	-1.0f, 1.0f, 1.0f, -1.0f,-1.0f, 1.0f,  1.0f,-1.0f, 1.0f, // hinten rechts unten
+	1.0f, 1.0f, 1.0f,  1.0f,-1.0f,-1.0f,  1.0f, 1.0f,-1.0f, // links das erste Dreieck
+	1.0f,-1.0f,-1.0f,  1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f, // links das hintere Dreieck
+	1.0f, 1.0f, 1.0f,  1.0f, 1.0f,-1.0f, -1.0f, 1.0f,-1.0f, // oben das erste Dreieck
+	1.0f, 1.0f, 1.0f, -1.0f, 1.0f,-1.0f, -1.0f, 1.0f, 1.0f, // oben das hintere Dreieck
+	1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f,  1.0f,-1.0f, 1.0f // hinten das links oben
+};
+
+// zu einer g_vertex Reihe(3 Punkte) brauchen wir also 1 Reihe g_normals (1 Punkt)
+static const GLfloat g_normals[] = {
+	// Punkte gesamt (1 Seite sind 2 Dreiecke): 6 ViereckSeiten * 2 Dreiecke pro Seite * 3 Punkte (wir brauchen ja pro Dreieck nur 1 Vektor, der 3 Koordinaten hat)
+	// wir brauchen aus irgendeinen Grund doch für jeden einzelnen Triangle Punkt
+	-1.0f,0.0f,0.0f, -1.0f,0.0f,0.0f,  -1.0f,0.0f,0.0f,
+
+	0.0f,0.0f,-1.0f,  0.0f,0.0f,-1.0f,  0.0f,0.0f,-1.0f,
+
+	0.0f,-1.0f,0.0f,  0.0f,-1.0f,0.0f,  0.0f,-1.0f,0.0f,
+
+	0.0f,0.0f,-1.0f,  0.0f,0.0f,-1.0f,  0.0f,0.0f,-1.0f,
+
+	-1.0f,0.0f,0.0f, -1.0f,0.0f,0.0f,  -1.0f,0.0f,0.0f, // rechts das vordere
+
+	0.0f,-1.0f,0.0f,  0.0f,-1.0f,0.0f,  0.0f,-1.0f,0.0f,
+
+	0.0f,0.0f,1.0f,  0.0f,0.0f,1.0f,  0.0f,0.0f,1.0f, // hinten rechts unten
+
+	1.0f,0.0f,0.0f,  1.0f,0.0f,0.0f,  1.0f,0.0f,0.0f,
+
+	1.0f,0.0f,0.0f,  1.0f,0.0f,0.0f,  1.0f,0.0f,0.0f,
+
+	0.0f,1.0f,0.0f,  0.0f,1.0f,0.0f,  0.0f,1.0f,0.0f,
+
+	0.0f,1.0f,0.0f,  0.0f,1.0f,0.0f,  0.0f,1.0f,0.0f,
+
+	0.0f,0.0f,1.0f,  0.0f,0.0f,1.0f,  0.0f,0.0f,1.0f,
+
+
+
+};
 
 GLuint vertexbuffer;
 // erstellt einen Buffer / Container für Farben des Objektes
 // wird hier nicht direkt verwendet
-GLuint colorbuffer;
+GLuint colorbuffer;														// for texturing
+GLuint normalbufferCube;
+
+
+
+
 
 static void createCube()
 {
@@ -219,7 +310,7 @@ static void createCube()
 	
 	// sagt, dass man alle Nutzdaten(versch. Objekte und Farben Daten) in einem Block bindet, damit man dann alles zusammen in den Vertex-Shader machen kann
 	// also hier konkret wird per Pointer der Buffer in den Grafikspeicher geladen
-	glGenVertexArrays(1, &VertexArrayIDSolidCube); // generiert Namen für dieses Array
+	glGenVertexArrays(1, &VertexArrayIDSolidCube); // VAO // generiert Namen für dieses Array
 	// hier konkret wird dieser Buffer an den Vortex buffer gebindet
 	glBindVertexArray(VertexArrayIDSolidCube);
 
@@ -231,9 +322,15 @@ static void createCube()
 	
 	//------------------------------------------g_vertex_buffer_data ehemmals
 	// insgesamt Laden der Nutzdaten in einen Buffer der Grafikkarten NICHT in den Vertex shader rein
-	glGenBuffers(1, &vertexbuffer); // hier wird das VBO also Vertex Buffer Object generiert: that can store a large number of vertices in the GPU's memory.
+	glGenBuffers(1, &vertexbuffer); // VBO	// hier wird das VBO also Vertex Buffer Object generiert: that can store a large number of vertices in the GPU's memory.
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); // hier wird VAO also Vertext Array Object
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW); //?
+
+	glGenBuffers(1, &normalbufferCube);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbufferCube);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_normals), g_normals, GL_STATIC_DRAW);
+
+
 
 	// One color for each vertex. They were generated randomly.
 	// Farben
@@ -249,7 +346,7 @@ static void createCube()
 
 	glGenBuffers(1, &colorbuffer); // gibt 1 Speicherplatz für 1ne Variable
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer); // jetzt wird diese Variable benutzt
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW); // jetzt wird der Speicherplatz gefüllt
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_tutorial), g_uv_tutorial, GL_STATIC_DRAW); // jetzt wird der Speicherplatz gefüllt
 	////////////////////7
 	glEnableVertexAttribArray(0); // Kein Disable ausführen !
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -262,16 +359,30 @@ static void createCube()
 			(void*)0            // array buffer offset
 	);
 
+
+
 	// 2nd attribute buffer : colors
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glEnableVertexAttribArray(1); // Kein Disable ausführen !
 	glVertexAttribPointer(
 			1,                                // Kanal in den die Nutzdaten im Vortexshader eingeführt werdenattribute. No particular reason for 1, but must match the layout in the shader.
-			3,                                // Bildpunkte , size
+			2,                                // Bildpunkte , size
 			GL_FLOAT,                         // type
 			GL_FALSE,                         // normalized?
 			0,                                // ?? stride
 			(void*)0                          // array buffer offset
+	);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, normalbufferCube);
+	glEnableVertexAttribArray(2); // Kein Disable ausführen !
+	glVertexAttribPointer(
+		2,                                // attribute. No particular reason for 2, but must match the layout in the shader. dort steht eben 2 für NormalBuffer
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
 	);
 	
 	glBindVertexArray(0);
@@ -282,6 +393,7 @@ void set_things_up_after_print_words() {
 	glBindVertexArray(VertexArrayIDSolidCube);
 	glEnableVertexAttribArray(0); // muss enabled werden, da in print2d disabled wurde
 	glEnableVertexAttribArray(1); // Kein Disable ausführen !
+	glEnableVertexAttribArray(2); // Kein Disable ausführen !
 
 
 }
@@ -412,7 +524,7 @@ static void createSphere()
 	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
 	glEnableVertexAttribArray(2); // Kein Disable ausführen !
 	glVertexAttribPointer(
-			2,                                // attribute. No particular reason for 2, but must match the layout in the shader.
+			2,                                // attribute. No particular reason for 2, but must match the layout in the shader. dort steht eben 2 für NormalBuffer
 			3,                                // size
 			GL_FLOAT,                         // type
 			GL_FALSE,                         // normalized?

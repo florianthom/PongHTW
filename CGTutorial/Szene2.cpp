@@ -271,8 +271,12 @@ void Szene2::drawSzene() {
 	sendModel(ModelH);
 	drawCube();
 
-	sprintf(text, "Player1: %d  :  Player2: %d", player1Points, player2Points);
-	printText2D(text, 90, 100, 25);
+	sprintf(text_1, "Player1: %d", player1Points);
+	printText2D(text_1, 35, 70, 20);
+	glUseProgram(*programmID);
+
+	sprintf(text_1, "Player2: %d", player2Points);
+	printText2D(text_1, 570, 70, 20);
 	glUseProgram(*programmID);
 }
 

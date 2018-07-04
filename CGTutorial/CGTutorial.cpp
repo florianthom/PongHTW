@@ -247,23 +247,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	else if (key == GLFW_KEY_6 && action == GLFW_RELEASE) {
 		//state_context->set_state(szene2);
-		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 3));
-
-	}
-	else if (key == GLFW_KEY_7 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
 		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 4));
 
 	}
-	else if (key == GLFW_KEY_8 && action == GLFW_RELEASE) {
+	else if (key == GLFW_KEY_7 && action == GLFW_RELEASE) {
 		state_context->set_state(new Szene3(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
-	else if(key == GLFW_KEY_9 && action == GLFW_RELEASE){
+	else if(key == GLFW_KEY_8 && action == GLFW_RELEASE){
 		state_context->set_state(new Highscore(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
-	else if (key == GLFW_KEY_0 && action == GLFW_RELEASE) {
+	else if (key == GLFW_KEY_9 && action == GLFW_RELEASE) {
 		state_context->set_state(new MatchHistory(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse()));
 
 	}
@@ -289,6 +284,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			std::thread t1(go_left); //, glm::vec3(0.0f, 1.0f, 0.0f
 			t1.detach();
 		//}
+	}
+	else if (key == GLFW_KEY_C && (action == GLFW_PRESS || action == GLFW_REPEAT || action == GLFW_RELEASE)) {
+		angle_y = angle_y + 5.0f;
+
+	}
+	else if (key == GLFW_KEY_X && (action == GLFW_PRESS || action == GLFW_REPEAT || action == GLFW_RELEASE)) {
+		angle_x = angle_x + 5.0f;
+
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_RELEASE) {
 		a_pressed = false;
@@ -747,7 +750,10 @@ int main(void)
 
 
 	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
+	
+	//programID = LoadShaders("TextureFragmentShader.fragmentshader", "TransformVertexShader.vertexshader");
 	programID = LoadShaders("StandardShading.vertexshader", "StandardTransparentShading.fragmentshader");
+
 
 	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
 
@@ -779,7 +785,7 @@ int main(void)
 	// Bind our texture in Texture Unit 0
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, TextureMandrill);
+	glBindTexture(GL_TEXTURE_2D, TextureStone);
 
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
 	/**--*/glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
@@ -861,8 +867,10 @@ int main(void)
 			//Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
 			// senden an den Vertex-Shader
 			// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
+			//Model = glm::mat4(1.0f);
+			Model = glm::scale(Model, glm::vec3(0.4f, 0.4f, 0.4f));
 			sendMVP();
-			glBindTexture(GL_TEXTURE_2D, TextureMandrill);
+			glBindTexture(GL_TEXTURE_2D, TextureStripes);
 			//drawCS();
 
 
@@ -893,6 +901,9 @@ int main(void)
 			printText2D(text, 90, 100, 80);
 			glUseProgram(programID);*/
 
+
+			glm::vec4 lightPos = glm::vec4(-3, 3, -2, 1);
+			glUniform3f(glGetUniformLocation(programID, "LightPosition_worldspace"), lightPos.x, lightPos.y, lightPos.z); // Variable "LightPosition_worldspace" ist in Fragment-Shader definiert und damit in Grafik-Speicher vorhanden
 
 			// Swap buffers
 			glfwSwapBuffers(window);

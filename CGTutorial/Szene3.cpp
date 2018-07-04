@@ -25,6 +25,9 @@ Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : 
 	TextureMandrill = loadBMP_custom("mandrill.bmp");
 	TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
 	TextureGreen = loadBMP_custom("green.bmp");
+	TextureStone = loadBMP_custom("Steinwand.bmp");
+	GLuint TextureOrange = loadBMP_custom("orange.bmp");
+
 
 	initText2D("Holstein.DDS");
 
@@ -74,7 +77,7 @@ void Szene3::drawSzene() {
 
 
 
-	glBindTexture(GL_TEXTURE_2D, TextureStripes);
+	glBindTexture(GL_TEXTURE_2D, TextureStone);
 	sendModel(EnvironmentCube);
 	drawCube();
 	glBindTexture(GL_TEXTURE_2D, TextureGreen);

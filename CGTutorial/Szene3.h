@@ -35,6 +35,9 @@ private:
 	GLuint TextureMandrill;
 	GLuint TextureStripes;
 	GLuint TextureGreen;
+	GLuint TextureStone;
+	GLuint TextureOrange;
+
 
 	void sendModel(glm::mat4 ModelToSend);
 public:

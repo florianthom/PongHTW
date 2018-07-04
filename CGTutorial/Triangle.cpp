@@ -16,6 +16,7 @@ Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse
 	initText2D("Holstein.DDS");
 
 	TextureOrange = loadBMP_custom("orange.bmp");
+		TextureStone = loadBMP_custom("Steinwand.bmp");
 
 }
 
@@ -97,24 +98,20 @@ void Triangle::drawSzene() {
 	printText2D(text2q, 180, 240, size);
 	glUseProgram(*programmID);
 	char text2w[256];
-	sprintf(text2w, "PLAY PONG ADVANCED 3 Player (6)");
+	sprintf(text2w, "CPU VS CPU (6)");
 	printText2D(text2w, 180, 200, size);
 	glUseProgram(*programmID);
-	char text2e[256];
-	sprintf(text2e, "PLAY PONG ADVANCED 4 Player (7)");
-	printText2D(text2e, 180, 160, size);
-	glUseProgram(*programmID);
 	char text3[256];
-	sprintf(text3, "PLAY PONG IN real 3D (8)");
-	printText2D(text3, 160, 120, size);
+	sprintf(text3, "PLAY PONG IN real 3D (7)");
+	printText2D(text3, 160, 160, size);
 	glUseProgram(*programmID);
 	char text4[256];
-	sprintf(text4, "Highscore (9)");
-	printText2D(text4, 270, 80, size);
+	sprintf(text4, "Highscore (8)");
+	printText2D(text4, 270, 120, size);
 	glUseProgram(*programmID);
 	char text5[256];
-	sprintf(text5, "Match History (0)");
-	printText2D(text5, 270, 40, size);
+	sprintf(text5, "Match History (9)");
+	printText2D(text5, 270, 80, size);
 	glUseProgram(*programmID);
 
 

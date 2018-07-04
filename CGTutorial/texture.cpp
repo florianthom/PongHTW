@@ -86,6 +86,7 @@ GLuint loadBMP_custom(const char * imagepath){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
+
 	// Return the ID of the texture we just created
 	return textureID;
 }

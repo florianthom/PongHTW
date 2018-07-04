@@ -23,15 +23,15 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 
 	player1Points = 0;
 	player2Points = 0;
-	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
-	ModelTopBorder = glm::translate(ModelTopBorder, glm::vec3(0, 30.0 * groesse, 0.0));
-	ModelButtomBorder = glm::scale(ModelButtomBorder, glm::vec3(2 * groesse, 1.0 / 40.0, 1.0 / 40.0));
-	ModelButtomBorder = glm::translate(ModelButtomBorder, glm::vec3(0, -30.0 * groesse, 0.0));
+	ModelTopBorder = glm::scale(ModelTopBorder, glm::vec3(2 * groesse, 1.0 / 10.0, 1.0 / 10.0f));
+	ModelTopBorder = glm::translate(ModelTopBorder, glm::vec3(0, 10.0 * groesse, 0.0));
+	ModelButtomBorder = glm::scale(ModelButtomBorder, glm::vec3(2 * groesse, 1.0 / 10.0, 1.0 / 10.0f));
+	ModelButtomBorder = glm::translate(ModelButtomBorder, glm::vec3(0, -10.0 * groesse, 0.0));
 	// mitte = wie viel , vec3=Achse um die gedreht werden soll
-	ModelRightBorder = glm::scale(ModelRightBorder, glm::vec3(1.0 / 40.0, 0.75 * groesse, 1.0 / 40.0));
-	ModelRightBorder = glm::translate(ModelRightBorder, glm::vec3(79 * groesse, 0.0, 0.0));
-	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(1.0 / 40.0, 0.75 * groesse, 1.0 / 40.0));
-	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0));
+	ModelRightBorder = glm::scale(ModelRightBorder, glm::vec3(1.0 / 5.0, 1.1 * groesse, 1.0 / 10.0f));
+	ModelRightBorder = glm::translate(ModelRightBorder, glm::vec3(11 * groesse, 0.0, 0.0));
+	ModelLeftBorder = glm::scale(ModelLeftBorder, glm::vec3(1.0 / 5.0, 1.1 * groesse, 1.0 / 10.0f));
+	ModelLeftBorder = glm::translate(ModelLeftBorder, glm::vec3(-11 * groesse, 0.0, 0.0));
 	initText2D("Holstein.DDS");
 
 	ModelAll = new glm::mat4[4];

@@ -18,6 +18,7 @@ private:
 	glm::mat4 * View;
 	glm::mat4 * Projection;
 	GLuint TextureOrange;
+	GLuint TextureStone;
 
 	void sendModel(glm::mat4 ModelToSend);
 public:
