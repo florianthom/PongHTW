@@ -1,0 +1,11 @@
+Quellen:
+
+Text:
+http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-11-2d-text/
+
+Triangle:
+http://www.opengl-tutorial.org/beginners-tutorials/tutorial-2-the-first-triangle/
+
+Keyboard and Mouse:
+http://www.opengl-tutorial.org/beginners-tutorials/tutorial-6-keyboard-and-mouse/
+http://www.glfw.org/docs/latest/window_guide.html

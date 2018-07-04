@@ -1,0 +1,42 @@
+﻿C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLEW_190.vcxproj' does not exist.
+C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/external/GLFW_276.vcxproj' does not exist.
+C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.CurrentVersion.targets(1611,5): warning : The referenced project 'C:/Users/tj/Documents/OpenGL-tutorial_Binaries/ZERO_CHECK.vcxproj' does not exist.
+  Ball.cpp
+  Collision.cpp
+  GlobalTime.cpp
+  Highscore.cpp
+  MatchHistory.cpp
+Ball.cpp(5): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Ball.cpp(21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Ball.cpp(25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Ball.cpp(66): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Ball.cpp(77): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+Ball.cpp(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Obj3D.cpp
+Highscore.cpp(79): warning C4018: '<': signed/unsigned mismatch
+  CGTutorial.cpp
+MatchHistory.cpp(101): warning C4018: '<': signed/unsigned mismatch
+  objects.cpp
+  objloader.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file CGTutorial.cpp)
+  external\glfw-3.1.2\GLFW/glfw3.h(85): note: see previous definition of 'APIENTRY' (compiling source file CGTutorial.cpp)
+objects.cpp(444): warning C4018: '<=': signed/unsigned mismatch
+objects.cpp(454): warning C4018: '<=': signed/unsigned mismatch
+  Paddle.cpp
+  Positions.cpp
+CGTutorial.cpp(536): warning C4244: '=': conversion from 'double' to 'time_t', possible loss of data
+  shader.cpp
+  State.cpp
+  StateContext.cpp
+  Szene1.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file StateContext.cpp)
+  external\glfw-3.1.2\GLFW/glfw3.h(85): note: see previous definition of 'APIENTRY' (compiling source file StateContext.cpp)
+C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition (compiling source file Szene1.cpp)
+  external\glfw-3.1.2\GLFW/glfw3.h(85): note: see previous definition of 'APIENTRY' (compiling source file Szene1.cpp)
+  Szene2.cpp
+  Szene3.cpp
+  text2D.cpp
+  Triangle.cpp
+  texture.cpp
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  CGTutorial.vcxproj -> C:\Users\Flo\Desktop\Computergrafik\PongHTW\CGTutorial\Release\CGTutorial.exe

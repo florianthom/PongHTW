@@ -89,7 +89,7 @@ void error_callback(int error, const char* description)
 void get_up() {
 	while (w_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.0002f, 0.0f), 0);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.000004f, 0.0f), 0);
 	}
 
 }
@@ -97,7 +97,7 @@ void get_up() {
 void get_up3D() {
 	while (up_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.0001f, 0.0f), 0, true);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.000003f, 0.0f), 0, true);
 	}
 
 }
@@ -105,28 +105,28 @@ void get_up3D() {
 void go_left() {
 	while (a_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0002f, 0.0f, 0.0f), 1);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.000004f, 0.0f, 0.0f), 1);
 	}
 }
 
 void go_left3D() {
 	while (left_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0001f, 0.0f, 0.0f), 0, true);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.000003f, 0.0f, 0.0f), 0, true);
 	}
 }
 
 void go_right() {
 	while (d_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.0002f, 0.0f, 0.0f), 1);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.000004f, 0.0f, 0.0f), 1);
 	}
 }
 
 void go_right3D() {
 	while (right_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.0001f, 0.0f, 0.0f), 0, true);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.000003f, 0.0f, 0.0f), 0, true);
 	}
 }
 
@@ -134,42 +134,42 @@ void go_right3D() {
 void get_down() {
 	while (s_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.0002f, 0.0f), 0);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.000004f, 0.0f), 0);
 	}
 }
 
 void get_down3D() {
 	while (down_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.0001f, 0.0f), 0, true);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.000003f, 0.0f), 0, true);
 	}
 }
 
 void get_up_p2() {
 	while (i_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.0002f, 0.0f), 2);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.000004f, 0.0f), 2);
 	}
 }
 
 void go_left2() {
 	while (j_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0002f, 0.0f, 0.0f), 3);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.000004f, 0.0f, 0.0f), 3);
 	}
 }
 
 void go_right2() {
 	while (l_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.0002f, 0.0f, 0.0f), 3);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.000004f, 0.0f, 0.0f), 3);
 	}
 }
 
 void get_down_p2() {
 	while (k_pressed) {
 		//std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.0002f, 0.0f), 2);
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.000004f, 0.0f), 2);
 	}
 }
 

@@ -1,3 +1,8 @@
+PONG HTW
+
+AUSFÜHRBARE DATEI -> SIEHE ./RELEASE
+
+
 Steuerung
 
 Hauptmenue:						1
