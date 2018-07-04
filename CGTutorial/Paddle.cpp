@@ -109,8 +109,7 @@ CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position 
 	case 3:
 		normal = glm::vec3(0.0f, 1.0f, 0.0f);
 		break;
-	default:
-		printf("Ungueltige Position des Paddles");
+	default:;
 	}
 
 	Model = glm::translate(Model, position);
@@ -145,8 +144,6 @@ CPUPaddle::~CPUPaddle() {}
 
 void CPUPaddle::movePaddle(){
 	glm::vec3 tmpDirection = direction;
-	//deltaTime = glfwGetTime() - lastTime;
-	//lastTime = glfwGetTime();
 	distance = VELOCITY * time;
 	tmpDirection *= distance;
 	tmpDirection /= 10.0f;
@@ -192,7 +189,7 @@ PlayerPaddle::PlayerPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 pos
 	case 3:
 		normal = glm::vec3(0.0f, 1.0f, 0.0f);
 	default:
-		printf("Ungueltige Position des Paddles");
+		;
 	}
 
 	location = l;

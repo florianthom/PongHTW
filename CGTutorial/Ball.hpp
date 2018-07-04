@@ -6,7 +6,9 @@
 #include "Positions.hpp"
 #include "GlobalTime.hpp"
 #include "Paddle.hpp"
+#include "objects.hpp"
 #pragma once
+
 class Ball
 {
 private:

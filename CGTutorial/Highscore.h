@@ -1,4 +1,3 @@
-#pragma once
 #include "State.h"
 #include "texture.hpp"
 #include <iostream>
@@ -10,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 #include "text2D.h"
+#include "objects.hpp"
+#pragma once
 
 
 class Highscore :
@@ -26,7 +27,6 @@ private:
 	double groesse;
 	void sendModel(glm::mat4 ModelToSend);
 	GLuint TextureOrange;
-	void AddNewScore(const std::string & strName, double ulScore);
 	char filename[15] = "highscores.txt";
 	std::vector<double> highscore_vector;
 

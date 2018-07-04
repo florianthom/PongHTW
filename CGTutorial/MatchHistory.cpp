@@ -1,16 +1,4 @@
 #include "MatchHistory.h"
-#include "Highscore.h"
-#include "objects.hpp"
-#include <fstream>
-#include <iostream>
-#include <algorithm>
-#include <ctime>
-#include <vector>
-#include <string>
-#include <sstream>
-#include <iterator>
-
-
 
 MatchHistory::~MatchHistory()
 {
@@ -32,18 +20,11 @@ MatchHistory::MatchHistory(GLuint* programID, glm::mat4* v, glm::mat4* p, double
 	TextureOrange = loadBMP_custom("orange.bmp");
 
 	history = read_file_and_save_in_list();
-	//std::sort(highscore_vector.begin(), highscore_vector.end(), sort_using_greater_than);
 	initText2D("Holstein.DDS");
-
-
-
 }
-
-
 
 void MatchHistory::printMat4(glm::mat4 matrix) {
 
-	//double dArray[4][4] = { 0.0 };
 	std::cout << "\n\t\tSTART\n\n";
 
 	for (int a = 0; a < 4; ++a) {
@@ -75,15 +56,12 @@ void MatchHistory::sendModel(glm::mat4 ModelToSend) {
 void MatchHistory::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
-	//sendModel();
 }
 void MatchHistory::drawSzene() {
 	glBindTexture(GL_TEXTURE_2D, TextureOrange);
 
 	sendModel(ModelAll);
-	drawCube();/*
-			   std::cout << "test" << std::endl;*/
-
+	drawCube();
 	char headline[256];
 	sprintf(headline, "MATCH HISTORY");
 	int y = 450;
@@ -191,7 +169,6 @@ void MatchHistory::write_one_row(int points_player0,int points_player1) {
 
 	char text[256];
 	sprintf(text, "%i %i %i %i %i %i %i", day, month, year, Hour, Min, points_player0, points_player1);
-	//printf(text);
 
 	appendFileToWorkWith.open(filename, std::fstream::in | std::fstream::out | std::fstream::app);
 
@@ -210,12 +187,6 @@ void MatchHistory::write_one_row(int points_player0,int points_player1) {
 
 }
 
-//
-//// make new row (arbitrary example)
-//vector<int> myRow(1, 5);
-//myVector.push_back(myRow);
-//// add element to row
-//myVector[0].push_back(1);
 
 std::vector< std::vector<std::string> > MatchHistory::read_file_and_save_in_list() {
 	std::ifstream input(filename);
@@ -231,7 +202,5 @@ std::vector< std::vector<std::string> > MatchHistory::read_file_and_save_in_list
 		
 	}
 	input.close();
-	/*for (auto const& c : myVector)
-		std::cout << c << ' ';*/
 	return myVector;
 }

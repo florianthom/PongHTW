@@ -8,8 +8,8 @@
 #include "iostream"
 #include "Szene1.h"
 #include "Triangle.h"
-
 #pragma once
+
 class StateContext
 {
 public:

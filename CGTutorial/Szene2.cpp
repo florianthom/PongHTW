@@ -1,6 +1,4 @@
 #include "Szene2.h"
-#include "objects.hpp"
-
 
 Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int player_numberPara) : State()
 {
@@ -27,34 +25,6 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int
 	ModelH = glm::mat4(1.0f);
 
 	initText2D("Holstein.DDS");
-
-
-	
-	
-	/*if (player_number == 1) {
-		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player2 = new CPUPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player3 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player4 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
-	}
-	else if (player_number == 2) {
-		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player3 = new CPUPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player4 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
-	}
-	else if (player_number == 3) {
-		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player3 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player4 = new CPUPaddle(programID, v, p, PLAYER2_2POSITION, 3);
-	}
-	else if (player_number == 4) {
-		player1 = new PlayerPaddle(programID, v, p, PLAYER1_1POSITION, 0);
-		player2 = new PlayerPaddle(programID, v, p, PLAYER1_2POSITION, 1);
-		player3 = new PlayerPaddle(programID, v, p, PLAYER2_1POSITION, 2);
-		player4 = new PlayerPaddle(programID, v, p, PLAYER2_2POSITION, 3);
-	}*/
 	
 	player1Points = 0;
 	player2Points = 0;
@@ -142,7 +112,6 @@ Szene2::Szene2(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse,int
 void Szene2::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
-	//sendModel();
 }
 
 void Szene2::resetScene() {
@@ -340,7 +309,7 @@ void Szene2::doPlayerInput(glm::vec3 input, int location) {
 		}
 		break;
 	default:
-		printf("Ungueltige Position");
+		;
 	}
 }
 
@@ -350,7 +319,9 @@ Szene2::~Szene2()
 }
 
 void Szene2::exitState() {
-
+	write_one_row_match_history(player1Points, player2Points);
+	write_one_row_highscore(std::to_string(player1Points));
+	write_one_row_highscore(std::to_string(player2Points));
 }
 void Szene2::enterState() {
 }

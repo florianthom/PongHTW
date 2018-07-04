@@ -1,9 +1,5 @@
 #include "Szene3.h"
-#include "objects.hpp"
 
-
-// InitBalkenModel = Transparenter Balken = Spieler Panel
-//InitBalkenModel2 = nicht transparenter Balken
 Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
 {
 	programmID = programID;
@@ -26,7 +22,7 @@ Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : 
 	TextureStripes = loadBMP_custom("streifen-maritim-1_1.bmp");
 	TextureGreen = loadBMP_custom("green.bmp");
 	TextureStone = loadBMP_custom("Steinwand.bmp");
-	GLuint TextureOrange = loadBMP_custom("orange.bmp");
+	TextureOrange = loadBMP_custom("orange.bmp");
 
 
 	initText2D("Holstein.DDS");
@@ -36,9 +32,7 @@ Szene3::Szene3(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : 
 
 void Szene3::printMat4(glm::mat4 matrix) {
 
-	//double dArray[4][4] = { 0.0 };
 	std::cout << "\n\t\tSTART\n\n";
-
 	for (int a = 0; a < 4; ++a) {
 		for (int b = 0; b < 4; ++b) {
 			std::cout << matrix[a][b] << "  ";
@@ -74,8 +68,8 @@ void Szene3::resetScene() {
 void Szene3::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
-	//sendModel();
 }
+
 void Szene3::drawSzene() {
 
 	//*Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
@@ -102,7 +96,12 @@ void Szene3::drawSzene() {
 		Collision::do3DWallBallCollision(&EnvironmentCube, ball1);
 		Collision::do3DPaddleCollision(player1, ball1, 0);
 		Collision::do3DPaddleCollision(player2, ball1, 2);
+
+		glBindTexture(GL_TEXTURE_2D, TextureOrange);
+
 		ball1->moveBall();
+
+		glBindTexture(GL_TEXTURE_2D, TextureGreen);
 
 		Collision::do3DWallCollision(&EnvironmentCube, player2);
 		player2->movePaddle(); // CPU paddle
@@ -112,22 +111,9 @@ void Szene3::drawSzene() {
 
 
 
+	sprintf(text, "Player1: %d : Player2: %d", player1Points, player2Points);
+	printText2D(text, 40, 70, 30);
 
-
-
-
-	glBindTexture(GL_TEXTURE_2D, TextureGreen);
-	//sendModel(InitialBalkenModel2);
-	//drawCube();
-
-	//sendModel(InitialBalkenModel);
-	//drawCubeWithBlending();
-	
-	glBindTexture(GL_TEXTURE_2D, TextureMandrill);
-
-
-	sprintf(text, "Player1: %d  :  Player2: %d", player1Points, player2Points);
-	printText2D(text, 90, 100, 25);
 	glUseProgram(*programmID);
 	
 
@@ -166,74 +152,11 @@ void Szene3::enterState() {
 
 }
 void Szene3::exitState() {
-
+	write_one_row_match_history(player1Points, player2Points);
+	write_one_row_highscore(std::to_string(player1Points));
+	write_one_row_highscore(std::to_string(player2Points));
 }
 
 void Szene3::lol() {
 
 }
-
-
-
-//
-//switch (location)
-//{
-//case 0:
-//	if (!(Collision::checkCollision(&ModelE, player1_1) ||
-//		Collision::checkCollision(&ModelD, player1_1))) {
-//		player1_1->setInput(input);
-//	}
-//	else {
-//		if (Collision::checkCollision(&ModelD, player1_1)) {
-//			player1_1->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
-//		}
-//		else {
-//			player1_1->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
-//		}
-//	}
-//	break;
-//case 1:
-//	if (!(Collision::checkCollision(&ModelF, player1_2) ||
-//		Collision::checkCollision(&ModelC, player1_2))) {
-//		player1_2->setInput(input);
-//	}
-//	else {
-//		if (Collision::checkCollision(&ModelF, player1_2)) {
-//			player1_2->setInput(glm::vec3(-0.001f, 0.0f, 0.0f));
-//		}
-//		else {
-//			player1_2->setInput(glm::vec3(0.001f, 0.0f, 0.0f));
-//		}
-//	}
-//	break;
-//case 2:
-//	if (!(Collision::checkCollision(&ModelA, player2_1) ||
-//		Collision::checkCollision(&ModelH, player2_1))) {
-//		player2_1->setInput(input);
-//	}
-//	else {
-//		if (Collision::checkCollision(&ModelA, player2_1)) {
-//			player2_1->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
-//		}
-//		else {
-//			player2_1->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
-//		}
-//	}
-//	break;
-//case 3:
-//	if (!(Collision::checkCollision(&ModelG, player2_2) ||
-//		Collision::checkCollision(&ModelB, player2_2))) {
-//		player2_2->setInput(input);
-//	}
-//	else {
-//		if (Collision::checkCollision(&ModelG, player2_2)) {
-//			player2_2->setInput(glm::vec3(-0.001f, 0.0f, 0.0f));
-//		}
-//		else {
-//			player2_2->setInput(glm::vec3(0.001f, 0.0f, 0.0f));
-//		}
-//	}
-//	break;
-//default:
-//	printf("Ungueltige Position");
-//}

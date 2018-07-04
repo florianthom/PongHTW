@@ -6,13 +6,8 @@ StateContext::StateContext(GLuint * programIDPara, glm::mat4* vPara, glm::mat4* 
 	v = vPara;
 	p = pPara;
 	groesse = groessePara;
-
 	Triangle * szene1 = new Triangle(programID, v, p, groesse);
 	active_state = szene1;
-
-	//Triangle * szene1 = new Triangle(programID, v, p, groesse);
-	//active_state = szene1;
-	//set_state(szene1);
 }
 
 
@@ -23,10 +18,8 @@ StateContext::~StateContext()
 // wird 2x aufgerufen
 void StateContext::set_state(State * new_state) {
 	
-		 //active_state->~State();
 	active_state->exitState();
 	delete active_state;
-	std::cout << "hi" << std::endl;
 	new_state->enterState();
 	active_state = new_state;
 

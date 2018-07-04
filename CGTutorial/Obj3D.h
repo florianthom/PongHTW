@@ -11,9 +11,6 @@ class Obj3D
 	GLuint uvbuffer; // Hier alles analog für Texturkoordinaten in location == 1 (2 floats u und v!)
 	GLuint vertexbuffer;
 
-
-
-
 public:
 	Obj3D(const char* fn); // Konstruktor
 	void display();

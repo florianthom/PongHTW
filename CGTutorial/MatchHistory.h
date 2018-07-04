@@ -1,4 +1,3 @@
-#pragma once
 #include "State.h"
 #include "texture.hpp"
 #include <iostream>
@@ -10,6 +9,12 @@
 #include <fstream>
 #include <iostream>
 #include "text2D.h"
+#include "objects.hpp"
+#include <ctime>
+#include <string>
+#include <sstream>
+#include <iterator>
+#pragma once
 
 
 class MatchHistory :
@@ -26,7 +31,6 @@ private:
 	double groesse;
 	void sendModel(glm::mat4 ModelToSend);
 	GLuint TextureOrange;
-	void AddNewScore(const std::string & strName, double ulScore);
 	char filename[18] = "match_history.txt";
 	std::vector< std::vector<std::string> > history;
 

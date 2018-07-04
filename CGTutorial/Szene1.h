@@ -8,7 +8,9 @@
 #include "State.h"
 #include "Paddle.hpp"
 #include"text2D.h"
-#include <thread>
+#include "objects.hpp"
+#include <windows.h> 
+#include <stdio.h> 
 
 #pragma once
 class Szene1 : public State

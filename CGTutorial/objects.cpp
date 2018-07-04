@@ -39,15 +39,6 @@
 ////		 VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 //		glBindVertexArray(0);
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /////////////////////
 
 
@@ -58,8 +49,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <vector>
-
-// Include GLEW
 #include <GL/glew.h>
 
 
@@ -299,9 +288,6 @@ GLuint colorbuffer;														// for texturing
 GLuint normalbufferCube;
 
 
-
-
-
 static void createCube()
 {
 	// erstellt einen Buffer / Container für Koordinaten des Objektes
@@ -330,17 +316,6 @@ static void createCube()
 	glBindBuffer(GL_ARRAY_BUFFER, normalbufferCube);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_normals), g_normals, GL_STATIC_DRAW);
 
-
-
-	// One color for each vertex. They were generated randomly.
-	// Farben
-	// muss für jedes Objekt einzeln erstellt werden
-	
-	//-------------------------------------------g_color_buffer_data ehemals
-	/*glBindBuffer(GL_ARRAY_BUFFER, Text2DVertexBufferID);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, Text2DUVBufferID);
-	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);*/
 
 
 

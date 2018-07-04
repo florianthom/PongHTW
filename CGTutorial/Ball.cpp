@@ -1,12 +1,10 @@
 #include "Ball.hpp"
-#include "objects.hpp"
-
 
 Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 {
-	x = (rand() % 101);
+	x = (rand() % 80);
 	x /= 100;
-	x += 0.2f;
+	x += 0.4f;
 	y = 1 - x;
 	programmID = programID;
 	Model = glm::mat4(1.0f);
@@ -15,7 +13,7 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 	direction = glm::vec3(x, y, 0.0f);
 	time = GlobalTime::getGobalTime();
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
-	velocity = 1.0;
+	velocity = 1.3;
 }
 
 Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p,bool threeD)
@@ -31,14 +29,12 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p,bool threeD)
 	Projection = p;
 	direction = glm::vec3(x, y, z);
 	time = GlobalTime::getGobalTime();
-	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
+	Model = glm::scale(Model, glm::vec3(1.2 * SCALE, 1.2 * SCALE, 1.2 * SCALE));
 	velocity = 3.0;
 }
 
 Ball::~Ball()
 {
-	//Model= glm::mat4(1.0f);
-	//deleteSphere();
 }
 
 void Ball::set_initial_position() {

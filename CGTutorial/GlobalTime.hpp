@@ -3,15 +3,7 @@
 #include <GLFW/glfw3.h>
 #pragma once
 
-/*class MyTime {
-protected:
-	double time;
-
-	MyTime();
-	virtual ~MyTime();
-};*/
-
-class GlobalTime /*: public MyTime*/ {
+class GlobalTime {
 private:
 	double time;
 	GlobalTime();

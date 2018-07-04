@@ -55,7 +55,7 @@ bool Collision::checkCollision(Paddle* paddle, Ball* ball, int location) {
 		collisionY = paddle->getPaddleUpLeftPosition().y <= ball->getBallDownLeftPosition().y &&
 			(paddle->getPaddleUpLeftPosition().y + 0.1f) >= ball->getBallDownLeftPosition().y;
 		break;
-	default: printf("Ungueltige Position des Paddles");
+	default:;
 
 	}
 	
@@ -207,7 +207,7 @@ void Collision::do3DPaddleCollision(Paddle* paddle, Ball* ball, int location) {
 			ball->changeDirection(newDirection);
 		}
 		else {
-			printf("Ungueltiges Paddle");
+			
 		}
 	}
 }
@@ -288,18 +288,4 @@ void Collision::do3DWallCollision(glm::mat4* level, Paddle* paddle) {
 		glm::vec3 newDirection = paddleDirection - 2.0f * glm::dot(glm::vec3(0.0f, 1.0f, 0.0f), paddleDirection) * glm::vec3(0.0f, 1.0f, 0.0f);
 		paddle->changeDirection(newDirection);
 	}
-	// Check front
-	/*if (check3DCollision(Position::getLeftUpperPoint(level), Position::getRightLowPoint(level), paddle, 4)) {
-		glm::vec3 paddleDirection = paddle->getCurrentDirection();
-		paddleDirection = glm::normalize(paddleDirection);
-		glm::vec3 newDirection = paddleDirection - 2.0f * glm::dot(glm::vec3(0.0f, 0.0f, 1.0f), paddleDirection) * glm::vec3(0.0f, 0.0f, 1.0f);
-		paddle->changeDirection(newDirection);
-	}
-	// Check back
-	if (check3DCollision(Position::getLeftBehindUpperPoint(level), Position::getRightBehindLowPoint(level), paddle, 5)) {
-		glm::vec3 paddleDirection = paddle->getCurrentDirection();
-		paddleDirection = glm::normalize(paddleDirection);
-		glm::vec3 newDirection = paddleDirection - 2.0f * glm::dot(glm::vec3(0.0f, 0.0f, -1.0f), paddleDirection) * glm::vec3(0.0f, 0.0f, -1.0f);
-		paddle->changeDirection(newDirection);
-	}*/
 }

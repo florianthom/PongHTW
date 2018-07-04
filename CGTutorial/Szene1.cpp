@@ -1,7 +1,4 @@
 ﻿#include "Szene1.h"
-#include "objects.hpp"
-#include <windows.h> 
-#include <stdio.h> 
 
 // Beachten: translatieren translate(ModelLeftBorder, glm::vec3(-79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach rechts gegangen
 // Beachten: translatieren translate(ModelLeftBorder, glm::vec3(79 * groesse, 0.0, 0.0)) -> Ergebnis es wird intern nach links gegangen
@@ -68,7 +65,6 @@ Szene1::Szene1(GLuint* programID, glm::mat4* v, glm::mat4* p, double groessePara
 
 void Szene1::printMat4(glm::mat4 matrix) {
 
-	//double dArray[4][4] = { 0.0 };
 	std::cout << "\n\t\tSTART\n\n";
 
 	for (int a = 0; a < 4; ++a) {
@@ -106,8 +102,8 @@ void Szene1::resetScene() {
 void Szene1::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
-	//sendModel();
 }
+
 void Szene1::drawSzene() {
 	
 	sendModel(glm::mat4(1.0f));
@@ -122,11 +118,6 @@ void Szene1::drawSzene() {
 		Collision::doWallCollision(&ModelButtomBorder, player2, glm::vec3(0.0f, 1.0f, 0.0f));
 		player2->movePaddle();
 
-		// Prueft, ob Ball mit einer der Waenden kollidiert und reagiert
-		//std::thread threads[4];
-		// Prueft, ob mit einer Wand kollidiert wird
-		//threads[0] = std::thread(Collision::doWallBallCollision, &ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
-		//threads[1] = std::thread(Collision::doWallBallCollision, &ModelButtomBorder, ball1, glm::vec3(0.0f,1.0f, 0.0f));
 		Collision::doWallBallCollision(&ModelTopBorder, ball1, glm::vec3(0.0f, -1.0f, 0.0f));
 		Collision::doWallBallCollision(&ModelButtomBorder, ball1, glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -140,16 +131,9 @@ void Szene1::drawSzene() {
 			this->resetScene();
 		}
 
-		//// Prueft, ob der Ball mit einem Paddle zusammengestoßen ist
-		//threads[2] = std::thread(Collision::doPaddleCollision, player1, ball1, player1->getLocation());
-		//threads[3] = std::thread(Collision::doPaddleCollision, player2, ball1, player2->getLocation());
 		Collision::doPaddleCollision(player1, ball1, player1->getLocation());
 		Collision::doPaddleCollision(player2, ball1, player2->getLocation());
-		// Threads wieder zusammenfuehren
-		/*for (int i = 0; i < 4; i++) {
-			if (threads[i].joinable())
-				threads[i].join();
-		}*/
+
 		ball1->moveBall();
 	}
 
@@ -174,8 +158,6 @@ void Szene1::drawSzene() {
 
 Szene1::~Szene1()
 {
-	//ball1->set_initial_position();
-
 }
 
 void Szene1::lol() {
@@ -230,7 +212,7 @@ void Szene1::doPlayerInput(glm::vec3 input, int location) {
 	case 3:
 		break;
 	default:
-		printf("Ungueltige Position");
+		;
 	}
 }
 

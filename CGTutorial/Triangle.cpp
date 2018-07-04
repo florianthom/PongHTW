@@ -1,6 +1,4 @@
 #include "Triangle.h"
-#include "objects.hpp"
-
 
 Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse) : State()
 {
@@ -18,11 +16,11 @@ Triangle::Triangle(GLuint* programID, glm::mat4* v, glm::mat4* p, double groesse
 	TextureOrange = loadBMP_custom("orange.bmp");
 		TextureStone = loadBMP_custom("Steinwand.bmp");
 
+
 }
 
 void Triangle::printMat4(glm::mat4 matrix) {
 
-	//double dArray[4][4] = { 0.0 };
 	std::cout << "\n\t\tSTART\n\n";
 
 	for (int a = 0; a < 4; ++a) {
@@ -54,7 +52,6 @@ void Triangle::sendModel(glm::mat4 ModelToSend) {
 void Triangle::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
-	//sendModel();
 }
 
 void Triangle::drawTriangleThroughObject(GLuint TextureOrange) {
@@ -79,44 +76,41 @@ void Triangle::drawSzene() {
 
 	char text0[256];
 	sprintf(text0, "MAIN MENU (1)");
-	printText2D(text0, 270, 400, size);
+	printText2D(text0, 300, 400, size);
 	glUseProgram(*programmID);
 	char text[256];
 	sprintf(text, "PLAY PONG 1 Player (2)");
-	printText2D(text, 270, 360, size);
+	printText2D(text, 230, 360, size);
 	glUseProgram(*programmID);
 	char textq[256];
 	sprintf(textq, "PLAY PONG 2 Player (3)");
-	printText2D(textq, 270, 320, size);
+	printText2D(textq, 230, 320, size);
 	glUseProgram(*programmID);
 	char text2[256];
 	sprintf(text2, "PLAY PONG ADVANCED 1 Player (4)");
-	printText2D(text2, 180, 280, size);
+	printText2D(text2, 160, 280, size);
 	glUseProgram(*programmID);
 	char text2q[256];
 	sprintf(text2q, "PLAY PONG ADVANCED 2 Player (5)");
-	printText2D(text2q, 180, 240, size);
+	printText2D(text2q, 160, 240, size);
 	glUseProgram(*programmID);
 	char text2w[256];
 	sprintf(text2w, "CPU VS CPU (6)");
-	printText2D(text2w, 180, 200, size);
+	printText2D(text2w, 300, 200, size);
 	glUseProgram(*programmID);
 	char text3[256];
 	sprintf(text3, "PLAY PONG IN real 3D (7)");
-	printText2D(text3, 160, 160, size);
+	printText2D(text3, 230, 160, size);
 	glUseProgram(*programmID);
 	char text4[256];
 	sprintf(text4, "Highscore (8)");
-	printText2D(text4, 270, 120, size);
+	printText2D(text4, 300, 120, size);
 	glUseProgram(*programmID);
 	char text5[256];
 	sprintf(text5, "Match History (9)");
 	printText2D(text5, 270, 80, size);
 	glUseProgram(*programmID);
 
-
-
-	printControlKeysToConsole();
 }
 
 

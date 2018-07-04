@@ -6,6 +6,8 @@
 #include "text2D.h"
 #include "texture.hpp"
 #include "State.h"
+#include "objects.hpp"
+
 
 
 #pragma once

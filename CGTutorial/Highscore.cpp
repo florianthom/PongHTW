@@ -1,13 +1,6 @@
 // Got Renamed to Math History
 
 #include "Highscore.h"
-#include "objects.hpp"
-#include <fstream>
-#include <iostream>
-#include <algorithm>
-
-
-
 
 Highscore::~Highscore()
 {
@@ -36,11 +29,8 @@ Highscore::Highscore(GLuint* programID, glm::mat4* v, glm::mat4* p, double groes
 
 }
 
-
-
 void Highscore::printMat4(glm::mat4 matrix) {
 
-	//double dArray[4][4] = { 0.0 };
 	std::cout << "\n\t\tSTART\n\n";
 
 	for (int a = 0; a < 4; ++a) {
@@ -72,14 +62,12 @@ void Highscore::sendModel(glm::mat4 ModelToSend) {
 void Highscore::setMVP(glm::mat4* v, glm::mat4* p) {
 	View = v;
 	Projection = p;
-	//sendModel();
 }
 void Highscore::drawSzene() {
 	glBindTexture(GL_TEXTURE_2D, TextureOrange);
 
 	sendModel(ModelAll);
-	drawCube();/*
-			   std::cout << "test" << std::endl;*/
+	drawCube();
 
 	char headline[256];
 	sprintf(headline, "HIGHSCORES");
@@ -112,9 +100,6 @@ void Highscore::lol() {
 
 }
 void Highscore::enterState() {
-	
-	//write_one_row("hello");
-
 
 }
 void Highscore::exitState() {
@@ -153,7 +138,5 @@ std::vector<double> Highscore::read_file_and_save_in_list() {
 		myVector.push_back(score);
 	}
 	input.close();
-	for (auto const& c : myVector)
-		std::cout << c << ' ';
 	return myVector;
 }

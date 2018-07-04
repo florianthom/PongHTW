@@ -1,5 +1,3 @@
-// 	printf("hallo\n");
-
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,12 +38,6 @@
 #include "MatchHistory.h"
 
 
-
-
-
-
-
-
 //Header: hier steht alles was man in cpp findet -> Funktionen
 //Cpp-File: hier steht der Großteil der Implementierung
 StateContext * state_context;
@@ -54,8 +46,6 @@ Szene2 * szene2;
 Szene3 * szene3;
 Triangle * triangle1;
 Highscore * highscore;
-
-
 
 //0 = False; 1 = True
 
@@ -84,9 +74,6 @@ bool left_pressed = false;
 bool right_pressed = false;
 
 
-
-
-
 // Funktion, die angibt, was man im Fehlerfall machen möchte
 // Funktion wird glfwSetErrorCallback übergeben, da glfw die Fehlerbehandlung für uns ausführt
 void error_callback(int error, const char* description)
@@ -99,122 +86,90 @@ void error_callback(int error, const char* description)
 
 
 
-/*void test_function_r_pressed() {
-	int i = 0;
-	while(r_pressed){
-		std::cout << "" << std::endl;
-		angle_y += 0.001;
-		i++;
-	}
-}
-
-void test_function_e_pressed() {
-	int i = 0;
-	while (e_pressed) {
-		std::cout << "" << std::endl;
-		angle_x += 0.001;
-		i++;
-	}
-}
-
-void test_function_w_pressed() {
-	int i = 0;
-	while (w_pressed) {
-		std::cout << "" << std::endl;
-		angle_z += 0.001;
-		i++;
-	}
-}*/
-
-
 void get_up() {
 	while (w_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 0);
-		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.0002f, 0.0f), 0);
 	}
 
 }
 
 void get_up3D() {
 	while (up_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 0, true);
-		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 0.001f, 0.0f));
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.0001f, 0.0f), 0, true);
 	}
 
 }
 
 void go_left() {
 	while (a_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 1);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0002f, 0.0f, 0.0f), 1);
 	}
 }
 
 void go_left3D() {
 	while (left_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 0, true);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0001f, 0.0f, 0.0f), 0, true);
 	}
 }
 
 void go_right() {
 	while (d_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.001f, 0.0f, 0.0f), 1);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.0002f, 0.0f, 0.0f), 1);
 	}
 }
 
 void go_right3D() {
 	while (right_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.001f, 0.0f, 0.0f), 0, true);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.0001f, 0.0f, 0.0f), 0, true);
 	}
 }
 
 
 void get_down() {
 	while (s_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 0);
-		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.0002f, 0.0f), 0);
 	}
 }
 
 void get_down3D() {
 	while (down_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 0, true);
-		//state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -0.001f, 0.0f));
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.0001f, 0.0f), 0, true);
 	}
 }
 
 void get_up_p2() {
 	while (i_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.001f, 0.0f), 2);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, 0.0002f, 0.0f), 2);
 	}
 }
 
 void go_left2() {
 	while (j_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.001f, 0.0f, 0.0f), 3);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0002f, 0.0f, 0.0f), 3);
 	}
 }
 
 void go_right2() {
 	while (l_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.001f, 0.0f, 0.0f), 3);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(-0.0002f, 0.0f, 0.0f), 3);
 	}
 }
 
 void get_down_p2() {
 	while (k_pressed) {
-		std::cout << "" << std::endl;
-		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.001f, 0.0f), 2);
+		//std::cout << "" << std::endl;
+		state_context->get_active_state()->doPlayerInput(glm::vec3(0.0f, -0.0002f, 0.0f), 2);
 	}
 }
 
@@ -226,27 +181,22 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	}
 	else if (key == GLFW_KEY_2 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene1);
 		state_context->set_state(new Szene1(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(),1));
 
 	}
 	else if (key == GLFW_KEY_3 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene1);
 		state_context->set_state(new Szene1(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(),2));
 
 	}
 	else if (key == GLFW_KEY_4 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
 		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(),1));
 
 	}
 	else if (key == GLFW_KEY_5 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
 		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 2));
 
 	}
 	else if (key == GLFW_KEY_6 && action == GLFW_RELEASE) {
-		//state_context->set_state(szene2);
 		state_context->set_state(new Szene2(state_context->get_program_id(), state_context->get_view(), state_context->get_projection(), state_context->get_groesse(), 4));
 
 	}
@@ -277,13 +227,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
-			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));*/
-		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 			a_pressed = true;
-			std::thread t1(go_left); //, glm::vec3(0.0f, 1.0f, 0.0f
+			std::thread t1(go_left); 
 			t1.detach();
-		//}
 	}
 	else if (key == GLFW_KEY_C && (action == GLFW_PRESS || action == GLFW_REPEAT || action == GLFW_RELEASE)) {
 		angle_y = angle_y + 5.0f;
@@ -297,50 +243,29 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		a_pressed = false;
 	}
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS) {
-		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
-			state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
-		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 			s_pressed = true;
-			std::thread t1(get_down); //, glm::vec3(0.0f, 1.0f, 0.0f
+			std::thread t1(get_down); 
 			t1.detach();
-		//}
 	}
 	else if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
-		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
-		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
-		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 		up_pressed = true;
-		std::thread t1(get_up3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		std::thread t1(get_up3D);
 		t1.detach();
-		//}
 	}
 	else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
-		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
-		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
-		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 		down_pressed = true;
-		std::thread t1(get_down3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		std::thread t1(get_down3D); 
 		t1.detach();
-		//}
 	}
 	else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
-		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
-		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 		right_pressed = true;
-		std::thread t1(go_right3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		std::thread t1(go_right3D);
 		t1.detach();
-		//}
 	}
 	else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-		/*if ((state_context->get_active_state()->get_paddle_player1()) != NULL)
-		state_context->get_active_state()->get_paddle_player1()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));*/
-		//if ((state_context->get_active_state()->get_paddle_player1()) != NULL) {
 	left_pressed = true;
-		std::thread t1(go_left3D); //, glm::vec3(0.0f, 1.0f, 0.0f
+		std::thread t1(go_left3D);
 		t1.detach();
-		//}
-		std::cout << "hi" << std::endl;
 	}
 	else if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
 		left_pressed = false;
@@ -354,15 +279,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	else if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE) {
 		down_pressed = false;
 	}
-
-
-
-
-
-
-
-	
-
 	else if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
 		s_pressed = false;
 	}
@@ -418,59 +334,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		l_pressed = false;
 	}
 
-	else if (key == GLFW_KEY_F && action == GLFW_PRESS) {
-		//if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
-			//state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, 1.0f, 0.0f));
-	}
-	else if (key == GLFW_KEY_G && action == GLFW_PRESS) {
-		//if ((state_context->get_active_state()->get_paddle_player2()) != NULL)
-			//state_context->get_active_state()->get_paddle_player2()->setInput(glm::vec3(0.0f, -1.0f, 0.0f));
-	}
 
-
-
-
-	/*else if (key == GLFW_KEY_R &&  (action==GLFW_PRESS)) {
-		//angle_y = angle_y + 5.0f;
-		r_pressed = true;
-		std::thread t1(test_function_r_pressed);
-		t1.detach();
-
-	}
-	else if (key == GLFW_KEY_R && (action == GLFW_RELEASE)) {
-		r_pressed = false;
-
-	}
-
-	else if (key == GLFW_KEY_E &&  action == GLFW_PRESS) {
-		e_pressed = true;
-		std::thread t1(test_function_e_pressed);
-		t1.detach();
-
-	}
-	else if (key == GLFW_KEY_E && (action == GLFW_RELEASE)) {
-		e_pressed = false;
-
-	}
-
-	else if (key == GLFW_KEY_W &&  action == GLFW_PRESS) {
-		w_pressed = true;
-		std::thread t1(test_function_w_pressed);
-		t1.detach();
-
-	}
-	else if (key == GLFW_KEY_W && (action == GLFW_RELEASE)) {
-		w_pressed = false;
-
-	}*/
 	else if (key == GLFW_KEY_ESCAPE &&  action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 }
-
-
-
-
 
 // Diese Drei Matrizen global (Singleton-Muster), damit sie jederzeit modifiziert und
 // an die Grafikkarte geschickt werden koennen
@@ -518,152 +386,6 @@ double counter_richtung = 0;
 int flag = true;
 int moove = 0;
 
-void moove_balken() {
-	if (counter_richtung < 3 && flag) {
-		Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
-		counter_richtung = counter_richtung + 0.01;
-		std::cout << "if" << std::endl;
-	}
-	else {
-		flag = false;
-		Model = glm::translate(Model, glm::vec3(counter_richtung, 0.0, 0.0));
-		counter_richtung = counter_richtung - 0.01;
-		std::cout << "else" << std::endl;
-		if (counter_richtung < -3) {
-			flag = true;
-
-		}
-
-	}
-
-}
-
-void drawBalken() {
-	glm::mat4 Save = Model;
-	Model = glm::scale(Model, glm::vec3(1.0, 1.0 / 5.0, 1.0 / 5.0));
-	Model = glm::translate(Model, glm::vec3(0, 5.0, 0.0));
-	moove_balken();
-	sendMVP();
-	drawCube();
-	Model = Save;
-
-}
-
-
-// problem: unterschiedliche Ergebnisse, wenn man auf unterschiedlichen achsen scaled
-// Lösung ggf erst skalieren, alles komplett abhängig machen von groesse und dann 2 davon rotieren (damit Verhältnisse gleich bleiben)
-//void drawSzene1(double groesse) {
-//	glm::mat4 Save = Model;
-//	Model = glm::scale(Model, glm::vec3(4* groesse, 1.0 / 20.0, 1.0 / 20.0));
-//	glm::mat4 SaveScale = Model;
-//	Model = glm::translate(Model, glm::vec3(0, 30.0 * groesse, 0.0));
-//	sendMVP();
-//	drawCube();
-//	Model = SaveScale;
-//	Model = glm::translate(Model, glm::vec3(0, -30.0 * groesse, 0.0));
-//	sendMVP();
-//	drawCube();
-//	Model = Save;
-//
-//	// mitte = wie viel , vec3=Achse um die gedreht werden soll
-//	Model = glm::scale(Model, glm::vec3(1.0/20.0, 1.5 * groesse, 1.0 / 20.0));
-//	Model = glm::translate(Model, glm::vec3(79.0 * groesse, 0.0, 0.0));
-//	sendMVP();
-//	drawCube();
-//	Model = Save;
-//
-//	Model = glm::scale(Model, glm::vec3(1.0 / 20.0, 1.5 * groesse, 1.0 / 20.0));
-//	Model = glm::translate(Model, glm::vec3(-79* groesse, 0.0, 0.0));
-//	sendMVP();
-//	drawCube();
-//	Model = Save;
-//
-//}
-
-
-/*void drawSzene2(double groesse) {
-	// top and buttom
-	glm::mat4 Save = Model;
-	Model = glm::scale(Model, glm::vec3(2 * groesse, 1.0 / 20.0, 1.0 / 20.0));
-	glm::mat4 SaveScale = Model;
-	Model = glm::translate(Model, glm::vec3(0, 80.0 * groesse, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveScale;
-	Model = glm::translate(Model, glm::vec3(0, -80.0 * groesse, 0.0));
-	sendMVP();
-	drawCube();
-	Model = Save;
-
-	// left and right
-	Model = glm::rotate(Model, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	Model = glm::scale(Model, glm::vec3(2 * groesse, 1.0 / 20.0, 1.0 / 20.0));
-	glm::mat4 SaveRotation = Model;
-	Model = glm::translate(Model, glm::vec3(0.0, 80 * groesse, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveRotation;
-	Model = glm::translate(Model, glm::vec3(0.0, -80 * groesse, 0.0));
-	sendMVP();
-	drawCube();
-	Model = Save;
-
-	//little verticals
-	Model = glm::rotate(Model, 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	Model = glm::scale(Model, glm::vec3(1.05 * groesse, 1.0 / 20.0, 1.0 / 20.0));
-	glm::mat4 SaveLT = Model;
-	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveLT;
-	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveLT;
-	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveLT;
-	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-
-
-	Model = Save;
-
-	//little horizontals
-	Model = glm::scale(Model, glm::vec3(1.05f * groesse, 1.0 / 20.0, 1.0 / 20.0));
-	glm::mat4 SaveL = Model;
-	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveL;
-	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveL;
-	Model = glm::translate(Model, glm::vec3(0.0, 39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-	Model = SaveL;
-	Model = glm::translate(Model, glm::vec3(0.0, -39 * groesse, 0.0));
-	Model = glm::translate(Model, glm::vec3(-2.81 * groesse, 0.0, 0.0));
-	sendMVP();
-	drawCube();
-
-
-	Model = Save;
-
-
-}
-*/
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -703,7 +425,7 @@ int main(void)
 	// glfwWindowHint vorher aufrufen, um erforderliche Resourcen festzulegen
 	GLFWwindow* window = glfwCreateWindow(1024, // Breite
 		768,  // Hoehe
-		"Pong", // Ueberschrift
+		"Pong HTW", // Ueberschrift
 		NULL,  // use windowed mode
 		NULL); // shared windoe
 
@@ -746,19 +468,9 @@ int main(void)
 	glfwSetWindowPos(window, 400, 200);
 
 	// Create and compile our GLSL program from the shaders
-	// programID = LoadShaders("TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader");
 
-
-	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
-	
-	//programID = LoadShaders("TextureFragmentShader.fragmentshader", "TransformVertexShader.vertexshader");
 	programID = LoadShaders("StandardShading.vertexshader", "StandardTransparentShading.fragmentshader");
 
-
-	//programID = LoadShaders("StandardShading.vertexshader", "StandardShading.fragmentshader");
-
-
-	//------------------------------------------------------------------------------------------------------------------------------
 
 	// Shader auch benutzen !
 	/**--1*/glUseProgram(programID);
@@ -779,9 +491,6 @@ int main(void)
 	GLuint TextureOrange = loadBMP_custom("orange.bmp");
 
 
-
-
-
 	// Bind our texture in Texture Unit 0
 
 	glActiveTexture(GL_TEXTURE0);
@@ -791,10 +500,6 @@ int main(void)
 	/**--*/glUniform1i(glGetUniformLocation(programID, "myTextureSampler"), 0);
 	//-----------------------------------------------
 
-
-
-
-	//Obj3D hi = Obj3D("teapot.obj");
 	time_t t_start = time(0);/*time(0)*/;
 	time_t t_check;
 	time_t needed;
@@ -806,9 +511,6 @@ int main(void)
 	const double maxPeriod = 1.0 / maxFPS;
 	double lastTime = 0.0;
 
-	
-	//szene2 = new Szene2(&programID, &View, &Projection, 1,1);
-	//szene1 = new Szene1(&programID, &View, &Projection, 1,2);
 
 	szene3 = new Szene3(&programID, &View, &Projection, 1);
 	triangle1 = new Triangle(&programID, &View, &Projection, 1);
@@ -820,8 +522,6 @@ int main(void)
 	// Vector-Variable ist nur zum testen/ausgeben der Position eines Balls auf der Konsole
 	glm::vec3 tempPos;
 
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -858,49 +558,18 @@ int main(void)
 			Model = glm::mat4(1.0f);
 
 			//Model = glm::rotate(altes Model,Winkel, Vektor der die Achse aufspannt um den sich gedreht werden soll-> x=Daumen,y=Zeigefinger,z=Mittelfinger)
-			//Model = glm::rotate(Model, 25.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-			Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
+			/*Model = glm::rotate(Model, angle_y, glm::vec3(0.0f, 1.0f, 0.0f));
 			Model = glm::rotate(Model, angle_x, glm::vec3(1.0f, 0.0f, 0.0f));
-			Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));
+			Model = glm::rotate(Model, angle_z, glm::vec3(0.0f, 0.0f, 1.0f));*/
 
-			// skaliert alles
-			//Model = glm::scale(Model, glm::vec3(0.5, 0.5, 0.5));
-			// senden an den Vertex-Shader
-			// sendet MVP Matrix zum Vertex-Shader, erst die MVP-Matrix im Vertex-Shader beeinflusst zukünftig gezeichnete Objekte, Sinn: Wenn jetzt was geprintet wird, wird eben Vertex MVP-Matrix drauf angewandt, sonst nicht
-			//Model = glm::mat4(1.0f);
+			
 			Model = glm::scale(Model, glm::vec3(0.4f, 0.4f, 0.4f));
 			sendMVP();
 			glBindTexture(GL_TEXTURE_2D, TextureStripes);
 			//drawCS();
-
-
 			//drawCube();
-			//szene3.drawSzene(TextureMandrill, TextureStripes, TextureGreen);
-			//drawCubeWithBlending();
-			//szene2.drawSzene();
-			//menu.drawSzene();
-			//drawBalken();
-			//szene1->drawSzene();
+
 			state_context->drawSzene();
-			//state_context.set_state(triangle);
-			//state_context->drawSzene();
-
-			//triangle1.drawTriangleThroughObject(TextureOrange);
-			//ball1.moveBall(); // Ball muss immer ganz zu letzt kommen
-			//tempPos = ball1.getBallPosition();
-			//std::cout << "Position_X: " << tempPos.x << ", Position_Y: " << tempPos.y << ", Position_Z: " << tempPos.z << std::endl;
-
-
-
-			//createCube();
-
-			//drawBalken();
-			//drawSzene2(1.0f);
-			/*char text[256];
-			sprintf(text, "Hallo");
-			printText2D(text, 90, 100, 80);
-			glUseProgram(programID);*/
-
 
 			glm::vec4 lightPos = glm::vec4(-3, 3, -2, 1);
 			glUniform3f(glGetUniformLocation(programID, "LightPosition_worldspace"), lightPos.x, lightPos.y, lightPos.z); // Variable "LightPosition_worldspace" ist in Fragment-Shader definiert und damit in Grafik-Speicher vorhanden
@@ -911,13 +580,9 @@ int main(void)
 			glfwPollEvents();
 		}
 	}
-
 	glDeleteProgram(programID);
 	// Cleanup VBO and shader
-
 	glDeleteTextures(1, &TextureMandrill);
-	//cleanupText2D();
-
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
 	return 0;
