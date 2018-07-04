@@ -23,8 +23,8 @@ protected:
 	const float SCALEY3D = 1;
 	const float SCALEZ3D = 1.0f / 10.0f;
 
-	const float SCALEX3D_CPU = 0.25;
-	const float SCALEY3D_CPU = 0.25;
+	const float SCALEX3D_CPU = 1;
+	const float SCALEY3D_CPU = 1;
 	const float SCALEZ3D_CPU = 1.0f / 10.0f;
 
 	// Integerwert gibt die Position des Paddles an
@@ -53,6 +53,8 @@ public:
 	glm::vec4 getPaddleUpRightPosition();
 	glm::vec4 getpaddleDownLeftPosition();
 	glm::vec4 getPaddleDownRightPosition();
+	glm::vec4 getPaddleUpLeftBehindPosition();
+	glm::vec4 getPaddleDownRightBehindPosition();
 };
 
 class CPUPaddle : public Paddle {

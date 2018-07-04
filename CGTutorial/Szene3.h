@@ -46,10 +46,11 @@ public:
 	void drawSzene();
 
 	void setMVP(glm::mat4* v, glm::mat4* p);
+	void resetScene();
 	void printMat4(glm::mat4 ModelToSend);
 	void enterState();
 	void exitState();
-		void lol();
+	void lol();
 	Szene3();
 
 	void doPlayerInput(glm::vec3 input, int l, bool threeD);

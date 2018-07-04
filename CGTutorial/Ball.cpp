@@ -15,6 +15,7 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p)
 	direction = glm::vec3(x, y, 0.0f);
 	time = GlobalTime::getGobalTime();
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
+	velocity = 1.0;
 }
 
 Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p,bool threeD)
@@ -30,9 +31,8 @@ Ball::Ball(GLuint* programID, glm::mat4* v, glm::mat4* p,bool threeD)
 	Projection = p;
 	direction = glm::vec3(x, y, z);
 	time = GlobalTime::getGobalTime();
-	Model = glm::translate(Model,glm::vec3(0.0f,0.0f,-4.30f));
-
 	Model = glm::scale(Model, glm::vec3(SCALE, SCALE, SCALE));
+	velocity = 3.0;
 }
 
 Ball::~Ball()
@@ -72,6 +72,18 @@ void Ball::resetBall() {
 	x += 0.2f;
 	y = 1 - x;
 	direction = glm::vec3(x, y, 0.0f);
+}
+
+void Ball::resetBall3D() {
+	Model[3][0] = 0.0f;
+	Model[3][1] = 0.0f;
+	Model[3][2] = 0.0f;
+	z = rand() % 101;
+	z /= 100;
+	z += 0.5;
+	x = 1 - z;
+	y = (1 - z) - 0.2;
+	direction = glm::vec3(x, y, -1*z);
 }
 
 void Ball::moveBall() {

@@ -11,7 +11,7 @@ class Ball
 {
 private:
 	GLuint* programmID;
-	const double velocity = 1.0;
+	double velocity;
 	double distance;
 	double time;
 	const float SCALE = 0.0625f;
@@ -30,6 +30,7 @@ public:
 	Ball(GLuint* programID, glm::mat4* v, glm::mat4* p, bool threeD);
 	~Ball();
 	void resetBall();
+	void resetBall3D();
 	void moveBall();
 	void changeDirection(glm::vec3 newDirect);
 	glm::vec3 getCurrentDirection();

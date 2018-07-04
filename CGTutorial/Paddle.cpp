@@ -59,6 +59,14 @@ glm::vec4 Paddle::getPaddleDownRightPosition() {
 	return Position::getRightLowPoint(&Model);
 }
 
+glm::vec4 Paddle::getPaddleUpLeftBehindPosition() {
+	return Position::getLeftBehindUpperPoint(&Model);
+}
+
+glm::vec4 Paddle::getPaddleDownRightBehindPosition() {
+	return Position::getRightBehindLowPoint(&Model);
+}
+
 void Paddle::movePaddle3D() {};// hook method
 
 // l ist location also wo paddle ist: l: 0/2 ist z.B. links und rechts
@@ -120,10 +128,10 @@ CPUPaddle::CPUPaddle(GLuint* id, glm::mat4* v, glm::mat4* p, glm::vec3 position,
 	normal = glm::vec3(0.0f, 0.0f, -1.0f);
 
 	if (start < 50) {
-		direction = glm::vec3(1.0f, 1.0f, 0.0f);
+		direction = glm::vec3(1.0f, 0.75f, 0.0f);
 	}
 	else {
-		direction = glm::vec3(-1.0f, -1.0f, 0.0f);
+		direction = glm::vec3(-1.0f, -0.75f, 0.0f);
 	}
 
 	Model = glm::scale(Model, glm::vec3(SCALEX3D_CPU, SCALEY3D_CPU, SCALEZ3D_CPU));
